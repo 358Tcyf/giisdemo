@@ -1,5 +1,6 @@
 package simple.project.giisdemo.fragment;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_push, null);
         unbinder = ButterKnife.bind(this, view);
+        initSearchIcon();
         initBanner();
         return view;
     }
@@ -46,6 +48,14 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
         return new PushPresenter();
     }
 
+    @SuppressLint("ResourceAsColor")
+    private void initSearchIcon() {
+        topbar.addRightImageButton(R.drawable.ic_search, R.id.search).setOnClickListener(v -> {
+            toSearch();
+        });
+        topbar.setTitle(R.string.app_name);
+
+    }
 
 
     private void initBanner() {
@@ -65,4 +75,8 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
     }
 
 
+    @Override
+    public void toSearch() {
+        startFragment(new SearchPushFragment());
+    }
 }

@@ -3,14 +3,17 @@ package simple.project.giisdemo.fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +55,8 @@ public class MainFragment extends BaseFragment {
     private void initTabs() {
 //        int normalColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_gray_6);
 //        int selectColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_blue);
-        int normalColor = getBaseFragmentActivity().getResources().getColor(R.color.editGray, null);
-        int selectColor = getBaseFragmentActivity().getResources().getColor(R.color.btnRed, null);
+        int normalColor = getBaseFragmentActivity().getResources().getColor(R.color.material_colorPrimaryLight, null);
+        int selectColor = getBaseFragmentActivity().getResources().getColor(R.color.material_colorPrimary, null);
         tabs.setDefaultNormalColor(normalColor);
         tabs.setDefaultSelectedColor(selectColor);
 
@@ -128,6 +131,36 @@ public class MainFragment extends BaseFragment {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    //退出时的时间
+    private long mExitTime;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getView()).setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener((view, i, keyEvent) -> {
+            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK) {
+                exit();
+                return true;
+            }
+            return false;
+        });
+    }
+
+
+    //退出方法
+    private void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(getBaseFragmentActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            //用户退出处理
+            getBaseFragmentActivity().finish();
+            System.exit(0);
+        }
     }
 
 }

@@ -20,5 +20,26 @@
     <string name="card_phone">手机 ：</string>
     <string name="card_no">工号 ：</string>
 
+    <string name="search">搜索</string>
+
+
+    <string name="set_info">信息设置</string>
+    <string name="set_push">推送设置</string>
+    <string name="set_system">系统设置</string>
+    <string name="app_about">关于应用</string>
+    <string name="check_update">检查更新</string>
+    <string name="callback">反馈</string>
+
+
+    <string name="push_switch">开启推送通知</string>
+    <string name="push_section_1">设置此项保证推送能及时推送到您</string>
+    <string name="push_voice">声音</string>
+    <string name="push_vibrate">震动</string>
+    <string name="push_float">悬浮窗</string>
+    <string name="push_cycle">推送周期</string>
+    <string name="push_date">推送日期</string>
+    <string name="push_time">推送时间</string>
+
+
 
 </resources>

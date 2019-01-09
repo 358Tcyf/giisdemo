@@ -52,4 +52,5 @@ public abstract class BaseFragment<P extends BasePresenter> extends QMUIFragment
         return QMUIDisplayHelper.dp2px(getContext(), 100);
     }
 
+
 }

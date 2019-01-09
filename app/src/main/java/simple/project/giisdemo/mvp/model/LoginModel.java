@@ -23,6 +23,7 @@ import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_ALIAS;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_TAGS;
 
 /**
@@ -41,7 +42,7 @@ public class LoginModel extends BaseModel {
         RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
                 .create(HttpContract.class)
                 .login(phone, passwd)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RetResult<UserBean>>() {
                     @Override
@@ -55,6 +56,7 @@ public class LoginModel extends BaseModel {
                             //TODO 把这个人的数据存入本地数据库
                             UserBean userBean = JSON.parseObject(JSON.toJSONString(retResult.getData()), UserBean.class);
                             SPUtils.put(getContext(), USER_PHONE, phone);
+                            SPUtils.put(getContext(), USER_PWD, passwd);
                             SPUtils.put(getContext(), USER_NAME, userBean.getName());
                             SPUtils.put(getContext(), USER_ALIAS, userBean.getAlias());
                             String tagJson = JSON.toJSONString(userBean.getTags());
@@ -80,7 +82,7 @@ public class LoginModel extends BaseModel {
     }
 
     public String getPasswd() {
-        return (String) SPUtils.get(getContext(), GlobalField.USER_PWD, "");
+        return (String) SPUtils.get(getContext(), USER_PWD, "");
     }
 
 }

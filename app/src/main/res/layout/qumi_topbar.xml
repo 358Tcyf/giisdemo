@@ -5,4 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
-    app:qmui_topbar_bg_color="@color/logoGreen" />
+    app:qmui_topbar_bg_color="@color/material_colorPrimary" />

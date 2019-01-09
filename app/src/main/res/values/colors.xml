@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#F04830</color>
-    <color name="btnRed">#F04830</color>
-    <color name="editGray">#D8C0D8</color>
-    <color name="editWhite">#FFFFFF</color>
-    <color name="editRed">#F04830</color>
-    <color name="textGray">#907878</color>
-    <color name="textRed">#F04830</color>
-    <color name="iconWhite">#FFFFFF</color>
-    <color name="iconRed">#F04830</color>
-    <color name="backGray">#301830</color>
-    <color name="logoGreen">#13C49B</color>
+    <color name="colorPrimary">@color/material_colorPrimary</color>
+    <color name="colorPrimaryDark">@color/material_colorPrimaryDark</color>
+    <color name="colorAccent">@color/material_colorAccent</color>
 
+
+    <color name="material_colorPrimary">#009688</color>
+    <color name="material_colorPrimaryDark">#00796B</color>
+    <color name="material_colorPrimaryLight">#B2DFDB</color>
+    <color name="material_colorAccent">#009688</color>
+    <color name="material_colorText_Icon">#FFFFFF</color>
+    <color name="material_colorPrimaryText">#212121</color>
+    <color name="material_colorSecondaryText">#757575</color>
+    <color name="material_colorDivider">#BDBDBD</color>
 
 
     <!-- common -->

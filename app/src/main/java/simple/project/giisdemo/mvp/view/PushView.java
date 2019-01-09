@@ -9,6 +9,6 @@ import simple.project.giisdemo.base.BaseView;
  */
 public interface PushView extends BaseView {
 
-
+    void toSearch();
 
 }

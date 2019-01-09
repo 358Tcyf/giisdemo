@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGray"
+    android:background="@color/material_colorPrimaryDark"
     tools:context=".activity.LoginActivity">
 
     <LinearLayout
@@ -37,8 +37,8 @@
                     android:inputType="phone"
                     android:maxLength="11"
                     android:padding="5dp"
-                    android:textColor="@color/editWhite"
-                    android:textColorHint="@color/editWhite" />
+                    android:textColor="@color/material_colorText_Icon"
+                    android:textColorHint="@color/material_colorText_Icon" />
 
                 <ImageView
                     android:id="@+id/user_icon"
@@ -47,7 +47,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
-                    android:src="@mipmap/user_white" />
+                    android:src="@drawable/ic_account" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -66,8 +66,8 @@
                     android:inputType="textPassword"
                     android:maxLength="6"
                     android:padding="5dp"
-                    android:textColor="@color/editWhite"
-                    android:textColorHint="@color/editWhite" />
+                    android:textColor="@color/material_colorText_Icon"
+                    android:textColorHint="@color/material_colorText_Icon" />
 
                 <ImageView
                     android:id="@+id/passwd_icon"
@@ -76,7 +76,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
-                    android:src="@mipmap/key_white" />
+                    android:src="@drawable/ic_visibility_off" />
             </RelativeLayout>
 
 
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:background="@drawable/round_rect_red">
+                android:background="@drawable/round_rect_green">
 
             </View>
 
@@ -99,7 +99,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_centerInParent="true"
-                android:src="@mipmap/unlock" />
+                android:src="@drawable/ic_unlock" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -112,7 +112,7 @@
         android:layout_alignStart="@id/edit_layout"
         android:layout_margin="5dp"
         android:text="@string/login"
-        android:textColor="@color/textGray"
+        android:textColor="@color/material_colorPrimaryText"
         android:textSize="22dp" />
 
     <TextView
@@ -123,7 +123,7 @@
         android:layout_alignEnd="@id/edit_layout"
         android:layout_margin="5dp"
         android:text="@string/signup"
-        android:textColor="@color/textGray"
+        android:textColor="@color/material_colorPrimaryText"
         android:textSize="22dp" />
 
 </RelativeLayout>

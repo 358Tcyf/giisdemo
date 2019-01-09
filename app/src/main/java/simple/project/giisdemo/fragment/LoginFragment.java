@@ -2,11 +2,20 @@ package simple.project.giisdemo.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +42,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     EditText inputUser;
     @BindView(R.id.input_passwd)
     EditText inputPasswd;
+
     private Unbinder unbinder;
 
     @SuppressLint("InflateParams")
@@ -47,7 +57,10 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         return view;
     }
 
-    @OnClick({R.id.login_btn, R.id.signup})
+
+    private boolean hidden = true;
+
+    @OnClick({R.id.login_btn, R.id.signup, R.id.passwd_icon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_btn:
@@ -58,15 +71,20 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
             case R.id.signup:
                 toSignUp();
                 break;
+            case R.id.passwd_icon:
+                hidden = EditTextUtil.setPasswordHidden(inputPasswd);
+                break;
         }
     }
 
     private boolean validInput() {
         if (isEmpty(inputUser.getText().toString())) {
             ToastUtil.showShort(getBaseFragmentActivity(), "user ID is empty");
+            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputUser);
             return false;
         } else if (isEmpty(inputPasswd.getText().toString())) {
             ToastUtil.showShort(getBaseFragmentActivity(), "password is empty");
+            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputPasswd);
             return false;
         }
         return true;
@@ -110,15 +128,41 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         return getBaseFragmentActivity();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        EditTextUtil.onFocusChange(getBaseFragmentActivity(), view, hasFocus);
+        EditTextUtil.onFocusChange(getBaseFragmentActivity(), hidden, view, hasFocus);
     }
+
+
+
+    //退出时的时间
+    private long mExitTime;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getView()).setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener((view, i, keyEvent) -> {
+            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_BACK) {
+                exit();
+                return true;
+            }
+            return false;
+        });
+    }
+
+    //退出方法
+    private void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(getBaseFragmentActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            //用户退出处理
+            getBaseFragmentActivity().finish();
+            System.exit(0);
+        }
+    }
+
 }
