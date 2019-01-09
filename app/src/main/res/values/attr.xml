@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="app_primary_color" format="color" /> <!-- topbar -->
+    <attr name="app_content_bg_color" format="color" /> <!-- content-->
+
+    <declare-styleable name="BannerView">
+        <attr name="size" format="dimension" />
+        <attr name="margin" format="dimension" />
+    </declare-styleable>
+
+</resources>

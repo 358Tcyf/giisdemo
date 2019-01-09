@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">hello glass</string>
+    <string name="login">Login</string>
+    <string name="logout">退出登录</string>
+
+    <string name="signup">Sign Up</string>
+    <string name="passwd">Password</string>
+    <string name="repasswd">Repeat Password</string>
+    <string name="id">User ID</string>
+    <string name="phone">User Phone</string>
+    <string name="name">User Name</string>
+
+
+    <string name="title_push">Push</string>
+    <string name="title_people">People</string>
+    <string name="title_setting">Setting</string>
+
+    <string name="card_name">姓名 ：</string>
+    <string name="card_branch">部门 ：</string>
+    <string name="card_phone">手机 ：</string>
+    <string name="card_no">工号 ：</string>
+
+
+</resources>
