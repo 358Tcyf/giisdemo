@@ -4,7 +4,7 @@
     <string name="logout">退出登录</string>
 
     <string name="signup">Sign Up</string>
-    <string name="passwd">Password</string>
+    <string name="password">Password</string>
     <string name="repasswd">Repeat Password</string>
     <string name="id">User ID</string>
     <string name="phone">User Phone</string>
@@ -31,6 +31,16 @@
     <string name="callback">反馈</string>
 
 
+    <string name="use_pic">相片</string>
+    <string name="use_name">姓名</string>
+    <string name="use_branch">部门</string>
+    <string name="use_no">工号</string>
+    <string name="info_section_1">以下信息除相片外不可修改</string>
+    <string name="use_phone">手机</string>
+    <string name="use_passwd">修改密码</string>
+    <string name="info_section_2">以下信息设置关联到账号</string>
+
+
     <string name="push_switch">开启推送通知</string>
     <string name="push_section_1">设置此项保证推送能及时推送到您</string>
     <string name="push_voice">声音</string>
@@ -40,6 +50,10 @@
     <string name="push_date">推送日期</string>
     <string name="push_time">推送时间</string>
 
+    <string name="system_language">多语言</string>
+    <string name="system_font_size">字体大小</string>
+    <string name="system_sync_data">同步数据</string>
+    <string name="system_clean_data">清理缓存</string>
 
 
 </resources>

@@ -20,7 +20,7 @@ import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_ALIAS;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
@@ -37,11 +37,11 @@ public class LoginModel extends BaseModel {
     public void init() {
     }
 
-    public void login(String phone, String passwd, OnHttpCallBack<RetResult> callBack) {
-        Log.d(DEBUG, "Model: phone is " + phone + " passwd is " + passwd);
+    public void login(String phone, String password, OnHttpCallBack<RetResult> callBack) {
+        Log.d(DEBUG, "Model: phone is " + phone + " password is " + password);
         RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
                 .create(HttpContract.class)
-                .login(phone, passwd)
+                .login(phone, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RetResult<UserBean>>() {
@@ -56,10 +56,10 @@ public class LoginModel extends BaseModel {
                             //TODO 把这个人的数据存入本地数据库
                             UserBean userBean = JSON.parseObject(JSON.toJSONString(retResult.getData()), UserBean.class);
                             SPUtils.put(getContext(), USER_PHONE, phone);
-                            SPUtils.put(getContext(), USER_PWD, passwd);
+                            SPUtils.put(getContext(), USER_PWD, password);
                             SPUtils.put(getContext(), USER_NAME, userBean.getName());
-                            SPUtils.put(getContext(), USER_ALIAS, userBean.getAlias());
-                            String tagJson = JSON.toJSONString(userBean.getTags());
+                            SPUtils.put(getContext(), USER_UID, userBean.getUid());
+                            String tagJson = JSON.toJSONString(userBean.getCare());
                             SPUtils.put(getContext(), USER_TAGS, tagJson);
                             Log.d(DEBUG, "goodjob");
                         }
@@ -81,7 +81,7 @@ public class LoginModel extends BaseModel {
         return (String) SPUtils.get(getContext(), GlobalField.USER_PHONE, "");
     }
 
-    public String getPasswd() {
+    public String getPassword() {
         return (String) SPUtils.get(getContext(), USER_PWD, "");
     }
 

@@ -11,16 +11,17 @@ import java.util.List;
 public class UserBean {
     private String phone;
     private String name;
-    private String passwd;
-    private String alias;
-    private List<TagBean> tags;
+    private String email;
+    private String password;
+    private String uid;
+    private List<TagBean> care;
 
     public UserBean() {
     }
 
-    public UserBean(String phone, String passwd) {
+    public UserBean(String phone, String password) {
         this.phone = phone;
-        this.passwd = passwd;
+        this.password = password;
     }
 
     public String getPhone() {
@@ -39,28 +40,36 @@ public class UserBean {
         this.name = name;
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public List<TagBean> getTags() {
-        return tags;
+    public String getUid() {
+        return uid;
     }
 
-    public void setTags(List<TagBean> tags) {
-        this.tags = tags;
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public List<TagBean> getCare() {
+        return care;
+    }
+
+    public void setCare(List<TagBean> care) {
+        this.care = care;
     }
 
     @Override
@@ -68,9 +77,11 @@ public class UserBean {
         return "UserBean{" +
                 "phone='" + phone + '\'' +
                 ", name='" + name + '\'' +
-                ", passwd='" + passwd + '\'' +
-                ", alias='" + alias + '\'' +
-                ", tags=" + tags +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", uid='" + uid + '\'' +
+                ", care=" + care +
                 '}';
     }
+
 }

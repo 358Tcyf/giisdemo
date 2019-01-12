@@ -1,11 +1,13 @@
 package simple.project.giisdemo.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog.CheckBoxMessageDialogBuilder;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 
@@ -70,31 +72,49 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
         setPush.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         setSystem.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 
+
+        View.OnClickListener onClickListener = v -> {
+            if (v instanceof QMUICommonListItemView) {
+                CharSequence text = ((QMUICommonListItemView) v).getText();
+                ToastUtil.showShort(getBaseFragmentActivity(), text + " is Clicked");
+                switch ((String) text) {
+                    case "信息设置":
+                        startFragment(new SettingUserInfoFragment());
+                        break;
+                    case "推送设置":
+                        startFragment(new SettingPushFragment());
+                        break;
+                    case "系统设置":
+                        startFragment(new SettingSystemFragment());
+                        break;
+                    case "关于应用":
+                        new QMUIBottomSheet.BottomListSheetBuilder(getActivity())
+                                .addItem(getResources().getString(R.string.check_update))
+                                .addItem(getResources().getString(R.string.callback))
+                                .setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
+                                    dialog.dismiss();
+                                    switch (position) {
+                                        case CHECK_UPDATE:
+                                            ToastUtil.showShort(getBaseFragmentActivity(), getResources().getString(R.string.check_update));
+                                            break;
+                                        case CALLBACK:
+                                            ToastUtil.showShort(getBaseFragmentActivity(), getResources().getString(R.string.callback));
+                                            break;
+                                        default:
+                                    }
+                                })
+                                .build()
+                                .show();
+                        break;
+                }
+            }
+        };
+
         GroupListView.newSection(getBaseFragmentActivity())
-                .addItemView(setInfo, null)
-                .addItemView(setPush, v -> {
-                    startFragment(new SettingPushFragment());
-                })
-                .addItemView(setSystem, null)
-                .addItemView(appAbout, v -> {
-                    new QMUIBottomSheet.BottomListSheetBuilder(getActivity())
-                            .addItem(getResources().getString(R.string.check_update))
-                            .addItem(getResources().getString(R.string.callback))
-                            .setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
-                                dialog.dismiss();
-                                switch (position) {
-                                    case CHECK_UPDATE:
-                                        ToastUtil.showShort(getBaseFragmentActivity(), getResources().getString(R.string.check_update));
-                                        break;
-                                    case CALLBACK:
-                                        ToastUtil.showShort(getBaseFragmentActivity(), getResources().getString(R.string.callback));
-                                        break;
-                                    default:
-                                }
-                            })
-                            .build()
-                            .show();
-                })
+                .addItemView(setInfo, onClickListener)
+                .addItemView(setPush, onClickListener)
+                .addItemView(setSystem, onClickListener)
+                .addItemView(appAbout, onClickListener)
                 .addTo(groupListInfo);
     }
 
@@ -103,7 +123,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
         userName.setText(user.getName());
         userPhone.setText(user.getPhone());
         userBranch.setText("XX部门");
-        userNo.setText(user.getAlias());
+        userNo.setText(user.getUid());
 
     }
 

@@ -61,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:background="@drawable/bg_edittext"
-                    android:hint="@string/passwd"
+                    android:hint="@string/password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLength="6"

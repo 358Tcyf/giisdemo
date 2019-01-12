@@ -30,7 +30,7 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
     @BindView(R.id.topbar)
     QMUITopBarLayout topbar;
     @BindView(R.id.groupList_push_switch)
-    GroupListView groupListInfo;
+    GroupListView groupListPushSwitch;
     @BindView(R.id.groupList_push_call)
     GroupListView groupListPushCall;
     @BindView(R.id.groupList_push_cycle)
@@ -40,7 +40,7 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
 
     @Override
     protected SettingPushPresenter createPresenter() {
-        return null;
+        return new SettingPushPresenter();
     }
 
     @Override
@@ -52,19 +52,19 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
     }
 
     private void initMenuList() {
-        QMUICommonListItemView pushSwitch = groupListInfo.createItemView(getResources().getString(R.string.push_switch));
+        QMUICommonListItemView pushSwitch = groupListPushSwitch.createItemView(getResources().getString(R.string.push_switch));
         pushSwitch.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushSwitch.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) ->
                 ToastUtil.showShort(getBaseFragmentActivity(), "推送开关 = " + isChecked));
-        QMUICommonListItemView pushVoice = groupListInfo.createItemView(getResources().getString(R.string.push_voice));
+        QMUICommonListItemView pushVoice = groupListPushSwitch.createItemView(getResources().getString(R.string.push_voice));
         pushVoice.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushVoice.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) ->
                 ToastUtil.showShort(getBaseFragmentActivity(), "声音开关 = " + isChecked));
-        QMUICommonListItemView pushVibrate = groupListInfo.createItemView(getResources().getString(R.string.push_vibrate));
+        QMUICommonListItemView pushVibrate = groupListPushSwitch.createItemView(getResources().getString(R.string.push_vibrate));
         pushVibrate.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushVibrate.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) ->
                 ToastUtil.showShort(getBaseFragmentActivity(), "震动开关 = " + isChecked));
-        QMUICommonListItemView pushFloat = groupListInfo.createItemView(getResources().getString(R.string.push_float));
+        QMUICommonListItemView pushFloat = groupListPushSwitch.createItemView(getResources().getString(R.string.push_float));
         pushFloat.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushFloat.getSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -72,9 +72,9 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
                 Toast.makeText(getActivity(), "悬浮窗开关 = " + isChecked, Toast.LENGTH_SHORT).show();
             }
         });
-        QMUICommonListItemView pushCycle = groupListInfo.createItemView(getResources().getString(R.string.push_cycle));
-        QMUICommonListItemView pushDate = groupListInfo.createItemView(getResources().getString(R.string.push_date));
-        QMUICommonListItemView pushTime = groupListInfo.createItemView(getResources().getString(R.string.push_time));
+        QMUICommonListItemView pushCycle = groupListPushSwitch.createItemView(getResources().getString(R.string.push_cycle));
+        QMUICommonListItemView pushDate = groupListPushSwitch.createItemView(getResources().getString(R.string.push_date));
+        QMUICommonListItemView pushTime = groupListPushSwitch.createItemView(getResources().getString(R.string.push_time));
 
 
         pushCycle.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
@@ -90,6 +90,18 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
                 CharSequence text = ((QMUICommonListItemView) v).getText();
                 ToastUtil.showShort(getBaseFragmentActivity(), text + " is Clicked");
                 switch ((String) text) {
+                    case "推送周期":
+                        final String[] items = new String[]{"每天", "每周", "每月"};
+                        final int checkedIndex = 1;
+                        new QMUIDialog.CheckableDialogBuilder(getActivity()).setCheckedIndex(checkedIndex).addItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                ToastUtil.showShort(getBaseFragmentActivity(), "你选择了 " + items[which]);
+                                dialog.dismiss();
+                            }
+                        }).show();
+                        break;
                 }
             }
         };
@@ -97,7 +109,7 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
         GroupListView.newSection(getBaseFragmentActivity())
                 .setDescription(getResources().getString(R.string.push_section_1))
                 .addItemView(pushSwitch, onClickListener)
-                .addTo(groupListInfo);
+                .addTo(groupListPushSwitch);
 
         GroupListView.newSection(getBaseFragmentActivity())
                 .addItemView(pushVoice, onClickListener)
@@ -105,22 +117,9 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
                 .addItemView(pushFloat, onClickListener)
                 .addTo(groupListPushCall);
         GroupListView.newSection(getBaseFragmentActivity())
-                .addItemView(pushCycle, v -> {
-                    final String[] items = new String[]{"每天", "每周", "每月"};
-                    final int checkedIndex = 1;
-                    new QMUIDialog.CheckableDialogBuilder(getActivity()).setCheckedIndex(checkedIndex).addItems(items, new DialogInterface.OnClickListener() {
-                        @Override
-
-                        public void onClick(DialogInterface dialog, int which) {
-                            ToastUtil.showShort(getBaseFragmentActivity(), "你选择了 " + items[which]);
-                            dialog.dismiss();
-                        }
-                    }).show();
-
-
-                })
-                .addItemView(pushDate, null)
-                .addItemView(pushTime, null)
+                .addItemView(pushCycle, onClickListener)
+                .addItemView(pushDate, onClickListener)
+                .addItemView(pushTime, onClickListener)
                 .addTo(groupListPushCycle);
 
     }

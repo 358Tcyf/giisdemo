@@ -17,8 +17,8 @@ import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
  */
 public class LoginPresenter extends BasePresenter<LoginView, LoginModel> {
 
-    public void login(String phone, String passwd) {
-        getModel().login(phone, passwd, new OnHttpCallBack<RetResult>() {
+    public void login(String phone, String password) {
+        getModel().login(phone, password, new OnHttpCallBack<RetResult>() {
             @Override
             public void onSuccess(RetResult retResult) {
                 Log.d(DEBUG, "SUCCESS");
@@ -39,8 +39,8 @@ public class LoginPresenter extends BasePresenter<LoginView, LoginModel> {
         getView().setAccount(getModel().getAccount());
     }
 
-    public void setPasswd() {
-        getView().setPasswd(getModel().getPasswd());
+    public void setPassword() {
+        getView().setPasswd(getModel().getPassword());
     }
 
 }

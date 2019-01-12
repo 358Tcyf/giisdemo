@@ -34,12 +34,12 @@ public class SignUpModel extends BaseModel {
 
     }
 
-    public void signUp(String name, String phone, String passwd, OnHttpCallBack<RetResult> callBack) {
-        Log.d(DEBUG, "Model: name is " + name + " phone is " + phone + " passwd is " + passwd);
+    public void signUp(String name, String phone, String password, OnHttpCallBack<RetResult> callBack) {
+        Log.d(DEBUG, "Model: name is " + name + " phone is " + phone + " password is " + password);
 
         RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
                 .create(HttpContract.class)
-                .register(name, phone, passwd)
+                .register(name, phone, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RetResult<UserBean>>() {
@@ -55,7 +55,7 @@ public class SignUpModel extends BaseModel {
                             //TODO 把这个人的账号密码存到登陆界面
                             UserBean userBean = JSON.parseObject(JSON.toJSONString(retResult.getData()), UserBean.class);
                             SPUtils.put(getContext(), USER_PHONE, phone);
-                            SPUtils.put(getContext(), USER_PWD, passwd);
+                            SPUtils.put(getContext(), USER_PWD, password);
                             Log.d(DEBUG, "goodjob");
                         }
                     }

@@ -1,14 +1,20 @@
 package simple.project.giisdemo.activity;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.widget.Toast;
+import android.util.Log;
 
+import com.igexin.sdk.PushManager;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.fragment.LoginFragment;
+import simple.project.giisdemo.helper.server.DemoIntentService;
+import simple.project.giisdemo.helper.server.DemoPushService;
+import simple.project.giisdemo.helper.utils.SPUtils;
+
+import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
+import static simple.project.giisdemo.helper.constant.GlobalField.DEVICE_CID;
 
 /**
  * @author Created by ys
@@ -34,33 +40,16 @@ public class LoginActivity extends QMUIFragmentActivity {
                     .addToBackStack(mFragment.getClass().getSimpleName())
                     .commit();
         }
+        initPushManager();
     }
 
+    private void initPushManager() {
+        PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
+        String cid = PushManager.getInstance().getClientid(this);
+        Log.d(DEBUG, cid);
+        SPUtils.put(this, DEVICE_CID, "device's cid is "+cid);
 
-//    //退出时的时间
-//    private long mExitTime;
-//
-//    //对返回键进行监听
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//
-//        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-//            exit();
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
-//
-//    //退出方法
-//    private void exit() {
-//        if ((System.currentTimeMillis() - mExitTime) > 2000) {
-//            Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
-//            mExitTime = System.currentTimeMillis();
-//        } else {
-//            //用户退出处理
-//            finish();
-//            System.exit(0);
-//        }
-//    }
+    }
 
 }

@@ -20,7 +20,7 @@ import simple.project.giisdemo.helper.server.DemoIntentService;
 import simple.project.giisdemo.helper.server.DemoPushService;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_ALIAS;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_TAGS;
 
@@ -52,7 +52,7 @@ public class GetuiActivity extends QMUIFragmentActivity {
         PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
         hello.append("\nbind clientid = " + PushManager.getInstance().getClientid(this));
-        String alias = (String) SPUtils.get(this, USER_ALIAS, "noalias");
+        String alias = (String) SPUtils.get(this, USER_UID, "noalias");
         if (alias.length() > 0) {
             PushManager.getInstance().bindAlias(GetuiActivity.this, alias);
             hello.append("\nbind alias = " + alias);

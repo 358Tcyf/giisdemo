@@ -2,18 +2,13 @@ package simple.project.giisdemo.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.Objects;
 
@@ -53,7 +48,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         inputUser.setOnFocusChangeListener(this);
         inputPasswd.setOnFocusChangeListener(this);
         getPresenter().setAccount();
-        getPresenter().setPasswd();
+        getPresenter().setPassword();
         return view;
     }
 
@@ -165,4 +160,8 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         }
     }
 
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 }

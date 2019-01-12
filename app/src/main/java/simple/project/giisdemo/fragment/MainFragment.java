@@ -162,5 +162,9 @@ public class MainFragment extends BaseFragment {
             System.exit(0);
         }
     }
+    @Override
+    protected boolean canDragBack() {
+        return false;
+    }
 
 }

@@ -16,8 +16,8 @@ import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
  * @describe
  */
 public class SignUpPresenter extends BasePresenter<SignUpView, SignUpModel> {
-    public void signUp(String name, String phone, String passwd) {
-        getModel().signUp(name, phone, passwd, new OnHttpCallBack<RetResult>() {
+    public void signUp(String name, String phone, String password) {
+        getModel().signUp(name, phone, password, new OnHttpCallBack<RetResult>() {
             @Override
             public void onSuccess(RetResult retResult) {
                 Log.d(DEBUG, "SUCCESS");
