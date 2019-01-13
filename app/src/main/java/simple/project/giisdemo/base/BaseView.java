@@ -1,5 +1,8 @@
 package simple.project.giisdemo.base;
 
+import android.content.res.Resources;
+import android.support.v4.app.Fragment;
+
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 /**
@@ -9,4 +12,5 @@ import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
  */
 public interface BaseView {
     QMUIFragmentActivity getCurContext();
+
 }

@@ -1,6 +1,8 @@
 package simple.project.giisdemo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.igexin.sdk.PushManager;
@@ -8,13 +10,15 @@ import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
-import simple.project.giisdemo.fragment.LoginFragment;
+import simple.project.giisdemo.fragment.login.LoginFragment;
+import simple.project.giisdemo.fragment.main.MainFragment;
 import simple.project.giisdemo.helper.server.DemoIntentService;
 import simple.project.giisdemo.helper.server.DemoPushService;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.DEVICE_CID;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 
 /**
  * @author Created by ys
@@ -27,18 +31,17 @@ public class LoginActivity extends QMUIFragmentActivity {
         return R.id.login;
     }
 
-    private BaseFragment mFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            mFragment = new LoginFragment();
+            BaseFragment mFragment = new LoginFragment();
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(getContextViewId(), mFragment, mFragment.getClass().getSimpleName())
                     .addToBackStack(mFragment.getClass().getSimpleName())
                     .commit();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
         initPushManager();
     }
@@ -48,7 +51,7 @@ public class LoginActivity extends QMUIFragmentActivity {
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
         String cid = PushManager.getInstance().getClientid(this);
         Log.d(DEBUG, cid);
-        SPUtils.put(this, DEVICE_CID, "device's cid is "+cid);
+        SPUtils.put(this, DEVICE_CID, "device's cid is " + cid);
 
     }
 

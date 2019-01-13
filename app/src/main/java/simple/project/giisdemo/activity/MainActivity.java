@@ -1,16 +1,12 @@
 package simple.project.giisdemo.activity;
 
-import android.annotation.SuppressLint;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.widget.Toast;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
-import simple.project.giisdemo.fragment.MainFragment;
+import simple.project.giisdemo.fragment.main.MainFragment;
 
 /**
  * @author Created by ys

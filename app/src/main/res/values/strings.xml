@@ -21,6 +21,8 @@
     <string name="card_no">工号 ：</string>
 
     <string name="search">搜索</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
 
 
     <string name="set_info">信息设置</string>
@@ -32,6 +34,9 @@
 
 
     <string name="use_pic">相片</string>
+    <string name="take_pic">拍照</string>
+    <string name="choose_pic">从相册选择</string>
+    <string name="view_pic">查看大图</string>
     <string name="use_name">姓名</string>
     <string name="use_branch">部门</string>
     <string name="use_no">工号</string>
