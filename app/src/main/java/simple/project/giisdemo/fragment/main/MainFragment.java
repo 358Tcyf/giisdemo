@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
@@ -53,10 +54,8 @@ public class MainFragment extends BaseFragment {
 
     @SuppressWarnings("ConstantConditions")
     private void initTabs() {
-//        int normalColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_gray_6);
-//        int selectColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_blue);
-        int normalColor = getBaseFragmentActivity().getResources().getColor(R.color.colorPrimaryDark, null);
-        int selectColor = getBaseFragmentActivity().getResources().getColor(R.color.colorPrimary, null);
+        int normalColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.colorPrimaryDark);
+        int selectColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.colorPrimary);
         tabs.setDefaultNormalColor(normalColor);
         tabs.setDefaultSelectedColor(selectColor);
 

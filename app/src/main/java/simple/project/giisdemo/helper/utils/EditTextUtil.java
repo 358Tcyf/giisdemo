@@ -1,7 +1,8 @@
 package simple.project.giisdemo.helper.utils;
 
-import android.content.Context;
+import android.app.Activity;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,8 +19,8 @@ import simple.project.giisdemo.R;
 public class EditTextUtil {
 
 
-    public static void onFocusChange(Context context, Boolean hidden, View view, boolean hasFocus) {
-        setTextColor(context, (EditText) view, hasFocus);
+    public static void onFocusChange(Activity mActivity, Boolean hidden, View view, boolean hasFocus) {
+        setTextColor(mActivity, (EditText) view, hasFocus);
         View parentView = (View) view.getParent();
         switch (view.getId()) {
             case R.id.input_user:
@@ -75,13 +76,15 @@ public class EditTextUtil {
 
     }
 
-    private static void setTextColor(Context context, EditText editText, boolean hasFocus) {
+    private static void setTextColor(Activity mActivity, EditText editText, boolean hasFocus) {
+        TypedValue value = new TypedValue();
+        mActivity.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
         if (hasFocus) {
-            editText.setTextColor(context.getResources().getColor(R.color.colorAccent, null));
-            editText.setHintTextColor(context.getResources().getColor(R.color.colorAccent, null));
+            editText.setTextColor(mActivity.getResources().getColor(value.resourceId, null));
+            editText.setHintTextColor(mActivity.getResources().getColor(value.resourceId, null));
         } else {
-            editText.setTextColor(context.getResources().getColor(R.color.colorText_Icon, null));
-            editText.setHintTextColor(context.getResources().getColor(R.color.colorText_Icon, null));
+            editText.setTextColor(mActivity.getResources().getColor(R.color.colorText_Icon, null));
+            editText.setHintTextColor(mActivity.getResources().getColor(R.color.colorText_Icon, null));
         }
     }
 
@@ -129,8 +132,8 @@ public class EditTextUtil {
         }
     }
 
-    public static void shakeAnimation(Context context, View view) {
-        Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake);
+    public static void shakeAnimation(Activity mActivity, View view) {
+        Animation shake = AnimationUtils.loadAnimation(mActivity, R.anim.shake);
         view.startAnimation(shake);
 
     }

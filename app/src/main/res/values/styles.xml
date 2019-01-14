@@ -4,24 +4,28 @@
     <style name="AppThemeDefault" parent="AppThemeLightBlue">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorPrimaryLight</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppThemeTeal" parent="QMUI.Compat.NoActionBar">
         <item name="colorPrimary">@color/teal_colorPrimary</item>
         <item name="colorPrimaryDark">@color/teal_colorPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/teal_colorPrimaryLight</item>
         <item name="colorAccent">@color/teal_colorAccent</item>
     </style>
 
     <style name="AppThemeLightBlue" parent="QMUI.Compat.NoActionBar">
         <item name="colorPrimary">@color/lightblue_colorPrimary</item>
         <item name="colorPrimaryDark">@color/lightblue_colorPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/lightblue_colorPrimaryLight</item>
         <item name="colorAccent">@color/lightblue_colorAccent</item>
     </style>
 
     <style name="AppThemeIndigo" parent="QMUI.Compat.NoActionBar">
         <item name="colorPrimary">@color/indigo_colorPrimary</item>
         <item name="colorPrimaryDark">@color/indigo_colorPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/indigo_colorPrimaryLight</item>
         <item name="colorAccent">@color/indigo_colorAccent</item>
 
     </style>

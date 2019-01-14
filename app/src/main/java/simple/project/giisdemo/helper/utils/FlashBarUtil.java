@@ -17,12 +17,12 @@ public class FlashBarUtil {
 
     public static void loginError(Activity mActivity, String msg) {
         TypedValue value = new TypedValue();
-        mActivity.getTheme().resolveAttribute(R.attr.colorPrimary,value,true);
+        mActivity.getTheme().resolveAttribute(R.attr.colorPrimaryLight, value, true);
         Flashbar flashbar = new Flashbar.Builder(mActivity)
                 .gravity(Flashbar.Gravity.BOTTOM)
                 .message(msg)
                 .messageColorRes(R.color.colorPrimaryText)
-                .backgroundColorRes(R.color.colorPrimaryLight)
+                .backgroundColorRes(value.resourceId)
                 .build();
         flashbar.show();
         new Handler().postDelayed(() -> flashbar.dismiss(), 1000);
@@ -30,11 +30,13 @@ public class FlashBarUtil {
     }
 
     public static void exitActivity(Activity mActivity, String msg) {
+        TypedValue value = new TypedValue();
+        mActivity.getTheme().resolveAttribute(R.attr.colorPrimaryLight, value, true);
         Flashbar flashbar = new Flashbar.Builder(mActivity)
                 .gravity(Flashbar.Gravity.BOTTOM)
                 .message(msg)
                 .messageColorRes(R.color.colorPrimaryText)
-                .backgroundColorRes(R.color.colorPrimaryLight)
+                .backgroundColorRes(value.resourceId)
                 .build();
         flashbar.show();
         new Handler().postDelayed(() -> flashbar.dismiss(), 1000);
