@@ -26,7 +26,7 @@ public class EditTextUtil {
             case R.id.input_user:
                 ImageView userIcon = parentView.findViewById(R.id.user_icon);
                 if (hasFocus) {
-                    userIcon.setImageResource(R.drawable.ic_account_green);
+                    userIcon.setImageResource(R.drawable.ic_account_color_primary);
                 } else {
                     userIcon.setImageResource(R.drawable.ic_account);
                 }
@@ -34,7 +34,7 @@ public class EditTextUtil {
             case R.id.input_passwd:
                 ImageView passwdIcon = parentView.findViewById(R.id.passwd_icon);
                 if (hasFocus) {
-                    passwdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off_green : R.drawable.ic_visibility_green);
+                    passwdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off_color_primary : R.drawable.ic_visibility_color_primary);
                 } else {
                     passwdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off : R.drawable.ic_visibility);
                 }
@@ -42,7 +42,7 @@ public class EditTextUtil {
             case R.id.input_name:
                 ImageView nameIcon = parentView.findViewById(R.id.name_icon);
                 if (hasFocus) {
-                    nameIcon.setImageResource(R.drawable.ic_account_green);
+                    nameIcon.setImageResource(R.drawable.ic_account_color_primary);
                 } else {
                     nameIcon.setImageResource(R.drawable.ic_account);
                 }
@@ -50,7 +50,7 @@ public class EditTextUtil {
             case R.id.input_phone:
                 ImageView phoneIcon = parentView.findViewById(R.id.phone_icon);
                 if (hasFocus) {
-                    phoneIcon.setImageResource(R.drawable.ic_phone_green);
+                    phoneIcon.setImageResource(R.drawable.ic_phone_color_primary);
                 } else {
                     phoneIcon.setImageResource(R.drawable.ic_phone);
                 }
@@ -58,15 +58,15 @@ public class EditTextUtil {
             case R.id.new_passwd:
                 ImageView nepasswdIcon = parentView.findViewById(R.id.nepasswd_icon);
                 if (hasFocus) {
-                    nepasswdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off_green : R.drawable.ic_visibility_green);
+                    nepasswdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off_color_primary : R.drawable.ic_visibility_color_primary);
                 } else {
-                    nepasswdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off : R.drawable.ic_visibility);
+                    nepasswdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off_color_primary : R.drawable.ic_visibility);
                 }
                 break;
             case R.id.repeat_passwd:
                 ImageView repasswdIcon = parentView.findViewById(R.id.repasswd_icon);
                 if (hasFocus) {
-                    repasswdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off_green : R.drawable.ic_visibility_green);
+                    repasswdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off_color_primary : R.drawable.ic_visibility_color_primary);
                 } else {
                     repasswdIcon.setImageResource(hidden ? R.drawable.ic_visibility_off : R.drawable.ic_visibility);
                 }
@@ -107,25 +107,25 @@ public class EditTextUtil {
             case R.id.input_passwd:
                 ImageView passwdIcon = parentView.findViewById(R.id.passwd_icon);
                 passwdIcon.setImageResource(hidden ?
-                        (editText.isFocused() ? R.drawable.ic_visibility_off_green
+                        (editText.isFocused() ? R.drawable.ic_visibility_off_color_primary
                                 : R.drawable.ic_visibility_off)
-                        : (editText.isFocused() ? R.drawable.ic_visibility_green
+                        : (editText.isFocused() ? R.drawable.ic_visibility_color_primary
                         : R.drawable.ic_visibility));
                 break;
             case R.id.new_passwd:
                 ImageView nepasswdIcon = parentView.findViewById(R.id.nepasswd_icon);
                 nepasswdIcon.setImageResource(hidden ?
-                        (editText.isFocused() ? R.drawable.ic_visibility_off_green
+                        (editText.isFocused() ? R.drawable.ic_visibility_off_color_primary
                                 : R.drawable.ic_visibility_off)
-                        : (editText.isFocused() ? R.drawable.ic_visibility_green
+                        : (editText.isFocused() ? R.drawable.ic_visibility_color_primary
                         : R.drawable.ic_visibility));
                 break;
             case R.id.repeat_passwd:
                 ImageView repasswdIcon = parentView.findViewById(R.id.repasswd_icon);
                 repasswdIcon.setImageResource(hidden ?
-                        (editText.isFocused() ? R.drawable.ic_visibility_off_green
+                        (editText.isFocused() ? R.drawable.ic_visibility_off_color_primary
                                 : R.drawable.ic_visibility_off)
-                        : (editText.isFocused() ? R.drawable.ic_visibility_green
+                        : (editText.isFocused() ? R.drawable.ic_visibility_color_primary
                         : R.drawable.ic_visibility));
                 break;
             default:
