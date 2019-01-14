@@ -1,13 +1,17 @@
 package simple.project.giisdemo.mvp.presenter.main;
 
 import android.view.View;
+import android.widget.TimePicker;
 
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.helper.custom.GroupListView;
+import simple.project.giisdemo.helper.custom.TimePickerView.TimePickerBuilder;
+import simple.project.giisdemo.helper.custom.TimePickerView.TimePickerView;
 import simple.project.giisdemo.mvp.model.main.SettingPushModel;
 import simple.project.giisdemo.mvp.view.main.SettingPushView;
 
@@ -77,6 +81,20 @@ public class SettingPushPresenter extends BasePresenter<SettingPushView, Setting
                             items = dateSet;
                         new QMUIDialog.CheckableDialogBuilder(getView().getCurContext()).setCheckedIndex(0).addItems(items, (dialog, which) ->
                                 dialog.dismiss()).show();
+                        break;
+                    case "推送时间":
+                        //时间选择器
+                        OnTimeSelectListener listener = (date, v1) -> {
+
+                        };
+                        TimePickerView timePicker = new TimePickerBuilder(getView().getCurContext(), listener)
+                                .setType(new boolean[]{false, false, false, true, true, false})// 默认全部显示
+                                .setSubmitColor(getView().getCurContext().getResources().getColor(R.color.material_colorPrimary))//确定按钮文字颜色
+                                .setCancelColor(getView().getCurContext().getResources().getColor(R.color.material_colorPrimaryText))//取消按钮文字颜色
+                                .isDialog(true)//是否显示为对话框样式
+                                .build();
+                        timePicker.show();
+
                         break;
                 }
             }

@@ -93,5 +93,7 @@ dependencies {
     /*替代QMUITipDialog的两个*/
     implementation 'com.andrognito.flashbar:flashbar:1.0.2'
     implementation 'org.aviran.cookiebar2:cookiebar2:1.1.0'
+    /*时间选择器*/
+    implementation 'com.contrarywind:Android-PickerView:4.1.7'
 
 }

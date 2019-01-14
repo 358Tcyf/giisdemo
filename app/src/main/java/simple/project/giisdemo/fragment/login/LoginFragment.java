@@ -30,6 +30,7 @@ import simple.project.giisdemo.mvp.presenter.login.LoginPresenter;
 import simple.project.giisdemo.mvp.view.login.LoginView;
 
 import static android.text.TextUtils.isEmpty;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.exitAcitivity;
 import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
 
 /**
@@ -171,7 +172,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     private void exit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
 //            Toast.makeText(getBaseFragmentActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();
-            loginError(getBaseFragmentActivity(), "再按一次退出应用");
+            exitAcitivity(getBaseFragmentActivity(), "再按一次退出应用");
             mExitTime = System.currentTimeMillis();
         } else {
             //用户退出处理

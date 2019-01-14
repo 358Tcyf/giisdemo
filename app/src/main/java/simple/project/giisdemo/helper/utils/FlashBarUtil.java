@@ -26,4 +26,16 @@ public class FlashBarUtil {
         new Handler().postDelayed(() -> flashbar.dismiss(), 1000);
 
     }
+
+    public static void exitAcitivity(Activity mActivity, String msg) {
+        Flashbar flashbar = new Flashbar.Builder(mActivity)
+                .gravity(Flashbar.Gravity.BOTTOM)
+                .message(msg)
+                .messageColorRes(R.color.material_colorPrimaryText)
+                .backgroundColorRes(R.color.material_colorPrimaryLight)
+                .build();
+        flashbar.show();
+        new Handler().postDelayed(() -> flashbar.dismiss(), 1000);
+
+    }
 }
