@@ -23,11 +23,11 @@ import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAnd
  */
 public class SettingPushFragment extends BaseFragment<SettingPushPresenter> implements SettingPushView {
 
-    @BindView(R.id.groupList_push_switch)
+    @BindView(R.id.groupList_1)
     GroupListView groupListPushSwitch;
-    @BindView(R.id.groupList_push_call)
+    @BindView(R.id.groupList_2)
     GroupListView groupListPushCall;
-    @BindView(R.id.groupList_push_cycle)
+    @BindView(R.id.groupList_3)
     GroupListView groupListPushCycle;
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
@@ -41,7 +41,7 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
 
     @Override
     protected View onCreateView() {
-        View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_push, null);
+        View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         unbinder = ButterKnife.bind(this, view);
         initBackAndTitle(mTopBar, getBaseFragmentActivity(), R.string.set_push);
         getPresenter().initGroupListView(groupListPushSwitch, groupListPushCall, groupListPushCycle);

@@ -75,6 +75,7 @@ public class SettingPresenter extends BasePresenter<SettingView, SettingModel> {
                     new QMUIBottomSheet.BottomListSheetBuilder(getView().getCurContext())
                             .addItem(getView().getCurContext().getResources().getString(R.string.check_update))
                             .addItem(getView().getCurContext().getResources().getString(R.string.callback))
+                            .addItem(getView().getCurContext().getResources().getString(R.string.cancel))
                             .setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
                                 dialog.dismiss();
                                 switch (position) {

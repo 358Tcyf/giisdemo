@@ -1,6 +1,7 @@
 package simple.project.giisdemo.mvp.presenter.main;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
 import android.view.View;
@@ -31,7 +32,6 @@ import simple.project.giisdemo.helper.utils.SPUtils;
 import simple.project.giisdemo.mvp.model.main.SettingUserInfoModel;
 import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.CANCEL;
 import static simple.project.giisdemo.helper.constant.GlobalField.CHOOSE_PIC;
 import static simple.project.giisdemo.helper.constant.GlobalField.TAKE_PIC;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
@@ -127,8 +127,7 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
                                         choosePhoto(userPicView);
                                         break;
                                     case VIEW_PIC:
-                                        break;
-                                    case CANCEL:
+                                        getView().showImage();
                                         break;
                                     default:
                                 }

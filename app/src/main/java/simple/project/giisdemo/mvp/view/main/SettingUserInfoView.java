@@ -1,5 +1,6 @@
 package simple.project.giisdemo.mvp.view.main;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.View;
 
@@ -12,4 +13,7 @@ import simple.project.giisdemo.base.BaseView;
  */
 public interface SettingUserInfoView extends BaseView {
     void toFinish();
+
+    void showImage();
+
 }

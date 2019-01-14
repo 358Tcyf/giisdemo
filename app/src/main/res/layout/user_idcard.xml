@@ -21,7 +21,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
-            app:qmui_corner_radius="2dp"
             app:qmui_is_circle="false"
             app:qmui_is_oval="false" />
 

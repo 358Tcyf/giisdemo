@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
-import simple.project.giisdemo.fragment.main.setting.SearchPushFragment;
 import simple.project.giisdemo.helper.custom.BannerView;
 import simple.project.giisdemo.mvp.presenter.main.PushPresenter;
 import simple.project.giisdemo.mvp.view.main.PushView;

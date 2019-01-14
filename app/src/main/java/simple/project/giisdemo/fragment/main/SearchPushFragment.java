@@ -1,4 +1,4 @@
-package simple.project.giisdemo.fragment.main.setting;
+package simple.project.giisdemo.fragment.main;
 
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;

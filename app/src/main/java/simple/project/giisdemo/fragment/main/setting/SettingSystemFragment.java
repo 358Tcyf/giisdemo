@@ -22,7 +22,7 @@ import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAnd
  * @describe
  */
 public class SettingSystemFragment extends BaseFragment<SettingSystemPresent> implements SettingSystemView {
-    @BindView(R.id.groupList_system)
+    @BindView(R.id.groupList_1)
     GroupListView groupListSystem;
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
@@ -35,7 +35,7 @@ public class SettingSystemFragment extends BaseFragment<SettingSystemPresent> im
 
     @Override
     protected View onCreateView() {
-        View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_system, null);
+        View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         unbinder = ButterKnife.bind(this, view);
         initBackAndTitle(mTopBar, getBaseFragmentActivity(), R.string.set_system);
         getPresenter().initGroupListView(groupListSystem);
