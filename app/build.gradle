@@ -87,4 +87,6 @@ dependencies {
     implementation 'com.github.qingmei2:rximagepicker_support_wechat:2.2.0'    // 微信图片选择器
     /*Eventbus实现模块间通信*/
     implementation 'org.greenrobot:eventbus:3.1.1'
+    /*热更新*/
+    implementation 'com.wlqq.phantom:phantom-host-gradle:3.1.2'
 }
