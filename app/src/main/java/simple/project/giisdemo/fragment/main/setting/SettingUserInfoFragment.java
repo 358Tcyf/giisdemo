@@ -37,8 +37,6 @@ import static simple.project.giisdemo.helper.utils.SBUtil.bitmapToString;
 public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresenter> implements SettingUserInfoView {
     @BindView(R.id.groupList_1)
     GroupListView groupListUserInfo;
-    @BindView(R.id.groupList_2)
-    GroupListView groupListUserAccount;
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
     private Unbinder unbinder;
@@ -53,7 +51,7 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         unbinder = ButterKnife.bind(this, view);
         initTopBar();
-        getPresenter().initGroupListView(groupListUserInfo, groupListUserAccount);
+        getPresenter().initGroupListView(groupListUserInfo);
         return view;
     }
 

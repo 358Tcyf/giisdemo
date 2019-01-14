@@ -56,6 +56,7 @@
     <string name="push_time">推送时间</string>
 
     <string name="system_language">多语言</string>
+    <string name="system_theme">颜色主题</string>
     <string name="system_font_size">字体大小</string>
     <string name="system_sync_data">同步数据</string>
     <string name="system_clean_data">清理缓存</string>

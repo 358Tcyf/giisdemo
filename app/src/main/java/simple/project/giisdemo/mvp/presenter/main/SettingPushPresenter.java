@@ -1,7 +1,6 @@
 package simple.project.giisdemo.mvp.presenter.main;
 
 import android.view.View;
-import android.widget.TimePicker;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -25,26 +24,30 @@ import static simple.project.giisdemo.helper.constant.GlobalField.weekSet;
  * @describe
  */
 public class SettingPushPresenter extends BasePresenter<SettingPushView, SettingPushModel> {
-    public void initGroupListView(GroupListView groupListPushSwitch, GroupListView groupListPushCall, GroupListView groupListPushCycle) {
-        QMUICommonListItemView pushSwitch = groupListPushSwitch.createItemView(getView().getCurContext().getResources().getString(R.string.push_switch));
+    public void initGroupListView(GroupListView groupListPushSetting) {
+        QMUICommonListItemView pushSwitch = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_switch));
         pushSwitch.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushSwitch.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
+            //TODO 推送设置
         });
-        QMUICommonListItemView pushVoice = groupListPushSwitch.createItemView(getView().getCurContext().getResources().getString(R.string.push_voice));
+        QMUICommonListItemView pushVoice = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_voice));
         pushVoice.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushVoice.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
+            //TODO 推送设置
         });
-        QMUICommonListItemView pushVibrate = groupListPushSwitch.createItemView(getView().getCurContext().getResources().getString(R.string.push_vibrate));
+        QMUICommonListItemView pushVibrate = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_vibrate));
         pushVibrate.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushVibrate.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
+            //TODO 推送设置
         });
-        QMUICommonListItemView pushFloat = groupListPushSwitch.createItemView(getView().getCurContext().getResources().getString(R.string.push_float));
+        QMUICommonListItemView pushFloat = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_float));
         pushFloat.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushFloat.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
+            //TODO 推送设置
         });
-        QMUICommonListItemView pushCycle = groupListPushSwitch.createItemView(getView().getCurContext().getResources().getString(R.string.push_cycle));
-        QMUICommonListItemView pushDate = groupListPushSwitch.createItemView(getView().getCurContext().getResources().getString(R.string.push_date));
-        QMUICommonListItemView pushTime = groupListPushSwitch.createItemView(getView().getCurContext().getResources().getString(R.string.push_time));
+        QMUICommonListItemView pushCycle = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_cycle));
+        QMUICommonListItemView pushDate = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_date));
+        QMUICommonListItemView pushTime = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_time));
 
 
         pushCycle.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
@@ -89,8 +92,8 @@ public class SettingPushPresenter extends BasePresenter<SettingPushView, Setting
                         };
                         TimePickerView timePicker = new TimePickerBuilder(getView().getCurContext(), listener)
                                 .setType(new boolean[]{false, false, false, true, true, false})// 默认全部显示
-                                .setSubmitColor(getView().getCurContext().getResources().getColor(R.color.material_colorPrimary))//确定按钮文字颜色
-                                .setCancelColor(getView().getCurContext().getResources().getColor(R.color.material_colorPrimaryText))//取消按钮文字颜色
+                                .setSubmitColor(getView().getCurContext().getResources().getColor(R.color.colorPrimary))//确定按钮文字颜色
+                                .setCancelColor(getView().getCurContext().getResources().getColor(R.color.colorPrimaryText))//取消按钮文字颜色
                                 .isDialog(true)//是否显示为对话框样式
                                 .build();
                         timePicker.show();
@@ -103,18 +106,18 @@ public class SettingPushPresenter extends BasePresenter<SettingPushView, Setting
         GroupListView.newSection(getView().getCurContext())
                 .setDescription(getView().getCurContext().getResources().getString(R.string.push_section_1))
                 .addItemView(pushSwitch, onClickListener)
-                .addTo(groupListPushSwitch);
+                .addTo(groupListPushSetting);
 
         GroupListView.newSection(getView().getCurContext())
                 .addItemView(pushVoice, onClickListener)
                 .addItemView(pushVibrate, onClickListener)
                 .addItemView(pushFloat, onClickListener)
-                .addTo(groupListPushCall);
+                .addTo(groupListPushSetting);
         GroupListView.newSection(getView().getCurContext())
                 .addItemView(pushCycle, onClickListener)
                 .addItemView(pushDate, onClickListener)
                 .addItemView(pushTime, onClickListener)
-                .addTo(groupListPushCycle);
+                .addTo(groupListPushSetting);
 
     }
 }

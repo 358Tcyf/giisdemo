@@ -54,4 +54,15 @@ public class GlobalField extends Application {
     public static final String[] dateSet = new String[]{"每月1号", "每月10号", "每月15号", "每月20号"};
 
 
+    /*系统设置*/
+    public static final String[] languages = new String[]{"跟随系统", "简体中文", "繁体中文", "英语"};
+
+    public static final String[] themes = new String[]{"默认", "TEAL", "LIGHT_BLUE", "INDIGO"};
+
+    public static final int DEFAULT = 0;
+    public static final int TEAL = 1;
+    public static final int LIGHT_BLUE = 2;
+    public static final int INDIGO = 3;
+
+
 }

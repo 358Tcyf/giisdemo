@@ -1,7 +1,6 @@
 package simple.project.giisdemo.mvp.presenter.main;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
 import android.view.View;
@@ -49,7 +48,7 @@ import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView, SettingUserInfoModel> {
 
 
-    public void initGroupListView(GroupListView groupListUserInfo, GroupListView groupListUserAccount) {
+    public void initGroupListView(GroupListView groupListUserInfo) {
         QMUICommonListItemView userPic = groupListUserInfo.createItemView(getView().getCurContext().getResources().getString(R.string.use_pic));
         userPic.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CUSTOM);
         userPic.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
@@ -83,11 +82,11 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
         userNo.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         userNo.setDetailText((CharSequence) SPUtils.get(getView().getCurContext(), USER_UID, ""));
 
-        QMUICommonListItemView userPhone = groupListUserAccount.createItemView(getView().getCurContext().getResources().getString(R.string.use_phone));
+        QMUICommonListItemView userPhone = groupListUserInfo.createItemView(getView().getCurContext().getResources().getString(R.string.use_phone));
         userPhone.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         userPhone.setDetailText((CharSequence) SPUtils.get(getView().getCurContext(), USER_PHONE, ""));
 
-        QMUICommonListItemView userPasswd = groupListUserAccount.createItemView(getView().getCurContext().getResources().getString(R.string.use_passwd));
+        QMUICommonListItemView userPasswd = groupListUserInfo.createItemView(getView().getCurContext().getResources().getString(R.string.use_passwd));
         userPasswd.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 
         GroupListView.newSection(getView().getCurContext())
@@ -102,7 +101,7 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
                 .setTitle(getView().getCurContext().getResources().getString(R.string.info_section_2))
                 .addItemView(userPhone, onClickListener)
                 .addItemView(userPasswd, onClickListener)
-                .addTo(groupListUserAccount);
+                .addTo(groupListUserInfo);
     }
 
     private QMUIRadiusImageView userPicView;

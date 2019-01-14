@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="@string/logout"
-                android:textColor="@color/material_colorText_Icon"
+                android:textColor="@color/colorText_Icon"
                 android:textSize="18sp" />
         </LinearLayout>
 

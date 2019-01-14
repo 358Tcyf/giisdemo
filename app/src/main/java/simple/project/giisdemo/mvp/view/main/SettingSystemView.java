@@ -8,4 +8,5 @@ import simple.project.giisdemo.base.BaseView;
  * @describe
  */
 public interface SettingSystemView extends BaseView {
+    void setTheme(int style);
 }

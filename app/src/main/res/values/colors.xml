@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/material_colorPrimary</color>
-    <color name="colorPrimaryDark">@color/material_colorPrimaryDark</color>
-    <color name="colorAccent">@color/material_colorAccent</color>
+    <color name="colorPrimary">@color/teal_colorPrimary</color>
+    <color name="app_content_bg_color">@color/colorText_Icon</color>
+    <color name="colorPrimaryDark">@color/teal_colorPrimaryDark</color>
+    <color name="colorPrimaryLight">@color/teal_colorPrimaryLight</color>
+    <color name="colorAccent">@color/teal_colorAccent</color>
+    <color name="colorText">@color/colorPrimaryText</color>
 
 
-    <color name="material_colorPrimary">#009688</color>
-    <color name="material_colorPrimaryDark">#00796B</color>
-    <color name="material_colorPrimaryLight">#B2DFDB</color>
-    <color name="material_colorAccent">#009688</color>
-    <color name="material_colorText_Icon">#FFFFFF</color>
-    <color name="material_colorPrimaryText">#212121</color>
-    <color name="material_colorSecondaryText">#757575</color>
-    <color name="material_colorDivider">#BDBDBD</color>
+    <!--AppThemeDefault&AppThemeTeal-->
+    <color name="teal_colorPrimary">#009688</color>
+    <color name="teal_colorPrimaryDark">#00796B</color>
+    <color name="teal_colorPrimaryLight">#B2DFDB</color>
+    <color name="teal_colorAccent">#009688</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorText_Icon">#FFFFFF</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+
+    <!--AppThemeLightBlue-->
+    <color name="lightblue_colorPrimary">#03A9F4</color>
+    <color name="lightblue_colorPrimaryDark">#0288D1</color>
+    <color name="lightblue_colorPrimaryLight">#B3E5FC</color>
+    <color name="lightblue_colorAccent">#03A9F4</color>
+
+
+    <!--AppThemeIndigo-->
+    <color name="indigo_colorPrimary">#3F51B5</color>
+    <color name="indigo_colorPrimaryDark">#303F9F</color>
+    <color name="indigo_colorPrimaryLight">#C5CAE9</color>
+    <color name="indigo_colorAccent">#536DFE</color>
 
 
     <!-- common -->

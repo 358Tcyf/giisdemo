@@ -6,7 +6,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
@@ -20,8 +19,7 @@ import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.base.BasePresenter;
 
-import static simple.project.giisdemo.helper.utils.FlashBarUtil.exitAcitivity;
-import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.exitActivity;
 
 /**
  * @author Created by ys
@@ -57,8 +55,8 @@ public class MainFragment extends BaseFragment {
     private void initTabs() {
 //        int normalColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_gray_6);
 //        int selectColor = QMUIResHelper.getAttrColor(getActivity(), R.attr.qmui_config_color_blue);
-        int normalColor = getBaseFragmentActivity().getResources().getColor(R.color.material_colorPrimaryLight, null);
-        int selectColor = getBaseFragmentActivity().getResources().getColor(R.color.material_colorPrimary, null);
+        int normalColor = getBaseFragmentActivity().getResources().getColor(R.color.colorPrimaryDark, null);
+        int selectColor = getBaseFragmentActivity().getResources().getColor(R.color.colorPrimary, null);
         tabs.setDefaultNormalColor(normalColor);
         tabs.setDefaultSelectedColor(selectColor);
 
@@ -157,7 +155,7 @@ public class MainFragment extends BaseFragment {
     private void exit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
 //            Toast.makeText(getBaseFragmentActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();
-            exitAcitivity(getBaseFragmentActivity(), "再按一次退出应用");
+            exitActivity(getBaseFragmentActivity(), "再按一次退出应用");
             mExitTime = System.currentTimeMillis();
         } else {
             //用户退出处理

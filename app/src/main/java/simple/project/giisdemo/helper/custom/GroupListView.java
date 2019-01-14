@@ -18,7 +18,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- *
  * Created by Daylight on 2018/1/22.
  */
 
@@ -51,22 +50,22 @@ public class GroupListView extends LinearLayout {
      *
      * @return 返回新创建的 Section。
      */
-    public static GroupListView.Section newSection(Context context) {
-        return new GroupListView.Section(context);
+    public static Section newSection(Context context) {
+        return new Section(context);
     }
 
     public
-    @GroupListView.SeparatorStyle
+    @SeparatorStyle
     int getSeparatorStyle() {
         return mSeparatorStyle;
     }
 
     /**
-     * 设置分割线风格，具体风格可以在 {@link GroupListView.SeparatorStyle} 中选择。
+     * 设置分割线风格，具体风格可以在 {@link SeparatorStyle} 中选择。
      *
      * @param separatorStyle {@link #SEPARATOR_STYLE_NORMAL} 或 {@link #SEPARATOR_STYLE_NONE} 其中一个值。
      */
-    public void setSeparatorStyle(@GroupListView.SeparatorStyle int separatorStyle) {
+    public void setSeparatorStyle(@SeparatorStyle int separatorStyle) {
         mSeparatorStyle = separatorStyle;
     }
 
@@ -74,10 +73,11 @@ public class GroupListView extends LinearLayout {
         return mSections.size();
     }
 
-    public void showItemView(int sectionIndex,int itemIndex){
+    public void showItemView(int sectionIndex, int itemIndex) {
         mSections.get(sectionIndex).showItem(itemIndex);
     }
-    public void hideItemView(int sectionIndex,int itemIndex){
+
+    public void hideItemView(int sectionIndex, int itemIndex) {
         mSections.get(sectionIndex).hideItem(itemIndex);
     }
 
@@ -112,7 +112,7 @@ public class GroupListView extends LinearLayout {
     }
 
     /**
-     * private, use {@link GroupListView.Section#addTo(GroupListView)}
+     * private, use {@link Section#addTo(GroupListView)}
      * <p>这里只是把section记录到数组里面而已</p>
      */
     private void addSection(GroupListView.Section section) {
@@ -120,19 +120,19 @@ public class GroupListView extends LinearLayout {
     }
 
     /**
-     * private，use {@link GroupListView.Section#removeFrom(GroupListView)}
+     * private，use {@link Section#removeFrom(GroupListView)}
      * <p>这里只是把section从记录的数组里移除而已</p>
      */
-    private void removeSection(GroupListView.Section section) {
+    private void removeSection(Section section) {
         for (int i = 0; i < mSections.size(); i++) {
-            GroupListView.Section each = mSections.valueAt(i);
+            Section each = mSections.valueAt(i);
             if (each == section) {
                 mSections.remove(i);
             }
         }
     }
 
-    public GroupListView.Section getSection(int index) {
+    public Section getSection(int index) {
         return mSections.get(index);
     }
 
@@ -173,7 +173,7 @@ public class GroupListView extends LinearLayout {
          * @param onClickListener ItemView 的点击事件
          * @return Section 本身,支持链式调用
          */
-        public GroupListView.Section addItemView(QMUICommonListItemView itemView, OnClickListener onClickListener) {
+        public Section addItemView(QMUICommonListItemView itemView, OnClickListener onClickListener) {
             return addItemView(itemView, onClickListener, null);
         }
 
@@ -185,12 +185,11 @@ public class GroupListView extends LinearLayout {
          * @param onLongClickListener ItemView 的长按事件
          * @return Section 本身, 支持链式调用
          */
-        public GroupListView.Section addItemView(final QMUICommonListItemView itemView, OnClickListener onClickListener, OnLongClickListener onLongClickListener) {
-            // 如果本身带有开关控件，点击item时要改变开关控件的状态（开关控件本身已经disable掉）
-//            if (itemView.getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
-//                itemView.setOnClickListener(v -> itemView.getSwitch().toggle());
-//            } else
-            if (onClickListener != null) {
+        public Section addItemView(final QMUICommonListItemView itemView, OnClickListener onClickListener, OnLongClickListener onLongClickListener) {
+//             如果本身带有开关控件，点击item时要改变开关控件的状态（开关控件本身已经disable掉）
+            if (itemView.getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
+                itemView.setOnClickListener(v -> itemView.getSwitch().toggle());
+            } else if (onClickListener != null) {
                 itemView.setOnClickListener(onClickListener);
             }
 
@@ -207,7 +206,7 @@ public class GroupListView extends LinearLayout {
          *
          * @return Section 本身, 支持链式调用
          */
-        public GroupListView.Section setTitle(CharSequence title) {
+        public Section setTitle(CharSequence title) {
             mTitleView = createSectionHeader(title);
             return this;
         }
@@ -217,22 +216,22 @@ public class GroupListView extends LinearLayout {
          *
          * @return Section 本身, 支持链式调用
          */
-        public GroupListView.Section setDescription(CharSequence description) {
+        public Section setDescription(CharSequence description) {
             mDescriptionView = createSectionFooter(description);
             return this;
         }
 
-        public GroupListView.Section setUseDefaultTitleIfNone(boolean useDefaultTitleIfNone) {
+        public Section setUseDefaultTitleIfNone(boolean useDefaultTitleIfNone) {
             mUseDefaultTitleIfNone = useDefaultTitleIfNone;
             return this;
         }
 
-        public GroupListView.Section setUseTitleViewForSectionSpace(boolean useTitleViewForSectionSpace) {
+        public Section setUseTitleViewForSectionSpace(boolean useTitleViewForSectionSpace) {
             mUseTitleViewForSectionSpace = useTitleViewForSectionSpace;
             return this;
         }
 
-        public GroupListView.Section setSeparatorDrawableRes(int single, int top, int bottom, int middle) {
+        public Section setSeparatorDrawableRes(int single, int top, int bottom, int middle) {
             mSeparatorDrawableForSingle = single;
             mSeparatorDrawableForTop = top;
             mSeparatorDrawableForBottom = bottom;
@@ -240,7 +239,7 @@ public class GroupListView extends LinearLayout {
             return this;
         }
 
-        public GroupListView.Section setSeparatorDrawableRes(int middle) {
+        public Section setSeparatorDrawableRes(int middle) {
             mSeparatorDrawableForMiddle = middle;
             return this;
         }
@@ -319,13 +318,14 @@ public class GroupListView extends LinearLayout {
             parent.removeSection(this);
         }
 
-        public void hideItem(int index){
+        public void hideItem(int index) {
             mItemViews.get(index).setVisibility(GONE);
         }
 
-        public void showItem(int index){
+        public void showItem(int index) {
             mItemViews.get(index).setVisibility(VISIBLE);
         }
+
         /**
          * 创建 Section Header，每个 Section 都会被创建一个 Header，有 title 时会显示 title，没有 title 时会利用 header 的上下 padding 充当 Section 分隔条
          */

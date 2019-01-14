@@ -77,11 +77,11 @@ public class EditTextUtil {
 
     private static void setTextColor(Context context, EditText editText, boolean hasFocus) {
         if (hasFocus) {
-            editText.setTextColor(context.getResources().getColor(R.color.material_colorAccent, null));
-            editText.setHintTextColor(context.getResources().getColor(R.color.material_colorAccent, null));
+            editText.setTextColor(context.getResources().getColor(R.color.colorAccent, null));
+            editText.setHintTextColor(context.getResources().getColor(R.color.colorAccent, null));
         } else {
-            editText.setTextColor(context.getResources().getColor(R.color.material_colorText_Icon, null));
-            editText.setHintTextColor(context.getResources().getColor(R.color.material_colorText_Icon, null));
+            editText.setTextColor(context.getResources().getColor(R.color.colorText_Icon, null));
+            editText.setHintTextColor(context.getResources().getColor(R.color.colorText_Icon, null));
         }
     }
 

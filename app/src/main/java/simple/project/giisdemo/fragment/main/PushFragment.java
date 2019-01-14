@@ -57,16 +57,12 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
     private void initBanner() {
 
         List<String> urls = new ArrayList<>();
-        urls.add("http://i2.bvimg.com/674115/addb8bf7318ec6c3.jpg");
-        urls.add("http://i2.bvimg.com/674115/e3d0c9bbe4eda843t.jpg");
-        urls.add("http://i2.bvimg.com/674115/819f73dc4ec87a7et.jpg");
+        urls.add("http://bugdoggy.com:7171/image/company_ad1");
+        urls.add("http://bugdoggy.com:7171/image/company_ad2");
         //解耦
         banner.loadData(urls).display();//构建者模式返回对象本身
-        banner.setBannerClicklistener(new BannerView.BannerClicklistener() {
-            @Override
-            public void onClickListener(int pos) {
+        banner.setBannerClicklistener(pos -> {
 
-            }
         });
     }
 

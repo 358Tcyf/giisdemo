@@ -1,7 +1,5 @@
 package simple.project.giisdemo.helper.custom;
 
-import android.app.Activity;
-import android.content.Context;
 import android.widget.Button;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
@@ -27,7 +25,7 @@ public class BaseFragmentView {
      * */
     public static void initBackAndTitle(QMUITopBarLayout mTopBar, QMUIFragmentActivity mActivity, int stringResId) {
         mTopBar.addLeftBackImageButton().setOnClickListener(v -> mActivity.popBackStack());
-        mTopBar.setTitle(stringResId).setTextColor(mActivity.getResources().getColor(R.color.material_colorText_Icon, null));
+        mTopBar.setTitle(stringResId).setTextColor(mActivity.getResources().getColor(R.color.colorText_Icon, null));
     }
 
     /*
@@ -35,7 +33,7 @@ public class BaseFragmentView {
      * */
     public static Button initRightTextButtoninitial(QMUITopBarLayout mTopBar, QMUIFragmentActivity mActivity, int stringResId, int viewId) {
         Button button = mTopBar.addRightTextButton(stringResId, viewId);
-        button.setTextColor(mActivity.getResources().getColor(R.color.material_colorText_Icon, null));
+        button.setTextColor(mActivity.getResources().getColor(R.color.colorText_Icon, null));
         return button;
     }
 

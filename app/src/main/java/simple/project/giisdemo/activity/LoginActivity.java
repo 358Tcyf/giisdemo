@@ -31,8 +31,15 @@ public class LoginActivity extends QMUIFragmentActivity {
         return R.id.login;
     }
 
+    private static int mTheme;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mTheme = (int) SPUtils.get(this, "theme", 0);
+        if (mTheme != 0) {
+            //设置主题
+            setTheme(mTheme);
+        }
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             BaseFragment mFragment = new LoginFragment();

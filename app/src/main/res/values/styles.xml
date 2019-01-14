@@ -1,25 +1,42 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
-        <item name="app_primary_color">@color/material_colorPrimary</item>
-        <item name="app_content_bg_color">@color/material_colorText_Icon</item>
-        <item name="colorPrimary">@color/material_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/material_colorPrimaryDark</item>
-        <item name="colorAccent">@color/material_colorAccent</item>
+    <style name="AppThemeDefault" parent="AppThemeLightBlue">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppThemeTeal" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/teal_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/teal_colorPrimaryDark</item>
+        <item name="colorAccent">@color/teal_colorAccent</item>
+    </style>
+
+    <style name="AppThemeLightBlue" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/lightblue_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/lightblue_colorPrimaryDark</item>
+        <item name="colorAccent">@color/lightblue_colorAccent</item>
+    </style>
+
+    <style name="AppThemeIndigo" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/indigo_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/indigo_colorPrimaryDark</item>
+        <item name="colorAccent">@color/indigo_colorAccent</item>
+
     </style>
 
     <style name="LoginTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/material_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/material_colorPrimaryDark</item>
-        <item name="colorAccent">@color/material_colorAccent</item>
+        <item name="colorPrimary">@color/teal_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/teal_colorPrimaryDark</item>
+        <item name="colorAccent">@color/teal_colorAccent</item>
     </style>
 
     <style name="ThemeSplash" parent="Theme.AppCompat.NoActionBar">
         <item name="android:background">@drawable/ic_background</item>
-        <item name="colorPrimary">@color/material_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/material_colorPrimaryDark</item>
-        <item name="colorAccent">@color/material_colorAccent</item>
+        <item name="colorPrimary">@color/teal_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/teal_colorPrimaryDark</item>
+        <item name="colorAccent">@color/teal_colorAccent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="windowActionBar">false</item>
@@ -32,4 +49,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
 </resources>

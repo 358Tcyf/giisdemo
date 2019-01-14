@@ -2,14 +2,11 @@ package simple.project.giisdemo.fragment.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.andrognito.flashbar.Flashbar;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 import org.aviran.cookiebar2.CookieBar;
@@ -25,12 +22,11 @@ import simple.project.giisdemo.R;
 import simple.project.giisdemo.activity.MainActivity;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.helper.utils.EditTextUtil;
-import simple.project.giisdemo.helper.utils.ToastUtil;
 import simple.project.giisdemo.mvp.presenter.login.LoginPresenter;
 import simple.project.giisdemo.mvp.view.login.LoginView;
 
 import static android.text.TextUtils.isEmpty;
-import static simple.project.giisdemo.helper.utils.FlashBarUtil.exitAcitivity;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.exitActivity;
 import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
 
 /**
@@ -172,7 +168,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     private void exit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
 //            Toast.makeText(getBaseFragmentActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();
-            exitAcitivity(getBaseFragmentActivity(), "再按一次退出应用");
+            exitActivity(getBaseFragmentActivity(), "再按一次退出应用");
             mExitTime = System.currentTimeMillis();
         } else {
             //用户退出处理
