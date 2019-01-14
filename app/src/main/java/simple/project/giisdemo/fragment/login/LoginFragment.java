@@ -2,13 +2,17 @@ package simple.project.giisdemo.fragment.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.andrognito.flashbar.Flashbar;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
+
+import org.aviran.cookiebar2.CookieBar;
 
 import java.util.Objects;
 
@@ -26,6 +30,7 @@ import simple.project.giisdemo.mvp.presenter.login.LoginPresenter;
 import simple.project.giisdemo.mvp.view.login.LoginView;
 
 import static android.text.TextUtils.isEmpty;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
 
 /**
  * @author Created by ys
@@ -75,11 +80,13 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
     private boolean validInput() {
         if (isEmpty(inputUser.getText().toString())) {
-            ToastUtil.showShort(getBaseFragmentActivity(), "user ID is empty");
+//            ToastUtil.showShort(getBaseFragmentActivity(), "user ID is empty");
+            flashBar("user ID is empty");
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputUser);
             return false;
         } else if (isEmpty(inputPasswd.getText().toString())) {
-            ToastUtil.showShort(getBaseFragmentActivity(), "password is empty");
+//            ToastUtil.showShort(getBaseFragmentActivity(), "password is empty");
+            flashBar("password is empty");
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputPasswd);
             return false;
         }
@@ -100,8 +107,20 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
     @Override
     public void showErrorMsg(String errorMsg) {
-       
-        ToastUtil.showShort(getBaseFragmentActivity(), errorMsg);
+        flashBar(errorMsg);
+//        ToastUtil.showShort(getBaseFragmentActivity(), errorMsg);
+    }
+
+    public void cookieBar(String errorMsg) {
+        CookieBar cookieBar = CookieBar.build(getBaseFragmentActivity())
+                .setMessage(errorMsg)
+                .setCookiePosition(CookieBar.BOTTOM)
+                .show();
+
+    }
+
+    public void flashBar(String errorMsg) {
+        loginError(getBaseFragmentActivity(), errorMsg);
     }
 
     @Override
@@ -131,7 +150,6 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     }
 
 
-
     //退出时的时间
     private long mExitTime;
 
@@ -152,7 +170,8 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     //退出方法
     private void exit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            Toast.makeText(getBaseFragmentActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getBaseFragmentActivity(), "再按一次退出应用", Toast.LENGTH_SHORT).show();
+            loginError(getBaseFragmentActivity(), "再按一次退出应用");
             mExitTime = System.currentTimeMillis();
         } else {
             //用户退出处理

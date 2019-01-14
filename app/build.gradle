@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'com.wlqq.phantom.host'
 
 android {
     compileSdkVersion 28
@@ -88,5 +89,9 @@ dependencies {
     /*Eventbus实现模块间通信*/
     implementation 'org.greenrobot:eventbus:3.1.1'
     /*热更新*/
-    implementation 'com.wlqq.phantom:phantom-host-gradle:3.1.2'
+//    implementation 'com.wlqq.phantom:phantom-host-lib:3.1.2'
+    /*替代QMUITipDialog的两个*/
+    implementation 'com.andrognito.flashbar:flashbar:1.0.2'
+    implementation 'org.aviran.cookiebar2:cookiebar2:1.1.0'
+
 }

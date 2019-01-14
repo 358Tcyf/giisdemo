@@ -81,10 +81,7 @@ public class FileUtil {
      */
     private static Boolean existPath(String existPath) {
         File file = new File(existPath);
-        if (file.exists())
-            return true;
-        else
-            return false;
+        return file.exists();
 
     }
 }

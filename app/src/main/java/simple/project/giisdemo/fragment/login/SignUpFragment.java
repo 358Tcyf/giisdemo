@@ -20,6 +20,7 @@ import simple.project.giisdemo.mvp.presenter.login.SignUpPresenter;
 import simple.project.giisdemo.mvp.view.login.SignUpView;
 
 import static android.text.TextUtils.isEmpty;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
 
 /**
  * @author Created by ys
@@ -83,23 +84,28 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
 
 
         if (isEmpty(inputName.getText().toString())) {
-            ToastUtil.showShort(getBaseFragmentActivity(), "name is empty");
+//            ToastUtil.showShort(getBaseFragmentActivity(), "name is empty");
+            flashBar("name is empty");
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputName);
             return false;
         } else if (isEmpty(inputPhone.getText().toString())) {
-            ToastUtil.showShort(getBaseFragmentActivity(), "phone is empty");
+//            ToastUtil.showShort(getBaseFragmentActivity(), "phone is empty");
+            flashBar("phone is empty");
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputPhone);
             return false;
         } else if (isEmpty(newPasswd.getText().toString())) {
-            ToastUtil.showShort(getBaseFragmentActivity(), "password is empty");
+//            ToastUtil.showShort(getBaseFragmentActivity(), "password is empty");
+            flashBar("password is empty");
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), newPasswd);
             return false;
         } else if (isEmpty(repeatPasswd.getText().toString())) {
-            ToastUtil.showShort(getBaseFragmentActivity(), "please input password again");
+//            ToastUtil.showShort(getBaseFragmentActivity(), "please input password again");
+            flashBar("please input password again");
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), repeatPasswd);
             return false;
         } else if (!newPasswd.getText().toString().equals(repeatPasswd.getText().toString())) {
-            ToastUtil.showShort(getBaseFragmentActivity(), "password is different");
+//            ToastUtil.showShort(getBaseFragmentActivity(), "password is different");
+            flashBar("password is different");
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), newPasswd);
             EditTextUtil.shakeAnimation(getBaseFragmentActivity(), repeatPasswd);
             return false;
@@ -125,7 +131,12 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
 
     @Override
     public void showErrorMsg(String errorMsg) {
-        ToastUtil.showShort(getBaseFragmentActivity(), errorMsg);
+        flashBar(errorMsg);
+//        ToastUtil.showShort(getBaseFragmentActivity(), errorMsg);
+    }
+
+    public void flashBar(String errorMsg) {
+        loginError(getBaseFragmentActivity(), errorMsg);
     }
 
     @Override
