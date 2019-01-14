@@ -24,6 +24,8 @@ import java.util.Map;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.helper.custom.GroupListView;
+import simple.project.giisdemo.helper.http.OnHttpCallBack;
+import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.helper.utils.DisplayUtil;
 import simple.project.giisdemo.helper.utils.MessageEvent;
 import simple.project.giisdemo.helper.utils.MyImagePicker;
@@ -175,20 +177,23 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
 
     public void savePic(Uri uri) {
         getModel().savePic(uri);
-        File pic = new File(uri.toString());
-        getModel().loadPic(pic);
+        if (uri != null)
+            getModel().uploadHeadImage(uri, new OnHttpCallBack<RetResult>() {
+                @Override
+                public void onSuccess(RetResult retResult) {
+
+                }
+
+                @Override
+                public void onFailed(String errorMsg) {
+
+                }
+            });
     }
 
     public void save() {
         if (uri != null)
             savePic(uri);
-
-        QMUITipDialog tipDialog = new QMUITipDialog.Builder(getView().getCurContext())
-                .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
-                .setTipWord("保存成功")
-                .create();
-        tipDialog.show();
-        new Handler().postDelayed(() -> tipDialog.dismiss(), 1000);
         Map<String, Object> message = new HashMap<String, Object>();
         message.put("userPic", uri);
         EventBus.getDefault().post(new MessageEvent(message));
