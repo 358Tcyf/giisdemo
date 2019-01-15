@@ -26,6 +26,7 @@ import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
 
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButtoninitial;
+import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicName;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 import static simple.project.giisdemo.helper.utils.SBUtil.bitmapToString;
 
@@ -74,9 +75,6 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
         Uri picUri = getUserPicPathUri(getBaseFragmentActivity());
         Intent intent = new Intent(getBaseFragmentActivity(), ShowImageActivity.class);
         intent.putExtra("image", picUri.toString());
-        Map<String, Object> message = new HashMap<String, Object>();
-        message.put("image", picUri);
-        EventBus.getDefault().post(new MessageEvent(message));
         startActivity(intent);
     }
 

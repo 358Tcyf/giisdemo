@@ -1,19 +1,14 @@
 package simple.project.giisdemo.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import simple.project.giisdemo.R;
-import simple.project.giisdemo.helper.custom.ZoomImageView;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
-import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 
 /**
  * @author Created by ys

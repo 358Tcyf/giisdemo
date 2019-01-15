@@ -1,75 +1,60 @@
 package simple.project.giisdemo.helper.custom;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.ScaleGestureDetector.OnScaleGestureListener;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 
-/**
- * @author Created by ys
- * @date at 2019/1/14 13:05
- * @describe
- */
-@SuppressLint("AppCompatCustomView")
-public class ZoomImageView extends ImageView implements ViewTreeObserver.OnGlobalLayoutListener, ScaleGestureDetector.OnScaleGestureListener, View.OnTouchListener {
-    @SuppressWarnings("unused")
-    private static final String TAG = "ZoomImageView";
+public class ZoomImageView extends android.support.v7.widget.AppCompatImageView implements OnGlobalLayoutListener, OnScaleGestureListener, OnTouchListener {
+    private boolean mOnce;
+    //初始化时所发的比例
+    private float mInitScale;
+    //双击后放大的比例
+    private float mMidScale;
+    //可以放大的最大比例
+    private float mMaxScale;
 
-    /**
-     * 最大放大倍数
-     */
-    public static final float mMaxScale = 4.0f;
+    private Matrix mMatrix;
 
-    /**
-     * 默认缩放
-     */
-    private float mInitScale = 1.0f;
-    /**
-     * 双击放大比例
-     */
-    private float mMidScale = 2.0f;
+    //通过ScaleGestureDetector可以获取到多点触控的缩放比例
+    private ScaleGestureDetector mScaleGestureDetector;
 
-    /**
-     * 检测缩放手势 多点触控手势识别 独立的类不是GestureDetector的子类
-     */
-    ScaleGestureDetector mScaleGestureDetector = null;//检测缩放的手势
-    /**
-     * 检测类似长按啊 轻按啊 拖动 快速滑动 双击啊等等 OnTouch方法虽然也可以
-     * 但是对于一些复杂的手势需求自己去通过轨迹时间等等判断很复杂,因此我们采用系统
-     * 提供的手势类进行处理
-     */
+    //--------------自由移动-------------
+
+    //记录上一次触控点的数量
+    private int mLastPointerCount;
+
+    //上次多点触控的中心点位置
+    private float mLastX;
+    private float mLastY;
+
+    private int MTouchSlop;
+    private boolean isCanDrag;
+
+    private boolean isCheckLeftAndRight;
+    private boolean isCheckTopAndBottom;
+
+    //-------------双击放大与缩小----------
     private GestureDetector mGestureDetector;
-    /**
-     * 如果正在缩放中就不向下执行,防止多次双击
-     */
-    private boolean mIsAutoScaling;
-    /**
-     * Matrix的对图像的处理
-     * Translate 平移变换
-     * Rotate 旋转变换
-     * Scale 缩放变换
-     * Skew 错切变换
-     */
-    Matrix mScaleMatrix = new Matrix();
 
-    /**
-     * 处理矩阵的9个值
-     */
-    float[] mMartixValue = new float[9];
+    //是否正在进行缓慢缩放
+    private boolean isAutoScale;
+
 
     public ZoomImageView(Context context) {
-        this(context, null);
+        this(context,null);
     }
 
     public ZoomImageView(Context context, AttributeSet attrs) {
@@ -78,406 +63,395 @@ public class ZoomImageView extends ImageView implements ViewTreeObserver.OnGloba
 
     public ZoomImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setScaleType(ScaleType.MATRIX);
-        mScaleGestureDetector = new ScaleGestureDetector(context, this);
-        this.setOnTouchListener(this); //缩放的捕获要建立在setOnTouchListener上
-        //符合滑动的距离 它获得的是触发移动事件的最短距离，如果小于这个距离就不触发移动控件，
-        //如viewpager就是用这个距离来判断用户是否翻页
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        //监听双击事件 SimpleOnGestureListener是OnGestureListener接口实现类,
-        //使用这个复写需要的方法就可以不用复写所有的方法
-        mGestureDetector = new GestureDetector(context,
-                new GestureDetector.SimpleOnGestureListener() {
-                    @Override
-                    public boolean onDoubleTap(MotionEvent e) {
-                        //如果正在缩放中就不向下执行,防止多次双击
-                        if (mIsAutoScaling) {
-                            return true;
-                        }
-                        //缩放的中心点
-                        float x = e.getX();
-                        float y = e.getY();
-                        //如果当前缩放值小于这个临界值 则进行放大
-                        if (getScale() < mMidScale) {
-                            mIsAutoScaling = true;
-                            //view中的方法 已x,y为坐标点放大到mMidScale 延时10ms
-                            postDelayed(new AutoScaleRunble(mMidScale, x, y), 16);
-                        } else {
-                            //如果当前缩放值大于这个临界值 则进行缩小操作 缩小到mInitScale
-                            mIsAutoScaling = true;
-                            postDelayed(new AutoScaleRunble(mInitScale, x, y), 16);
-                        }
-                        return true;
-                    }
+        Log.i("ZoomImageView构造方法","ZoomImageView构造方法");
+        mMatrix = new Matrix();
+        super.setScaleType(ScaleType.MATRIX);
+        mScaleGestureDetector = new ScaleGestureDetector(context,this);
+        setOnTouchListener(this);
+        MTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        mGestureDetector = new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
 
-                });
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                //如果此刻正在进行自动的缓慢缩放,则禁止用户双击缩放
+                if (isAutoScale){
+                    return true;
+                }
+
+                float x = e.getX();
+                float y = e.getY();
+
+                if (getScale() < mMidScale) {
+//                    mMatrix.postScale(mMidScale / getScale(),mMidScale / getScale(),x,y);
+//                    setImageMatrix(mMatrix);
+                    postDelayed(new AutoScaleRunnable(mMidScale,x,y),16);
+                }
+                else {
+//                    mMatrix.postScale(mInitScale / getScale(),mInitScale / getScale(),x,y);
+//                    setImageMatrix(mMatrix);
+                    postDelayed(new AutoScaleRunnable(mInitScale,getWidth()/2,getHeight()/2),16);
+
+                }
+                isAutoScale = true;
+                return true;
+            }
+        });
     }
 
+
+    //当此view附加到窗体上时调用该方法
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        //添加全局布局监听
         getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
-    //suppress deprecate warning because i have dealt with it
+    //当此view从窗体上消除时调用该方法
     @Override
-    @SuppressWarnings("deprecation")
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-            getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        }
-        getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        //移除全局布局监听
+        getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
 
-
-    //--------------------------implement OnTouchListener----------------------------/
     /**
-     * 处理现图片放大后移动查看
+     *  获取ImageView加载完成的图片
      */
-    private int mLastPointCount;//触摸点发生移动时的触摸点个数
-    private boolean isCanDrag;//判断是否可以拖拽
-    private float mLatX;//记录移动之前按下去的那个坐标点
-    private float mLastY;
-    private int mTouchSlop;//系统默认触发移动事件的最短距离
-    private boolean isCheckTopAndBottom;//是否可以上下拖动
-    private boolean isCheckLeftAndRight;//是否可以左右拖动
-
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        //双击事件进行关联
-        if (mGestureDetector.onTouchEvent(event)) {
-            //如果是双击的话就直接不向下执行了
-            return true;
-        }
-        //将事件传递给ScaleGestureDetector
-        mScaleGestureDetector.onTouchEvent(event);
+    public void onGlobalLayout() {
+        //由于onGlobalLayout可能会被调用多次,我们使用一个标志mOnce来判断是否已经调用
+        if (!mOnce) {
+            //获得此View的宽和高
+            float width = getWidth();
+            float height = getHeight();
+            Log.i("onGlobalLayout Width",width+"");
+            Log.i("onGlobalLayout height",height+"");
+            //得到图片及其宽高
+            Drawable d = getDrawable();
+            if (d == null) {
+                return;
+            }
+            float dw = d.getIntrinsicWidth();
+            float dh = d.getIntrinsicHeight();
+            Log.i("onGlobalLayout dw",dw+"");
+            Log.i("onGlobalLayout dh",dh+"");
+            /**
+             *  比较图片的尺寸与此View的尺寸,如果图片的尺寸比此View的尺寸大,
+             *  则缩放,反之,则放大,以达到与此View尺寸一致
+             */
 
-        float x = 0;
-        float y = 0;
-        //可能出现多手指触摸的情况 ACTION_DOWN事件只能执行一次所以多点触控不能在down事件里面处理
-        int pointerCount = event.getPointerCount();
-        for (int i = 0; i < pointerCount; i++) {
-            x += event.getX(i);
-            y += event.getY(i);
+            //缩放比例
+            float scale = 1.0f;
+
+            //如果图片宽度比此View宽度大,且高度比此View小,则以宽度的比例缩小
+            if (dw > width && dh < height) {
+                scale = width / dw;
+            }
+
+            //如果图片宽度比此View宽度小,且高度比此View大,则以高度的比例缩小
+            if (dw < width && dh > height) {
+                scale = height / dh;
+            }
+
+            //如果图片宽度比此View宽度大,且高度比此View大,则以高度的比例与宽度的比例中大的一者缩小
+            if ( (dw > width && dh > height) || (dw < width && dh < height) ) {
+                scale = Math.max(width / dw,height/ dh);
+            }
+
+            //如果图片宽度比此View宽度小,且高度比此View小,则以高度的比例与宽度的比例中小的一者放大
+            if (dw < width && dh < height) {
+                scale = Math.min(width / dw,height / dh);
+            }
+
+            //分别设置初始化时的比例,双击后的比例,可以放大的最大比例
+            mInitScale = scale;
+            mMidScale = scale * 2;
+            mMaxScale = scale * 4;
+            //将图片移动到此View的中心
+            float dx = width / 2 - dw / 2;//需要移动的x方向的距离
+            float dy = height / 2 - dh / 2;//需要移动的y方向的距离
+
+            //设置平移
+            mMatrix.postTranslate(dx,dy);
+            //设置缩放
+            mMatrix.postScale(mInitScale,mInitScale,width / 2,height / 2 );
+            setImageMatrix(mMatrix);
+
+            mOnce = true;
         }
-        //取平均值，得到的就是多点触控后产生的那个点的坐标
-        x /= pointerCount;
-        y /= pointerCount;
-        //每当触摸点发生移动时(从静止到移动)，重置mLasX , mLastY mLastPointCount防止再次进入
-        if (mLastPointCount != pointerCount) {
-            //这里加一个参数并且设置成false的目的是，要判断位移的距离是否符合触发移动事件的最短距离
-            isCanDrag = false;
-            //记录移动之前按下去的那个坐标点，记录的值类似于断点续移，下次移动的时候从这个点开始
-            mLatX = x;
-            mLastY = y;
-        }
-        //重新赋值 说明如果是一些列连续滑动的操作就不会再次进入上面的判断 否则会重新确定坐标移动原点
-        mLastPointCount = pointerCount;
-        RectF rectF = getMatrixRectF();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                //按下的时候如果发现图片缩放宽或者高大于屏幕宽高则请求viewpager不拦截事件交给ZoomImageView处理
-                //ZoomImageView可以进行缩放操作
-                if (rectF.width() > getWidth() || rectF.height() > getHeight()) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                //按下的时候如果发现图片缩放宽或者高大于屏幕宽高则请求viewpager不拦截事件交给ZoomImageView处理
-                //ZoomImageView可以进行缩放操作
-                if (rectF.width() > getWidth() || rectF.height() > getHeight()) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                }
-                //x,y移动的距离
-                float dx = x - mLatX;
-                float dy = y - mLastY;
-                //如果是不能拖拽,可能是因为手指变化,这时就去重新检测看看是不是符合滑动
-                if (!isCanDrag) {
-                    //反正是根据勾股定理,调用系统API
-                    isCanDrag = isMoveAction(dx, dy);
-                    Log.e(TAG, "移动3---->" + pointerCount);
-                }
-                if (isCanDrag) {
-                    if (getDrawable() != null) {
-                        //判断是宽或者高小于屏幕,就不在那个方向进行拖拽
-                        isCheckLeftAndRight = isCheckTopAndBottom = true;
-                        if (rectF.width() < getWidth()) {//如果图片宽度小于控件宽度
-                            isCheckLeftAndRight = false;
-                            dx = 0;
-                        }
-                        if (rectF.height() < getHeight()) { //如果图片的高度小于控件的高度
-                            isCheckTopAndBottom = false;
-                            dy = 0;
-                        }
-                        mScaleMatrix.postTranslate(dx, dy);
-                        //解决拖拽的时候左右 上下都会出现留白的情况
-                        checkBorderAndCenterWhenTranslate();
-                        setImageMatrix(mScaleMatrix);
-                    }
-                }
-                mLatX = x;//记录的值类似于断点续移，下次移动的时候从这个点开始
-                mLastY = y;
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                mLastPointCount = 0;//抬起或者取消事件时候把这个置空
-                break;
-        }
-        return true;
     }
 
-    //----------------------手势implement OnScaleGestureListener------------------------//
+    //获取当前图片的缩放比例
+    public float getScale(){
+        float[] values = new float[9];
+        mMatrix.getValues(values);
+        return values[Matrix.MSCALE_X];
+    }
 
     /**
-     * 处理图片缩放
+     * 缩放区间:[initScale,maxScale]
      */
     @Override
     public boolean onScale(ScaleGestureDetector detector) {
-        float scale = getScale();//当前相对于初始尺寸的缩放（之前matrix中获得）
-        Log.e(TAG, "matrix scale---->" + scale);
-        float scaleFactor = detector.getScaleFactor();//这个时刻缩放的/当前缩放尺度 （现在手势获取）
-        Log.e(TAG, "scaleFactor---->" + scaleFactor);
-        if (getDrawable() == null)
-            return true;
-        if ((scale < mMaxScale && scaleFactor > 1.0f) //放大
-                || (scale > mInitScale && scaleFactor < 1.0f)) {//缩小
-            //如果要缩放的值比初始化还要小的话,就按照最小可以缩放的值进行缩放
-            if (scaleFactor * scale < mInitScale) {
-                scaleFactor = mInitScale / scale;
-                Log.e(TAG, "进来了1" + scaleFactor);
-            }
-            ///如果要缩放的值比最大缩放值还要大,就按照最大可以缩放的值进行缩放
-            if (scaleFactor * scale > mMaxScale) {
-                scaleFactor = mMaxScale / scale;
-                Log.e(TAG, "进来了2---->" + scaleFactor);
-            }
-            Log.e(TAG, "scaleFactor2---->" + scaleFactor);
-            //设置缩放比例
-            mScaleMatrix.postScale(scaleFactor, scaleFactor,
-                    detector.getFocusX(), detector.getFocusY());//缩放中心是两手指之间
-            checkBorderAndCenterWhenScale();//解决这种缩放导致缩放到最小时图片位置可能发生了变化
+        //获取当前图片的缩放比例
+        float scale = getScale();
+        //多点触控缩放比例
+        float scaleFactor = detector.getScaleFactor();
 
-//            mScaleMatrix.postScale(scaleFactor, scaleFactor,
-//                    getWidth() / 2, getHeight() / 2);//缩放中心是屏幕中心点
-            setImageMatrix(mScaleMatrix);//通过手势给图片设置缩放
+        if (getDrawable() == null){
+            return true;
         }
-        //返回值代表本次缩放事件是否已被处理。如果已被处理，那么detector就会重置缩放事件；
-        // 如果未被处理，detector会继续进行计算，修改getScaleFactor()的返回值，直到被处理为止。
-        // 因此，它常用在判断只有缩放值达到一定数值时才进行缩放
+
+        //进行缩放范围的控制
+        if ((scale < mMaxScale && scaleFactor > 1.0f) || (scale > mInitScale && scaleFactor < 1.0f)) {
+            if (scale * scaleFactor < mInitScale) {
+                scaleFactor = mInitScale / scale;
+            }
+            if (scale * scaleFactor > mMaxScale) {
+                scaleFactor = mMaxScale / scale;
+            }
+            //缩放
+            mMatrix.postScale(scaleFactor,scaleFactor,detector.getFocusX(),detector.getFocusY());
+            //在缩放的时候进行边界以及位置的控制
+            checkBorderAndCenterWhenScale();
+
+            setImageMatrix(mMatrix);
+        }
+
         return true;
+    }
+
+    //在缩放的时候进行边界以及位置的控制
+    private void checkBorderAndCenterWhenScale() {
+        RectF rectf = getMatrixRectF();
+
+        float deltaX = 0;
+        float deltaY = 0;
+
+        int width = getWidth();
+        int height = getHeight();
+
+        //缩放时进行边界检测,防止出现留白
+        if (rectf.width() >= width) {
+            if (rectf.left > 0) {
+                deltaX = -rectf.left;
+            }
+            if (rectf.right < width) {
+                deltaX = width - rectf.right;
+            }
+        }
+        if (rectf.height() >= height) {
+            if (rectf.top > 0) {
+                deltaY = -rectf.top;
+            }
+            if (rectf.bottom < height) {
+                deltaY = height - rectf.bottom;
+            }
+        }
+
+        //如果宽度或者高度小于控件的宽度或高度,则让其居中
+        if (rectf.width() < width) {
+            deltaX = width / 2f - rectf.right + rectf.width() / 2f;
+        }
+        if (rectf.height() < height) {
+            deltaY = height / 2f - rectf.bottom + rectf.height() / 2f;
+        }
+
+        mMatrix.postTranslate(deltaX,deltaY);
+
+    }
+
+    //获得图片缩放后的宽高,以及top,bottom,left,right
+    private RectF getMatrixRectF(){
+        Matrix matrix = mMatrix;
+        RectF rectf = new RectF();
+        Drawable d = getDrawable();
+        if (d != null) {
+            rectf.set(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
+            matrix.mapRect(rectf);
+        }
+        return rectf;
     }
 
     @Override
     public boolean onScaleBegin(ScaleGestureDetector detector) {
-        //缩放开始一定要返回true该detector是否处理后继的缩放事件。返回false时，不会执行onScale()
         return true;
     }
 
     @Override
     public void onScaleEnd(ScaleGestureDetector detector) {
-        //缩放结束时
+
     }
 
-    boolean once = true;
-
-    /**
-     * 图片初始化其大小 必须在onAttachedToWindow方法后才能获取宽高
-     */
     @Override
-    public void onGlobalLayout() {
-        if (!once)
-            return;
-        Drawable d = getDrawable();
-        if (d == null)
-            return;
-        //获取imageview宽高
-        int width = getWidth();
-        int height = getHeight();
+    public boolean onTouch(View v, MotionEvent event) {
 
-        //获取图片宽高
-        int imgWidth = d.getIntrinsicWidth();
-        int imgHeight = d.getIntrinsicHeight();
+        if (mGestureDetector.onTouchEvent(event)) {
+            return true;
+        }
+        mScaleGestureDetector.onTouchEvent(event);
 
-        float scale = 1.0f;
+        float x = 0;
+        float y = 0;
+        int pointerCount = event.getPointerCount();
 
-        //如果图片的宽或高大于屏幕，缩放至屏幕的宽或者高
-        if (imgWidth > width && imgHeight <= height)
-            scale = (float) width / imgWidth;
-        if (imgHeight > height && imgWidth <= width)
-            scale = (float) height / imgHeight;
-        //如果图片宽高都大于屏幕，按比例缩小
-        if (imgWidth > width && imgHeight > height)
-            scale = Math.min((float) imgWidth / width, (float) imgHeight / height);
-        mInitScale = scale;
-        //将图片移动至屏幕中心
-        mScaleMatrix.postTranslate((width - imgWidth) / 2, (height - imgHeight) / 2);
-        mScaleMatrix.postScale(scale, scale, getWidth() / 2, getHeight() / 2);
-        setImageMatrix(mScaleMatrix);
-        once = false;
+        //累加x和y方向的距离
+        for (int i = 0; i < pointerCount; i++){
+            x += event.getX(i);
+            y += event.getY(i);
+        }
+
+        //获得中心点位置
+        x /= pointerCount;
+        y /= pointerCount;
+
+        if (mLastPointerCount != pointerCount) {
+            isCanDrag = false;
+            mLastX = x;
+            mLastY = y;
+        }
+
+        mLastPointerCount = pointerCount;
+
+        RectF rectF = getMatrixRectF();
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                /**
+                 * 此View在ViewPager中使用时,图片放大后自由移动的事件会与
+                 * ViewPager的左右切换的事件发生冲突,导致图片放大后如果左右
+                 * 移动时不能自由移动图片,而是使ViewPager切换图片.这是由于事
+                 * 件分发时外层的优先级比内层的高,使用下列判断可以解决
+                 */
+                if (rectF.width() > getWidth() || rectF.height() > getHeight()) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (rectF.width() > getWidth() || rectF.height() > getHeight()) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                }
+
+                //偏移量
+                float dx = x - mLastX;
+                float dy = y - mLastY;
+
+                if (!isCanDrag){
+                    isCanDrag = isMoveAction(dx,dy);
+                }
+                if (isCanDrag) {
+                    if (getDrawable() != null) {
+                        isCheckLeftAndRight = true;
+                        isCheckTopAndBottom = true;
+
+                        //如果宽度小于控件的宽度,不允许横向移动
+                        if (rectF.width() < getWidth()) {
+                            isCheckLeftAndRight = false;
+                            dx = 0;
+                        }
+
+                        //如果高度小于控件的高度,不允许纵向移动
+                        if (rectF.height() < getHeight()) {
+                            isCheckTopAndBottom = false;
+                            dy = 0;
+                        }
+
+                        mMatrix.postTranslate(dx,dy);
+                        //当自由移动时进行边界检查,防止留白
+                        checkBorderWhenTranslate();
+                        setImageMatrix(mMatrix);
+                    }
+                }
+                mLastX = x;
+                mLastY = y;
+                break;
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                mLastPointerCount = 0;
+                break;
+        }
+
+        return true;
     }
 
-    /**
-     * 获取当前缩放比例
-     */
-    public float getScale() {
-        //Matrix为一个3*3的矩阵，一共9个值,复制到这个数组当中
-        mScaleMatrix.getValues(mMartixValue);
-        return mMartixValue[Matrix.MSCALE_X];//取出图片宽度的缩放比例
-    }
-
-    /**
-     * 在缩放时，解决上下左右留白的情况
-     */
-    private void checkBorderAndCenterWhenScale() {
+    //当自由移动时进行边界检查,防止留白
+    private void checkBorderWhenTranslate() {
         RectF rectF = getMatrixRectF();
         float deltaX = 0;
         float deltaY = 0;
+
         int width = getWidth();
         int height = getHeight();
-        // 如果宽或高大于屏幕，则控制范围
-        if (rectF.width() >= width) {
-            if (rectF.left > 0) {
-                deltaX = -rectF.left;//获取坐标留白的距离
-                Log.e(TAG, "宽有问题1---->" + rectF.width() + "--" + rectF.left + "--" + width);
-            }
-            if (rectF.right < width) {
-                //屏幕宽-屏幕已经占据的大小 得到右边留白的宽度
-                deltaX = width - rectF.right;
-                Log.e(TAG, "宽有问题2---->" + rectF.width() + "--" + rectF.left + "--" + width);
-            }
-        }
-        if (rectF.height() >= height) {
-            if (rectF.top > 0) {
-                deltaY = -rectF.top;//同上，获取上面留白的距离
-            }
-            if (rectF.bottom < height) {//同上 获取下面留白的距离
-                deltaY = height - rectF.bottom;
-            }
-        }
-        // 如果宽或高小于屏幕，则让其居中
-        if (rectF.width() < width) {
-            //图片的中心点距离屏幕的中心点距离计算（画个图很明了）
-            deltaX = width * 0.5f - rectF.right + 0.5f * rectF.width();
-            Log.e(TAG, "宽有问题3---->" + rectF.width() + "--" + rectF.right + "结果" + deltaX);
-        }
-        if (rectF.height() < height) {
-            deltaY = height * 0.5f - rectF.bottom + 0.5f * rectF.height();
-            Log.e(TAG, "高有问题4---->" + rectF.height() + "--" + rectF.bottom + "结果" + deltaY);
-        }
-        mScaleMatrix.postTranslate(deltaX, deltaY);
-    }
 
-    /**
-     * 获得图片放大缩小以后的宽和高，以及l,r,t,b
-     */
-    private RectF getMatrixRectF() {
-        Matrix rMatrix = mScaleMatrix;//获得当前图片的矩阵
-        RectF rectF = new RectF();//创建一个空矩形
-        Drawable d = getDrawable();
-
-        if (d != null) {
-            //使这个矩形的宽和高同当前图片一致
-            //设置坐标位置(l和r是左边矩形的坐标点 tb是右边矩形的坐标点 lr设置为0就是设置为原宽高)
-            rectF.set(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
-            //将矩阵映射到矩形上面，之后我们可以通过获取到矩阵的上下左右坐标以及宽高
-            //来得到缩放后图片的上下左右坐标和宽高
-            rMatrix.mapRect(rectF);//把坐标位置放入矩阵
-        }
-        return rectF;
-    }
-
-    /**
-     * 判断是否可以拖动
-     */
-    private boolean isMoveAction(float dx, float dy) {
-        return Math.sqrt(dx * dx + dy * dy) > mTouchSlop;
-    }
-
-    /**
-     * 放大移动的过程中解决上下左右留白的情况
-     */
-    private void checkBorderAndCenterWhenTranslate() {
-        RectF rectF = getMatrixRectF();
-        float deltax = 0;
-        float deltay = 0;
-        int width = getWidth();
-        int height = getHeight();
-        //可以上下拖动且距离屏幕上方留白 根据Android系统坐标系往上移动的值要取负值
         if (rectF.top > 0 && isCheckTopAndBottom) {
-            deltay = -rectF.top;
-            Log.e(TAG, "上面留白距离---->" + rectF.top);
+            deltaY = -rectF.top;
         }
-        //可以上下拖动且距离屏幕底部留白 根据Android系统坐标系往下移动的值要取正值
         if (rectF.bottom < height && isCheckTopAndBottom) {
-            deltay = height - rectF.bottom;
-            Log.e(TAG, "下面留白距离---->" + rectF.bottom);
+            deltaY = height - rectF.bottom;
         }
-        //可以左右拖动且左边留白 根据Android系统坐标系往左移动的值要取负值
         if (rectF.left > 0 && isCheckLeftAndRight) {
-            deltax = -rectF.left;
-            Log.e(TAG, "左边留白距离---->" + rectF.left);
+            deltaX = -rectF.left;
         }
-        //可以左右拖动且右边留白 根据Android系统坐标系往右移动的值要取正值
         if (rectF.right < width && isCheckLeftAndRight) {
-            deltax = width - rectF.right;
-            Log.e(TAG, "右边留白距离---->" + rectF.right);
+            deltaX = width -rectF.right;
         }
-        mScaleMatrix.postTranslate(deltax, deltay);//处理偏移量
+
+        mMatrix.postTranslate(deltaX,deltaY);
+
+
     }
 
-    /**
-     * View.postDelay()方法延时执行双击放大缩小 在主线程中运行 没隔16ms给用户产生过渡的效果的
-     */
-    private class AutoScaleRunble implements Runnable {
-        private float mTrgetScale;//缩放目标值
-        private float x;//缩放中心点
-        private float y;
-        private float tempScale;//可能是BIGGER可能是SMALLER
-        private float BIGGER = 1.07f;
-        private float SMALLER = 0.93f;
+    //判断是否足以触发MOVE事件
+    private boolean isMoveAction(float dx, float dy) {
+        return Math.sqrt(dx * dx + dy * dy) > MTouchSlop;
+    }
 
-        //构造传入缩放目标值,缩放的中心点
-        public AutoScaleRunble(float mTrgetScale, float x, float y) {
-            this.mTrgetScale = mTrgetScale;
+
+    //实现缓慢缩放
+    private class AutoScaleRunnable implements Runnable{
+        //缩放的目标比例
+        private float mTargetScale;
+        //缩放的中心点
+        private float x;
+        private float y;
+
+        private final float BIGGER = 1.07f;
+        private final float SMALLER = 0.93f;
+
+        //临时缩放比例
+        private float tempScale;
+
+        public AutoScaleRunnable(float mTargetScale,float x,float y) {
+            this.mTargetScale = mTargetScale;
             this.x = x;
             this.y = y;
-            if (getScale() < mTrgetScale) {//双击放大
-                //这个缩放比1f大就行 随便取个1.07
+            if (getScale() < mTargetScale) {
                 tempScale = BIGGER;
             }
-            if (getScale() > mTrgetScale) {//双击缩小
-                //这个缩放比1f小就行 随便取个0.93
+            if (getScale() > mTargetScale) {
                 tempScale = SMALLER;
             }
         }
 
         @Override
         public void run() {
-            //执行缩放
-            mScaleMatrix.postScale(tempScale, tempScale, x, y);
-            //在缩放时，解决上下左右留白的情况
+            //进行缩放
+            mMatrix.postScale(tempScale,tempScale,x,y);
             checkBorderAndCenterWhenScale();
-            setImageMatrix(mScaleMatrix);
-            //获取当前的缩放值
+            setImageMatrix(mMatrix);
+
             float currentScale = getScale();
-            //如果当前正在放大操作并且当前的放大尺度小于缩放的目标值,或者正在缩小并且缩小的尺度大于目标值
-            //则再次延时16ms递归调用直到缩放到目标值
-            if ((tempScale > 1.0f && currentScale < mTrgetScale) || (tempScale <
-                    1.0f && currentScale > mTrgetScale)) {
-                postDelayed(this, 16);
-            } else {
-                //代码走到这儿来说明不能再进行缩放了，可能放大的尺寸超过了mTrgetScale，
-                //也可能缩小的尺寸小于mTrgetScale
-                //所以这里我们mTrgetScale / currentScale 用目标缩放尺寸除以当前的缩放尺寸
-                //得到缩放比，重新执行缩放到
-                //mMidScale或者mInitScale
-                float scale = mTrgetScale / currentScale;
-                mScaleMatrix.postScale(scale, scale, x, y);
+            //如果可以放大或者缩小
+            if ((tempScale > 1.0f && currentScale < mTargetScale) || (tempScale < 1.0f && currentScale > mTargetScale) ){
+                postDelayed(this,16);
+            }
+            //设置为目标缩放比例
+            else {
+                float scale = mTargetScale / currentScale;
+                mMatrix.postScale(scale,scale,x,y);
                 checkBorderAndCenterWhenScale();
-                setImageMatrix(mScaleMatrix);
-                //执行完成后重置
-                mIsAutoScaling = false;
+                setImageMatrix(mMatrix);
+                isAutoScale = false;
             }
         }
     }

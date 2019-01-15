@@ -3,6 +3,7 @@ package simple.project.giisdemo.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
@@ -22,8 +23,11 @@ import simple.project.giisdemo.helper.utils.MessageEvent;
  * @describe
  */
 public class ShowImageActivity extends QMUIFragmentActivity {
-    @BindView(R.id.show_image)
-    ZoomImageView showImage;
+
+    @BindView(R.id.image_view)
+    AppCompatImageView imageView;
+    @BindView(R.id.zoom_image_view)
+    ZoomImageView zoomImageView;
 
 
     @Override
@@ -38,15 +42,16 @@ public class ShowImageActivity extends QMUIFragmentActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
-        String stringExtra = intent.getStringExtra("image");
-        Uri uri = Uri.parse(stringExtra);
-        showImage.setImageURI(uri);
+        String picUri = intent.getStringExtra("image");
+        Uri uri = Uri.parse(picUri);
+        zoomImageView.setImageURI(uri);
+//        imageView.setImageURI(uri);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
-        if (messageEvent.getMessage().containsKey("image"))
-            showImage.setImageURI((Uri) messageEvent.getMessage().get("image"));
+
     }
 
     @Override

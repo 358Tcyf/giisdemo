@@ -76,6 +76,11 @@ public class FileUtil {
         else return null;
     }
 
+    public static String getUserPicName(Context context) {
+        String picName = SPUtils.get(context, USER_PHONE, "default") + "_pic.png";
+        return picName;
+    }
+
     /**
      * 判断文件是否存在
      */
