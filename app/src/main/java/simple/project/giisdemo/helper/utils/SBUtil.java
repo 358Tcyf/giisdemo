@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
  * @describe
  */
 public class SBUtil {
-    public static final Bitmap stringToBitmap(String string) {
+    public static Bitmap stringToBitmap(String string) {
         // 将字符串转换成Bitmap类型
         Bitmap bitmap = null;
         try {
@@ -26,7 +26,7 @@ public class SBUtil {
         return bitmap;
     }
 
-    public static final String bitmapToString(Bitmap bitmap) {
+    public static String bitmapToString(Bitmap bitmap) {
         //将Bitmap转换成字符串
         String string = null;
         ByteArrayOutputStream bStream = new ByteArrayOutputStream();

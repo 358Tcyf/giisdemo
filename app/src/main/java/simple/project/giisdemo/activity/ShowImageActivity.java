@@ -1,7 +1,6 @@
 package simple.project.giisdemo.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,9 +15,6 @@ import butterknife.ButterKnife;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.helper.custom.ZoomImageView;
 import simple.project.giisdemo.helper.utils.MessageEvent;
-
-import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
-import static simple.project.giisdemo.helper.utils.SBUtil.stringToBitmap;
 
 /**
  * @author Created by ys
@@ -42,14 +38,15 @@ public class ShowImageActivity extends QMUIFragmentActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         Intent intent = getIntent();
-        String stringExtra= intent.getStringExtra("image");
+        String stringExtra = intent.getStringExtra("image");
         Uri uri = Uri.parse(stringExtra);
         showImage.setImageURI(uri);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
-        showImage.setImageURI((Uri) messageEvent.getMessage().get("image"));
+        if (messageEvent.getMessage().containsKey("image"))
+            showImage.setImageURI((Uri) messageEvent.getMessage().get("image"));
     }
 
     @Override

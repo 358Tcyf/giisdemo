@@ -57,12 +57,21 @@ public class GlobalField extends Application {
     /*系统设置*/
     public static final String[] languages = new String[]{"跟随系统", "简体中文", "繁体中文", "英语"};
 
-    public static final String[] themes = new String[]{"默认", "TEAL", "LIGHT_BLUE", "INDIGO"};
+    public static final String[] themes = new String[]{"默认", "TEAL", "LIGHT_BLUE", "INDIGO"
+            , "少女粉", "基佬紫", "胖次蓝", "草苗绿", "咸蛋黄", "姨妈红"};
 
     public static final int DEFAULT = 0;
     public static final int TEAL = 1;
     public static final int LIGHT_BLUE = 2;
     public static final int INDIGO = 3;
+    public static final int CARD_SAKURA = 4;
+    public static final int CARD_HOPE = 5;
+    public static final int CARD_STORM = 6;
+    public static final int CARD_WOOD = -1;
+    public static final int CARD_LIGHT = 7;
+    public static final int CARD_THUNDER = 8;
+    public static final int CARD_SAND = -2;
+    public static final int CARD_FIREY = 9;
 
 
 }

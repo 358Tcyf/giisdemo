@@ -18,6 +18,8 @@ import simple.project.giisdemo.helper.custom.BannerView;
 import simple.project.giisdemo.mvp.presenter.main.PushPresenter;
 import simple.project.giisdemo.mvp.view.main.PushView;
 
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitle;
+
 /**
  * @author Created by ys
  * @date at 2019/1/8 19:00
@@ -28,13 +30,14 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
     @BindView(R.id.banner)
     BannerView banner;
     @BindView(R.id.topbar)
-    QMUITopBarLayout topbar;
+    QMUITopBarLayout mTopBar;
     private Unbinder unbinder;
 
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_push, null);
         unbinder = ButterKnife.bind(this, view);
+        initTitle(mTopBar, getBaseFragmentActivity(), R.string.push);
         initSearchIcon();
         initBanner();
         return view;
@@ -47,7 +50,7 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
 
     @SuppressLint("ResourceAsColor")
     private void initSearchIcon() {
-        topbar.addRightImageButton(R.drawable.ic_search, R.id.search).setOnClickListener(v -> {
+        mTopBar.addRightImageButton(R.drawable.ic_search, R.id.search).setOnClickListener(v -> {
             toSearch();
         });
 
@@ -57,8 +60,8 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
     private void initBanner() {
 
         List<String> urls = new ArrayList<>();
-        urls.add("http://bugdoggy.com:7171/image/company_ad1");
-        urls.add("http://bugdoggy.com:7171/image/company_ad2");
+        urls.add("http://bugdoggy.com:7171/file/company_ad1");
+        urls.add("http://bugdoggy.com:7171/file/company_ad2");
         //解耦
         banner.loadData(urls).display();//构建者模式返回对象本身
         banner.setBannerClicklistener(pos -> {

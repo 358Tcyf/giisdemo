@@ -2,11 +2,13 @@ package simple.project.giisdemo.fragment.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 import org.aviran.cookiebar2.CookieBar;
@@ -93,13 +95,17 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     @Override
     public void toMain() {
         Intent intent = new Intent(getBaseFragmentActivity(), MainActivity.class);
+        intent.putExtra("flag", 0);
         startActivity(intent);
+        getBaseFragmentActivity()
+                .overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         getBaseFragmentActivity().finish();
     }
 
     @Override
     public void toSignUp() {
-        startFragment(new SignUpFragment());
+        QMUIFragment signUpFragment = new SignUpFragment();
+        startFragment(signUpFragment);
     }
 
     @Override

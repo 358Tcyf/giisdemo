@@ -1,5 +1,6 @@
 package simple.project.giisdemo.fragment.main;
 
+import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +33,18 @@ public class MainFragment extends BaseFragment {
     QMUIViewPager pager;
     @BindView(R.id.tabs)
     QMUITabSegment tabs;
+
+    private int frag;
+
+    public MainFragment() {
+        this.frag = 0;
+    }
+
+    @SuppressLint("ValidFragment")
+    public MainFragment(int frag) {
+        this.frag = frag;
+
+    }
 
     @Override
     protected View onCreateView() {
@@ -105,7 +118,7 @@ public class MainFragment extends BaseFragment {
         };
 
         pager.setAdapter(mPageAdapter);
-        pager.setCurrentItem(0);
+        pager.setCurrentItem(frag);
         tabs.setupWithViewPager(pager, false);
 
     }

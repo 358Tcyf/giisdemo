@@ -2,10 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppThemeDefault" parent="AppThemeLightBlue">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryLight">@color/colorPrimaryLight</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="colorPrimaryLight">?attr/colorPrimaryLight</item>
+        <item name="colorAccent">?attr/colorAccent</item>
     </style>
 
     <style name="AppThemeTeal" parent="QMUI.Compat.NoActionBar">
@@ -27,14 +27,71 @@
         <item name="colorPrimaryDark">@color/indigo_colorPrimaryDark</item>
         <item name="colorPrimaryLight">@color/indigo_colorPrimaryLight</item>
         <item name="colorAccent">@color/indigo_colorAccent</item>
+    </style>
 
+    <style name="CARD_SAKURA" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/pink_dark</item>
+        <item name="colorPrimaryLight">@color/pink_trans</item>
+        <item name="colorAccent">@color/pink</item>
+    </style>
+
+    <style name="CARD_HOPE" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/purple_dark</item>
+        <item name="colorPrimaryLight">@color/purple_trans</item>
+        <item name="colorAccent">@color/purple</item>
+    </style>
+
+    <style name="CARD_STORM" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/blue_dark</item>
+        <item name="colorPrimaryLight">@color/blue_trans</item>
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
+    <style name="CARD_WOOD" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/green_dark</item>
+        <item name="colorPrimaryLight">@color/green_trans</item>
+        <item name="colorAccent">@color/green</item>
+    </style>
+
+    <style name="CARD_LIGHT" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/green_light</item>
+        <item name="colorPrimaryDark">@color/green_light_dark</item>
+        <item name="colorPrimaryLight">@color/green_light_trans</item>
+        <item name="colorAccent">@color/green_light</item>
+    </style>
+
+    <style name="CARD_THUNDER" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/yellow_dark</item>
+        <item name="colorPrimaryLight">@color/yellow_trans</item>
+        <item name="colorAccent">@color/yellow</item>
+    </style>
+
+    <style name="CARD_SAND" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/orange_dark</item>
+        <item name="colorPrimaryLight">@color/orange_trans</item>
+        <item name="colorAccent">@color/orange</item>
+    </style>
+
+    <style name="CARD_FIREY" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red_dark</item>
+        <item name="colorPrimaryLight">@color/red_trans</item>
+        <item name="colorAccent">@color/red</item>
     </style>
 
     <style name="LoginTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/teal_colorPrimary</item>
         <item name="colorPrimaryDark">@color/teal_colorPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/teal_colorPrimaryLight</item>
         <item name="colorAccent">@color/teal_colorAccent</item>
     </style>
+
 
     <style name="ThemeSplash" parent="Theme.AppCompat.NoActionBar">
         <item name="android:background">@drawable/ic_background</item>

@@ -2,7 +2,6 @@ package simple.project.giisdemo.mvp.presenter.main;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,12 +11,10 @@ import com.bumptech.glide.Glide;
 import com.qingmei2.rximagepicker.core.RxImagePicker;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -146,7 +143,6 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
 
     @SuppressLint("CheckResult")
     public void takePhoto(View view) {
-
         RxImagePicker.INSTANCE
                 .create(MyImagePicker.class)
                 .openCamera(getView().getCurContext())
@@ -165,6 +161,8 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
                     uri = result.getUri();
                     setPic(view);
                 });
+
+
     }
 
     private Uri uri;

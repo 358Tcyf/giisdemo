@@ -88,12 +88,11 @@ dependencies {
     implementation 'com.github.qingmei2:rximagepicker_support_wechat:2.2.0'    // 微信图片选择器
     /*Eventbus实现模块间通信*/
     implementation 'org.greenrobot:eventbus:3.1.1'
-    /*热更新*/
-//    implementation 'com.wlqq.phantom:phantom-host-lib:3.1.2'
     /*替代QMUITipDialog的两个*/
     implementation 'com.andrognito.flashbar:flashbar:1.0.2'
     implementation 'org.aviran.cookiebar2:cookiebar2:1.1.0'
     /*时间选择器*/
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
+
 
 }

@@ -25,6 +25,12 @@
     <string name="cancel">取消</string>
 
 
+    <string name="push">推送</string>
+    <string name="people">人员</string>
+    <string name="setting">设置</string>
+
+
+
     <string name="set_info">信息设置</string>
     <string name="set_push">推送设置</string>
     <string name="set_system">系统设置</string>

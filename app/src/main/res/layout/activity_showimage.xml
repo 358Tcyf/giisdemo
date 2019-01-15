@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorText_Icon">
 
     <simple.project.giisdemo.helper.custom.ZoomImageView
@@ -9,4 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />
+
+    <!--<com.github.piasy.biv.view.BigImageView-->
+        <!--android:id="@+id/show_big_Image"-->
+        <!--app:failureImageInitScaleType="center"-->
+        <!--app:optimizeDisplay="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true" />-->
 </RelativeLayout>

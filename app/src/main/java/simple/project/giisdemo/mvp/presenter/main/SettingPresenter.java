@@ -69,7 +69,7 @@ public class SettingPresenter extends BasePresenter<SettingView, SettingModel> {
                     getView().getCurContext().startFragment(new SettingPushFragment());
                     break;
                 case "系统设置":
-                    getView().getCurContext().startFragment(new SettingSystemFragment());
+                    getView().sysSet();
                     break;
                 case "关于应用":
                     new QMUIBottomSheet.BottomListSheetBuilder(getView().getCurContext())

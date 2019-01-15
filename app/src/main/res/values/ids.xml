@@ -2,6 +2,7 @@
 <resources>
     <item name="login" type="id" />
     <item name="main" type="id" />
+    <item name="setting" type="id" />
     <item name="splash" type="id" />
     <item name="search" type="id" />
     <item name="save" type="id" />

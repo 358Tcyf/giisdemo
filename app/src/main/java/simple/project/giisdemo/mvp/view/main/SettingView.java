@@ -13,4 +13,6 @@ public interface SettingView extends BaseView {
 
     void toLogout();//退出登录
 
+    void sysSet();
+
 }

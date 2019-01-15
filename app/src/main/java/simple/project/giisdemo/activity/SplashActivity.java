@@ -23,7 +23,6 @@ import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 public class SplashActivity extends QMUIFragmentActivity {
 
 
-
     @Override
     protected int getContextViewId() {
         return R.id.splash;
@@ -50,6 +49,7 @@ public class SplashActivity extends QMUIFragmentActivity {
 
     public void toMain() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("flag", 0);
         startActivity(intent);
         finish();
     }

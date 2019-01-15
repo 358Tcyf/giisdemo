@@ -18,7 +18,11 @@ import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.DEVICE_CID;
+import static simple.project.giisdemo.helper.constant.GlobalField.INDIGO;
+import static simple.project.giisdemo.helper.constant.GlobalField.LIGHT_BLUE;
+import static simple.project.giisdemo.helper.constant.GlobalField.TEAL;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
+import static simple.project.giisdemo.helper.utils.ThemeUtils.themeToStyle;
 
 /**
  * @author Created by ys
@@ -36,11 +40,9 @@ public class LoginActivity extends QMUIFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mTheme = (int) SPUtils.get(this, "theme", 0);
-        if (mTheme != 0) {
-            //设置主题
-            setTheme(mTheme);
-        }
+        setTheme(themeToStyle(mTheme));
         super.onCreate(savedInstanceState);
+
         if (savedInstanceState == null) {
             BaseFragment mFragment = new LoginFragment();
             getSupportFragmentManager()

@@ -53,26 +53,9 @@ public class SettingSystemFragment extends BaseFragment<SettingSystemPresent> im
         return view;
     }
 
-    private static int mTheme;
 
     @Override
-    public void setTheme(int style) {
-        switch (style) {
-            case DEFAULT:
-                //将选中的主题资源id保存到静态变量中
-                mTheme = R.style.AppThemeDefault;
-                break;
-            case TEAL:
-                mTheme = R.style.AppThemeTeal;
-                break;
-            case LIGHT_BLUE:
-                mTheme = R.style.AppThemeLightBlue;
-                break;
-            case INDIGO:
-                mTheme = R.style.AppThemeIndigo;
-                break;
-            default:
-        }
+    public void setTheme(int mTheme) {
         Map<String, Object> message = new HashMap<String, Object>();
         message.put("theme", mTheme);
         EventBus.getDefault().post(new MessageEvent(message));

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog.CheckBoxMessageDialogBuilder;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,6 +21,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.activity.LoginActivity;
+import simple.project.giisdemo.activity.SettingActivity;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.bean.UserBean;
 import simple.project.giisdemo.helper.custom.GroupListView;
@@ -27,6 +29,7 @@ import simple.project.giisdemo.helper.utils.MessageEvent;
 import simple.project.giisdemo.mvp.presenter.main.SettingPresenter;
 import simple.project.giisdemo.mvp.view.main.SettingView;
 
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitle;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 
 /**
@@ -36,7 +39,8 @@ import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
  */
 public class SettingFragment extends BaseFragment<SettingPresenter> implements SettingView {
 
-
+    @BindView(R.id.topbar)
+    QMUITopBarLayout mTopBar;
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.user_phone)
@@ -55,6 +59,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting, null);
         unbinder = ButterKnife.bind(this, view);
+        initTitle(mTopBar, getBaseFragmentActivity(), R.string.people);
         EventBus.getDefault().register(this);
         getPresenter().setUserName();
         loadPic();
@@ -93,6 +98,13 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
         getBaseFragmentActivity().finish();
     }
 
+    @Override
+    public void sysSet() {
+        Intent intent = new Intent(getCurContext(), SettingActivity.class);
+        startActivity(intent);
+        getBaseFragmentActivity().finish();
+    }
+
 
     @OnClick({R.id.user_idcard, R.id.logout_btn})
     public void onViewClicked(View view) {
@@ -120,7 +132,8 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
-        userPic.setImageURI((Uri) messageEvent.getMessage().get("userPic"));
+        if (messageEvent.getMessage().containsKey("userPic"))
+            userPic.setImageURI((Uri) messageEvent.getMessage().get("userPic"));
     }
 
 

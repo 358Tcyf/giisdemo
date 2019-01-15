@@ -32,7 +32,8 @@ public class SettingSystemPresent extends BasePresenter<SettingSystemView, Setti
         systemLanguage.setDetailText((CharSequence) SPUtils.get(getView().getCurContext(), SYS_LANG, "跟随系统"));
         QMUICommonListItemView systemTheme = groupListSystem.createItemView(getView().getCurContext().getResources().getString(R.string.system_theme));
         systemTheme.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
-        systemTheme.setDetailText((CharSequence) SPUtils.get(getView().getCurContext(), SYS_LANG, "默认"));
+        int theme =(int) SPUtils.get(getView().getCurContext(), "theme", 0);
+        systemTheme.setDetailText((CharSequence) SPUtils.get(getView().getCurContext(), SYS_LANG, themes[theme]));
         QMUICommonListItemView systemFontSize = groupListSystem.createItemView(getView().getCurContext().getResources().getString(R.string.system_font_size));
         systemFontSize.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         QMUICommonListItemView systemSyncData = groupListSystem.createItemView(getView().getCurContext().getResources().getString(R.string.system_sync_data));
@@ -46,12 +47,15 @@ public class SettingSystemPresent extends BasePresenter<SettingSystemView, Setti
                 switch ((String) text) {
                     case "多语言":
                         items = languages;
-                        new QMUIDialog.CheckableDialogBuilder(getView().getCurContext()).setCheckedIndex(0).addItems(items, (dialog, which) ->
+                        new QMUIDialog.CheckableDialogBuilder(getView().getCurContext())
+                                .setCheckedIndex(0).addItems(items, (dialog, which) ->
                                 dialog.dismiss()).show();
                         break;
                     case "颜色主题":
                         items = themes;
-                        new QMUIDialog.CheckableDialogBuilder(getView().getCurContext()).setCheckedIndex(0).addItems(items, (dialog, which) ->
+                        new QMUIDialog.CheckableDialogBuilder(getView().getCurContext())
+                                .setCheckedIndex(theme)
+                                .addItems(items, (dialog, which) ->
                         {
                            getView().setTheme(which);
                             dialog.dismiss();

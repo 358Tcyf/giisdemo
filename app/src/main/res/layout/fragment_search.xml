@@ -23,7 +23,6 @@
                 android:id="@+id/recycler_friend"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/qmui_config_color_background"
                 android:fitsSystemWindows="true" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>

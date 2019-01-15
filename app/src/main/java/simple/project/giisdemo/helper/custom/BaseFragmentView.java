@@ -21,13 +21,26 @@ public class BaseFragmentView {
     }
 
     /*
+     * 添加和标题
+     * */
+    public static void initTitle(QMUITopBarLayout mTopBar, QMUIFragmentActivity mActivity, int stringResId) {
+        mTopBar.setTitle(stringResId).setTextColor(mActivity.getResources().getColor(R.color.colorText_Icon, null));
+    }
+
+    /*
      * 添加返回按钮和标题
      * */
     public static void initBackAndTitle(QMUITopBarLayout mTopBar, QMUIFragmentActivity mActivity, int stringResId) {
         mTopBar.addLeftBackImageButton().setOnClickListener(v -> mActivity.popBackStack());
         mTopBar.setTitle(stringResId).setTextColor(mActivity.getResources().getColor(R.color.colorText_Icon, null));
     }
-
+    /*
+     * 添加返回按钮和标题
+     * */
+    public static void initBackAndTitle2(QMUITopBarLayout mTopBar, QMUIFragmentActivity mActivity, int stringResId) {
+        mTopBar.addLeftBackImageButton().setOnClickListener(v -> mActivity.finish());
+        mTopBar.setTitle(stringResId).setTextColor(mActivity.getResources().getColor(R.color.colorText_Icon, null));
+    }
     /*
      * 添加右侧文字按钮
      * */
