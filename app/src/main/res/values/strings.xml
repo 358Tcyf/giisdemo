@@ -22,6 +22,7 @@
 
     <string name="search">搜索</string>
     <string name="save">保存</string>
+    <string name="next">下一步</string>
     <string name="cancel">取消</string>
 
 
@@ -30,8 +31,8 @@
     <string name="setting">设置</string>
 
 
-
     <string name="set_info">信息设置</string>
+    <string name="update_info">信息更新</string>
     <string name="set_push">推送设置</string>
     <string name="set_system">系统设置</string>
     <string name="app_about">关于应用</string>
@@ -50,6 +51,12 @@
     <string name="use_phone">手机</string>
     <string name="use_passwd">修改密码</string>
     <string name="info_section_2">以下信息设置关联到账号</string>
+    <string name="old_phone">输入旧手机号</string>
+    <string name="get_code">获取验证码</string>
+    <string name="new_phone">输入新手机号</string>
+    <string name="validate_code">输入验证码</string>
+    <string name="old_password">输入旧密码</string>
+    <string name="new_password">输入新密码</string>
 
 
     <string name="push_switch">开启推送通知</string>

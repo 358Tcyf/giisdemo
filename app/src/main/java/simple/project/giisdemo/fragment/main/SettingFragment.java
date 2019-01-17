@@ -2,6 +2,7 @@ package simple.project.giisdemo.fragment.main;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -26,9 +27,12 @@ import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.bean.UserBean;
 import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.helper.utils.MessageEvent;
+import simple.project.giisdemo.helper.utils.SPUtils;
 import simple.project.giisdemo.mvp.presenter.main.SettingPresenter;
 import simple.project.giisdemo.mvp.view.main.SettingView;
 
+import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitle;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 
@@ -59,7 +63,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting, null);
         unbinder = ButterKnife.bind(this, view);
-        initTitle(mTopBar, getBaseFragmentActivity(), R.string.people);
+        initTitle(mTopBar, getBaseFragmentActivity(), R.string.setting);
         EventBus.getDefault().register(this);
         getPresenter().setUserName();
         loadPic();
@@ -134,6 +138,12 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
     public void Event(MessageEvent messageEvent) {
         if (messageEvent.getMessage().containsKey("userPic"))
             userPic.setImageURI((Uri) messageEvent.getMessage().get("userPic"));
+        if (messageEvent.getMessage().containsKey("phone")) {
+            userPhone.setText((String) messageEvent.getMessage().get("phone"));
+            Log.d(DEBUG, (String) messageEvent.getMessage().get("phone"));
+
+        }
+
     }
 
 

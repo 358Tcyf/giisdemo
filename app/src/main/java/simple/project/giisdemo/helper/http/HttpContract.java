@@ -22,6 +22,10 @@ public interface HttpContract {
     @POST("/user/signUp")
     Observable<RetResult<UserBean>> register(@Query("name") String name, @Query("phone") String phone, @Query("password") String password);
 
+    @POST("/user/updateInfo")
+    Observable<RetResult> updateInfo(@Query("oldPhone") String oldPhone, @Query("newPhone") String newPhone, @Query("password") String password);
+
+
     @POST("file/uploadHead")
     @Multipart
     Observable<RetResult> uploadHeadImage(@Part MultipartBody.Part file, @Query("phone") String phone);

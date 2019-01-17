@@ -1,11 +1,13 @@
 package simple.project.giisdemo.helper.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.text.InputType;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -136,5 +138,14 @@ public class EditTextUtil {
         Animation shake = AnimationUtils.loadAnimation(mActivity, R.anim.shake);
         view.startAnimation(shake);
 
+    }
+
+    public static void focusEditText(Activity mActivity,EditText editText){
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+
+        InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText,0);
     }
 }

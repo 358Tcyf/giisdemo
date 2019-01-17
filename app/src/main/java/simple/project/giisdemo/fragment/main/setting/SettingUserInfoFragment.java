@@ -1,7 +1,6 @@
 package simple.project.giisdemo.fragment.main.setting;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,8 @@ import android.view.View;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,9 +24,7 @@ import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
 
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButtoninitial;
-import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicName;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
-import static simple.project.giisdemo.helper.utils.SBUtil.bitmapToString;
 
 /**
  * @author Created by ys
@@ -51,6 +47,7 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         initTopBar();
         getPresenter().initGroupListView(groupListUserInfo);
         return view;
@@ -76,6 +73,31 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
         Intent intent = new Intent(getBaseFragmentActivity(), ShowImageActivity.class);
         intent.putExtra("image", picUri.toString());
         startActivity(intent);
+    }
+
+    @Override
+    public void updatePhone() {
+        startFragment(new UpdateUserInfoFragment(1));
+    }
+
+    @Override
+    public void updatePasswd() {
+        startFragment(new UpdateUserInfoFragment(3));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+
+        if (messageEvent.getMessage().containsKey("phone"))
+            getPresenter().showPhone((String) messageEvent.getMessage().get("phone"));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
 }

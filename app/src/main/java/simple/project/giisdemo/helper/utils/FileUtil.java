@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 
 /**
  * @author Created by ys
@@ -30,7 +31,7 @@ public class FileUtil {
             appDir.mkdir();
         }
         String picPace = appDir.getName();
-        String fileName = SPUtils.get(context, USER_PHONE, "default") + "_pic.png";
+        String fileName = SPUtils.get(context, USER_UID, "default") + "_pic.png";
         File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -65,19 +66,19 @@ public class FileUtil {
     }
 
     public static String getUserPicPath(Context context) {
-        String picPath = getFilePath() + "/" + SPUtils.get(context, USER_PHONE, "default") + "_pic.png";
+        String picPath = getFilePath() + "/" + SPUtils.get(context, USER_UID, "default") + "_pic.png";
         return picPath;
     }
 
     public static Uri getUserPicPathUri(Context context) {
-        String picPath = getFilePath() + "/" + SPUtils.get(context, USER_PHONE, "default") + "_pic.png";
+        String picPath = getFilePath() + "/" + SPUtils.get(context, USER_UID, "default") + "_pic.png";
         if (existPath(picPath))
             return Uri.parse(picPath);
         else return null;
     }
 
     public static String getUserPicName(Context context) {
-        String picName = SPUtils.get(context, USER_PHONE, "default") + "_pic.png";
+        String picName = SPUtils.get(context, USER_UID, "default") + "_pic.png";
         return picName;
     }
 

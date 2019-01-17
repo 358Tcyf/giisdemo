@@ -1,0 +1,158 @@
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:banner="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/qumi_topbar" />
+
+
+        <RelativeLayout
+            android:id="@+id/update_method1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/input_old_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/old_phone"
+                app:met_clearButton="true"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="11"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/validate_old_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/input_old_phone"
+                android:layout_marginEnd="110dp"
+                android:hint="@string/validate_code"
+                app:met_maxCharacters="4"
+                app:met_singleLineEllipsis="true" />
+
+            <TextView
+                android:id="@+id/get_old_phone_code"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/validate_old_phone"
+                android:layout_alignBottom="@id/validate_old_phone"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="20dp"
+                android:background="?attr/colorPrimary"
+                android:gravity="center"
+                android:text="@string/get_code"
+                android:textColor="@color/colorText_Icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/update_method2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/input_new_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_phone"
+                app:met_clearButton="true"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="11"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/validate_new_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_new_phone"
+                android:layout_marginEnd="110dp"
+                android:hint="@string/validate_code"
+                app:met_maxCharacters="4"
+                app:met_singleLineEllipsis="true" />
+
+            <TextView
+                android:id="@+id/get_new_phone_code"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/validate_new_phone"
+                android:layout_alignBottom="@id/validate_new_phone"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="20dp"
+                android:background="?attr/colorPrimary"
+                android:gravity="center"
+                android:text="@string/get_code"
+                android:textColor="@color/colorText_Icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/update_method3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/input_old_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/old_password"
+                app:met_clearButton="true"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="12"
+                app:met_minCharacters="6"
+                app:met_singleLineEllipsis="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/update_method4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/input_new_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-3dp"
+                android:hint="@string/new_password"
+                app:met_clearButton="true"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="12"
+                app:met_minCharacters="6"
+                app:met_singleLineEllipsis="true" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

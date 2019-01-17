@@ -46,6 +46,7 @@ import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
  */
 public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView, SettingUserInfoModel> {
 
+    QMUICommonListItemView userPhone;
 
     public void initGroupListView(GroupListView groupListUserInfo) {
         QMUICommonListItemView userPic = groupListUserInfo.createItemView(getView().getCurContext().getResources().getString(R.string.use_pic));
@@ -81,7 +82,7 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
         userNo.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         userNo.setDetailText((CharSequence) SPUtils.get(getView().getCurContext(), USER_UID, ""));
 
-        QMUICommonListItemView userPhone = groupListUserInfo.createItemView(getView().getCurContext().getResources().getString(R.string.use_phone));
+        userPhone = groupListUserInfo.createItemView(getView().getCurContext().getResources().getString(R.string.use_phone));
         userPhone.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         userPhone.setDetailText((CharSequence) SPUtils.get(getView().getCurContext(), USER_PHONE, ""));
 
@@ -134,8 +135,10 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
                             .show();
                     break;
                 case "手机":
+                    getView().updatePhone();
                     break;
-                case "密码":
+                case "修改密码":
+                    getView().updatePasswd();
                     break;
             }
         }
@@ -196,5 +199,10 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
         message.put("userPic", uri);
         EventBus.getDefault().post(new MessageEvent(message));
         getView().toFinish();
+    }
+
+    public void showPhone(String phone) {
+        userPhone.setDetailText((CharSequence) phone);
+
     }
 }

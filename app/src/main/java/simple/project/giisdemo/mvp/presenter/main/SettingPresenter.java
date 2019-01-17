@@ -92,4 +92,7 @@ public class SettingPresenter extends BasePresenter<SettingView, SettingModel> {
             }
         }
     };
+
+
+
 }

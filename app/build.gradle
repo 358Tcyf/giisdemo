@@ -93,6 +93,6 @@ dependencies {
     implementation 'org.aviran.cookiebar2:cookiebar2:1.1.0'
     /*时间选择器*/
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
-
-
+    /*MaterialEditText控件*/
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 }

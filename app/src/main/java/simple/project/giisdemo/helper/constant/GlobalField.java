@@ -14,7 +14,9 @@ public class GlobalField extends Application {
     private static final String BUGDOGGY = "http://47.102.41.26";
     private static final String LOCALHOST1 = "http://192.168.0.133";
     private static final String WIFI1 = "http://192.168.43.204";
-    public static final String URL = BUGDOGGY;
+    private static final String WIFI2 = "http://10.10.10.106";
+    private static final String WIFI3 = "http://192.158.1.30";
+    public static final String URL = WIFI3;
     public static final String PORT = ":7171";
     public static final String USER = "/user";
 
@@ -45,6 +47,11 @@ public class GlobalField extends Application {
     public static final int VIEW_PIC = 2;
     public static final int CANCEL = 3;
 
+    public static final int UPDATE_ALL = 0;
+    public static final int UPDATE_PHONE = 1;
+    public static final int UPDATE_PHONE_NEW = 2;
+    public static final int UPDATE_PASSWORD = 3;
+    public static final int UPDATE_PASSWORD_NEW = 4;
 
     /*
      * 推送设置

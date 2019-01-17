@@ -6,6 +6,7 @@
     <item name="splash" type="id" />
     <item name="search" type="id" />
     <item name="save" type="id" />
+    <item name="next" type="id" />
     <item name="cancel" type="id" />
     <item name="image" type="id" />
 </resources>

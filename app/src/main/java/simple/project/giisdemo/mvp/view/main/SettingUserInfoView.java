@@ -16,4 +16,7 @@ public interface SettingUserInfoView extends BaseView {
 
     void showImage();
 
+    void updatePhone();
+
+    void updatePasswd();
 }
