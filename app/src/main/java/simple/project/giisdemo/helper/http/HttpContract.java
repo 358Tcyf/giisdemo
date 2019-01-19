@@ -29,4 +29,8 @@ public interface HttpContract {
     @POST("file/uploadHead")
     @Multipart
     Observable<RetResult> uploadHeadImage(@Part MultipartBody.Part file, @Query("phone") String phone);
+
+    @POST("file/upload")
+    @Multipart
+    Observable<RetResult> upload(@Part MultipartBody.Part file, @Query("phone") String phone);
 }

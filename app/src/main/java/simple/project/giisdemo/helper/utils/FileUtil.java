@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +15,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import retrofit2.http.Url;
+
+import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 
@@ -89,5 +95,16 @@ public class FileUtil {
         File file = new File(existPath);
         return file.exists();
 
+    }
+
+    public static String getFilename(Uri uri) {
+        String suffixes = "avi|mpeg|3gp|mp3|mp4|wav|jpeg|gif|jpg|png|apk|exe|pdf|rar|zip|docx|doc";
+        Pattern pat = Pattern.compile("[\\w]+[\\.](" + suffixes + ")");//正则判断
+        Matcher mc = pat.matcher(uri.toString());//条件匹配
+        String substring = "";
+        while (mc.find()) {
+            substring = mc.group();//截取文件名后缀名
+        }
+        return substring;
     }
 }

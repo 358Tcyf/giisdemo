@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
@@ -29,8 +30,11 @@ import simple.project.giisdemo.helper.utils.DialogUtil;
 import simple.project.giisdemo.helper.utils.MediaUtil;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
+import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
+import static simple.project.giisdemo.helper.utils.FileUtil.getFilename;
 import static simple.project.giisdemo.helper.utils.FileUtil.saveImageToGallery;
 
 /**
@@ -56,13 +60,15 @@ public class SettingUserInfoModel extends BaseModel {
 
 
     public void uploadHeadImage(Uri uri, OnHttpCallBack<RetResult> callBack) {
+
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),
                 Objects.requireNonNull(MediaUtil.getByteFromFile(MediaUtil.getFileFromMediaUri(getContext(), uri))));
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", "", requestFile);
+        String filename = SPUtils.get(getContext(), USER_UID, "default") + "_pic.png";
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", filename, requestFile);
         QMUITipDialog loading = DialogUtil.showTipDialog(getContext(), QMUITipDialog.Builder.ICON_TYPE_LOADING, "上传头像中", false);
         RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
                 .create(HttpContract.class)
-                .uploadHeadImage(body, (String) SPUtils.get(getContext(), USER_PHONE, ""))
+                .upload(body, (String) SPUtils.get(getContext(), USER_PHONE, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RetResult>() {

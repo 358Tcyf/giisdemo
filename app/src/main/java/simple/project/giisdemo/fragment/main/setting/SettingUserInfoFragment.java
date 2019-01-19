@@ -25,6 +25,7 @@ import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButtoninitial;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
 
 /**
  * @author Created by ys
@@ -83,6 +84,11 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
     @Override
     public void updatePasswd() {
         startFragment(new UpdateUserInfoFragment(3));
+    }
+
+    @Override
+    public void showErrorMsg(String errorMsg) {
+        loginError(getBaseFragmentActivity(), errorMsg);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

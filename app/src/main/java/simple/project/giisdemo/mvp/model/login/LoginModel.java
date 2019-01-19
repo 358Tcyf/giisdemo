@@ -63,7 +63,7 @@ public class LoginModel extends BaseModel {
                             SPUtils.put(getContext(), USER_UID, userBean.getUid());
                             String tagJson = JSON.toJSONString(userBean.getCare());
                             SPUtils.put(getContext(), USER_TAGS, tagJson);
-                            Log.d(DEBUG, "goodjob");
+                            Log.d(DEBUG, "GOOD JOB");
                         }
                     }
 

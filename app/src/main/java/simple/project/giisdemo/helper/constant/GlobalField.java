@@ -16,7 +16,8 @@ public class GlobalField extends Application {
     private static final String WIFI1 = "http://192.168.43.204";
     private static final String WIFI2 = "http://10.10.10.106";
     private static final String WIFI3 = "http://192.158.1.30";
-    public static final String URL = WIFI3;
+    private static final String WIFI4 = "http://10.10.10.107";
+    public static final String URL = BUGDOGGY;
     public static final String PORT = ":7171";
     public static final String USER = "/user";
 

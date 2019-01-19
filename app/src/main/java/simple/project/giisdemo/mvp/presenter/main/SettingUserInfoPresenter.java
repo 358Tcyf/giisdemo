@@ -182,12 +182,12 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
             getModel().uploadHeadImage(uri, new OnHttpCallBack<RetResult>() {
                 @Override
                 public void onSuccess(RetResult retResult) {
-
+                    getView().showErrorMsg(retResult.getMsg());
                 }
 
                 @Override
                 public void onFailed(String errorMsg) {
-
+                    getView().showErrorMsg(errorMsg);
                 }
             });
     }
