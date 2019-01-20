@@ -3,7 +3,6 @@ package simple.project.giisdemo.mvp.model.login;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,21 +10,21 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import simple.project.giisdemo.base.BaseModel;
 import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.http.HttpContract;
 import simple.project.giisdemo.helper.http.HttpFeedBackUtil;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
 import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.helper.http.RetrofitUtils;
-import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_TAGS;
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 
 /**
  * @author Created by ys
@@ -39,7 +38,7 @@ public class LoginModel extends BaseModel {
     }
 
     public void login(String phone, String password, OnHttpCallBack<RetResult> callBack) {
-        Log.d(DEBUG, "Model: phone is " + phone + " password is " + password);
+        Log.d(DEBUG, "LoginModel: phone is " + phone + " password is " + password);
         RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
                 .create(HttpContract.class)
                 .login(phone, password)
@@ -63,7 +62,7 @@ public class LoginModel extends BaseModel {
                             SPUtils.put(getContext(), USER_UID, userBean.getUid());
                             String tagJson = JSON.toJSONString(userBean.getCare());
                             SPUtils.put(getContext(), USER_TAGS, tagJson);
-                            Log.d(DEBUG, "GOOD JOB");
+                            Log.d(DEBUG, "LoginModel：用户个人信息已存入");
                         }
                     }
 
@@ -77,6 +76,7 @@ public class LoginModel extends BaseModel {
                     }
                 });
     }
+
 
 
     public String getAccount() {

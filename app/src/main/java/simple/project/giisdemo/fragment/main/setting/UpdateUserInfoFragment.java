@@ -2,7 +2,6 @@ package simple.project.giisdemo.fragment.main.setting;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,16 +21,13 @@ import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.helper.utils.MessageEvent;
-import simple.project.giisdemo.helper.utils.SPUtils;
 import simple.project.giisdemo.mvp.presenter.main.UpdateUserInfoPresenter;
 import simple.project.giisdemo.mvp.view.main.UpdateUserInfoView;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PASSWORD;
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PASSWORD_NEW;
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PHONE_NEW;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButtoninitial;
 import static simple.project.giisdemo.helper.utils.EditTextUtil.focusEditText;

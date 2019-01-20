@@ -2,7 +2,6 @@ package simple.project.giisdemo.fragment.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.activity.MainActivity;
 import simple.project.giisdemo.base.BaseFragment;
@@ -130,6 +128,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     public void setAccount(String phone) {
         inputUser.setText(phone);
     }
+
 
     @Override
     public void setPasswd(String passwd) {

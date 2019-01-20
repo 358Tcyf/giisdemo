@@ -1,8 +1,6 @@
 package simple.project.giisdemo.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import com.igexin.sdk.PushManager;
@@ -11,17 +9,12 @@ import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.fragment.login.LoginFragment;
-import simple.project.giisdemo.fragment.main.MainFragment;
 import simple.project.giisdemo.helper.server.DemoIntentService;
 import simple.project.giisdemo.helper.server.DemoPushService;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.DEVICE_CID;
-import static simple.project.giisdemo.helper.constant.GlobalField.INDIGO;
-import static simple.project.giisdemo.helper.constant.GlobalField.LIGHT_BLUE;
-import static simple.project.giisdemo.helper.constant.GlobalField.TEAL;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.utils.ThemeUtils.themeToStyle;
 
 /**
@@ -59,7 +52,7 @@ public class LoginActivity extends QMUIFragmentActivity {
         PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
         String cid = PushManager.getInstance().getClientid(this);
-        Log.d(DEBUG, cid);
+        Log.d(DEBUG, "LoginActivity: cid is " + cid);
         SPUtils.put(this, DEVICE_CID, "device's cid is " + cid);
 
     }

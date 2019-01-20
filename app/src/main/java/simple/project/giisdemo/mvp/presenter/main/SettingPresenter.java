@@ -1,16 +1,13 @@
 package simple.project.giisdemo.mvp.presenter.main;
 
-import android.util.Log;
 import android.view.View;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.fragment.main.setting.SettingPushFragment;
-import simple.project.giisdemo.fragment.main.setting.SettingSystemFragment;
 import simple.project.giisdemo.fragment.main.setting.SettingUserInfoFragment;
 import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.mvp.model.main.SettingModel;
@@ -18,7 +15,6 @@ import simple.project.giisdemo.mvp.view.main.SettingView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.CALLBACK;
 import static simple.project.giisdemo.helper.constant.GlobalField.CHECK_UPDATE;
-import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 
 /**
  * @author Created by ys
@@ -33,7 +29,6 @@ public class SettingPresenter extends BasePresenter<SettingView, SettingModel> {
 
 
     public void toLogout(boolean isCheck) {
-        Log.d(DEBUG, "logout check is " + isCheck);
         if (isCheck)
             getModel().toLogout();
         getView().toLogout();

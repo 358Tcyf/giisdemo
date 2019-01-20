@@ -1,14 +1,10 @@
 package simple.project.giisdemo.mvp.presenter.login;
 
-import android.util.Log;
-
 import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
 import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.mvp.model.login.SignUpModel;
 import simple.project.giisdemo.mvp.view.login.SignUpView;
-
-import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 
 /**
  * @author Created by ys
@@ -20,14 +16,14 @@ public class SignUpPresenter extends BasePresenter<SignUpView, SignUpModel> {
         getModel().signUp(name, phone, password, new OnHttpCallBack<RetResult>() {
             @Override
             public void onSuccess(RetResult retResult) {
-                Log.d(DEBUG, "SUCCESS");
+
                 //TODO 存入成功信息,跳转到登陆界面
                 getView().toLogin();
             }
 
             @Override
             public void onFailed(String errorMsg) {
-                Log.d(DEBUG, "FAILED");
+
                 //TODO 存入失败信息
                 getView().showErrorMsg(errorMsg);
             }

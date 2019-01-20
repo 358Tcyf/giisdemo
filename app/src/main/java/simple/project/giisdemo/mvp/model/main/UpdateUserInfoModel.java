@@ -2,14 +2,11 @@ package simple.project.giisdemo.mvp.model.main;
 
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import simple.project.giisdemo.base.BaseModel;
-import simple.project.giisdemo.bean.UserBean;
 import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.http.HttpContract;
 import simple.project.giisdemo.helper.http.HttpFeedBackUtil;
@@ -21,11 +18,8 @@ import simple.project.giisdemo.helper.utils.SPUtils;
 import static android.text.TextUtils.isEmpty;
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_TAGS;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 
 /**
  * @author Created by ys
@@ -64,7 +58,7 @@ public class UpdateUserInfoModel extends BaseModel {
                         HttpFeedBackUtil.handleRetResult(retResult, callBack);
                         if (retResult.getCode() == RetResult.RetCode.SUCCESS.code) {
                             //TODO 把这个人的数据存入本地数据库
-                            Log.d(DEBUG, "newPhone is " + newPhone + ";password is " + password);
+                            Log.d(DEBUG, "UpdateUserInfoModel: newPhone is " + newPhone + ";password is " + password);
                             if (!isEmpty(newPhone)) {
                                 SPUtils.put(getContext(), USER_PHONE, newPhone);
                             }

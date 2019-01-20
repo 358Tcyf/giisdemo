@@ -2,6 +2,7 @@ package simple.project.giisdemo.mvp.presenter.main;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import simple.project.giisdemo.mvp.model.main.SettingUserInfoModel;
 import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.CHOOSE_PIC;
+import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.TAKE_PIC;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
@@ -38,6 +40,7 @@ import static simple.project.giisdemo.helper.constant.GlobalField.USER_ROLE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 import static simple.project.giisdemo.helper.constant.GlobalField.VIEW_PIC;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
+import static simple.project.giisdemo.helper.utils.QMUIUtil.successTipDialog;
 
 /**
  * @author Created by ys
@@ -176,29 +179,33 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
                 .into((ImageView) view);
     }
 
-    public void savePic(Uri uri) {
-        getModel().savePic(uri);
+    public void uploadPic(Uri uri) {
         if (uri != null)
             getModel().uploadHeadImage(uri, new OnHttpCallBack<RetResult>() {
                 @Override
                 public void onSuccess(RetResult retResult) {
-                    getView().showErrorMsg(retResult.getMsg());
+                    Log.d(DEBUG, retResult.getMsg());
+                    successTipDialog(getView().getCurContext(), retResult.getMsg());
+                    getView().toFinish();
                 }
 
                 @Override
                 public void onFailed(String errorMsg) {
                     getView().showErrorMsg(errorMsg);
+                    getView().toFinish();
                 }
             });
     }
 
-    public void save() {
-        if (uri != null)
-            savePic(uri);
+    public void savePic() {
+        if (uri != null){
+            getModel().savePic(uri);
+            uploadPic(uri);
+        }
         Map<String, Object> message = new HashMap<String, Object>();
         message.put("userPic", uri);
         EventBus.getDefault().post(new MessageEvent(message));
-        getView().toFinish();
+
     }
 
     public void showPhone(String phone) {

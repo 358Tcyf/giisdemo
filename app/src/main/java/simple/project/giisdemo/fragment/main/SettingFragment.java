@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog.CheckBoxMessageDialogBuilder;
@@ -27,12 +26,10 @@ import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.bean.UserBean;
 import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.helper.utils.MessageEvent;
-import simple.project.giisdemo.helper.utils.SPUtils;
 import simple.project.giisdemo.mvp.presenter.main.SettingPresenter;
 import simple.project.giisdemo.mvp.view.main.SettingView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitle;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 
@@ -140,7 +137,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
             userPic.setImageURI((Uri) messageEvent.getMessage().get("userPic"));
         if (messageEvent.getMessage().containsKey("phone")) {
             userPhone.setText((String) messageEvent.getMessage().get("phone"));
-            Log.d(DEBUG, (String) messageEvent.getMessage().get("phone"));
+            Log.d(DEBUG, "SettingFragment: phone is" + messageEvent.getMessage().get("phone"));
 
         }
 

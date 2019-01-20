@@ -1,14 +1,11 @@
 package simple.project.giisdemo.mvp.model.main;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -30,11 +27,9 @@ import simple.project.giisdemo.helper.utils.DialogUtil;
 import simple.project.giisdemo.helper.utils.MediaUtil;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
-import static simple.project.giisdemo.helper.utils.FileUtil.getFilename;
 import static simple.project.giisdemo.helper.utils.FileUtil.saveImageToGallery;
 
 /**

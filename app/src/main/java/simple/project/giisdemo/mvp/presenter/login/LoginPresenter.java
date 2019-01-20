@@ -1,16 +1,13 @@
 package simple.project.giisdemo.mvp.presenter.login;
 
-import android.util.Log;
-
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-
 import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
 import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.mvp.model.login.LoginModel;
 import simple.project.giisdemo.mvp.view.login.LoginView;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
+import static simple.project.giisdemo.helper.constant.GlobalField.GET_USER_PIC;
+import static simple.project.giisdemo.helper.utils.FileUtil.saveImageToGallery;
 
 /**
  * @author Created by ys
@@ -19,22 +16,26 @@ import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
  */
 public class LoginPresenter extends BasePresenter<LoginView, LoginModel> {
 
+    /*用户登录，获取到账号信息*/
     public void login(String phone, String password) {
         getModel().login(phone, password, new OnHttpCallBack<RetResult>() {
             @Override
             public void onSuccess(RetResult retResult) {
-                Log.d(DEBUG, "SUCCESS");
-                //TODO 存入成功信息，跳转到主界面
+//                getView().setUserPic(phone);
+                /*获取到账号信息之后，加载用户相片*/
+
+                String uri = GET_USER_PIC + phone;
+                saveImageToGallery(getView().getCurContext(), uri);
                 getView().toMain();
             }
 
             @Override
             public void onFailed(String errorMsg) {
-                Log.d(DEBUG, "FAILED");
                 getView().showErrorMsg(errorMsg);
             }
         });
     }
+
 
     public void setAccount() {
         getView().setAccount(getModel().getAccount());

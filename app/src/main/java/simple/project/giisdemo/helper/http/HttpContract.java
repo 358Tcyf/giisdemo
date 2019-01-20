@@ -25,12 +25,11 @@ public interface HttpContract {
     @POST("/user/updateInfo")
     Observable<RetResult> updateInfo(@Query("oldPhone") String oldPhone, @Query("newPhone") String newPhone, @Query("password") String password);
 
-
-    @POST("file/uploadHead")
-    @Multipart
-    Observable<RetResult> uploadHeadImage(@Part MultipartBody.Part file, @Query("phone") String phone);
-
     @POST("file/upload")
     @Multipart
     Observable<RetResult> upload(@Part MultipartBody.Part file, @Query("phone") String phone);
+
+    @POST("file/downloadPic")
+    @Multipart
+    Observable<RetResult> downloadPic(@Query("phone") String phone);
 }

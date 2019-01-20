@@ -3,7 +3,6 @@ package simple.project.giisdemo.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
@@ -13,17 +12,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
-import simple.project.giisdemo.fragment.main.MainFragment;
-import simple.project.giisdemo.fragment.main.SettingFragment;
 import simple.project.giisdemo.fragment.main.setting.SettingSystemFragment;
 import simple.project.giisdemo.helper.utils.MessageEvent;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
-import static simple.project.giisdemo.helper.constant.GlobalField.DEFAULT;
-import static simple.project.giisdemo.helper.constant.GlobalField.INDIGO;
-import static simple.project.giisdemo.helper.constant.GlobalField.LIGHT_BLUE;
-import static simple.project.giisdemo.helper.constant.GlobalField.TEAL;
 import static simple.project.giisdemo.helper.utils.ThemeUtils.themeToStyle;
 
 /**
@@ -59,7 +52,6 @@ public class SettingActivity extends QMUIFragmentActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         mTheme = (int) messageEvent.getMessage().get("theme");
-        Log.d(DEBUG, "theme is " + mTheme);
         SPUtils.put(this, "theme", mTheme);
         recreate();
 

@@ -58,7 +58,7 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
         initBackAndTitle(mTopBar, getBaseFragmentActivity(), R.string.set_info);
         initRightTextButtoninitial(mTopBar, getBaseFragmentActivity(), R.string.save, R.id.save)
                 .setOnClickListener(v -> {
-                    getPresenter().save();
+                    getPresenter().savePic();
                 });
     }
 

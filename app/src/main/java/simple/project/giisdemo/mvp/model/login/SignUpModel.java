@@ -10,12 +10,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import simple.project.giisdemo.base.BaseModel;
 import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.http.HttpContract;
 import simple.project.giisdemo.helper.http.HttpFeedBackUtil;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
 import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.helper.http.RetrofitUtils;
-import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
@@ -35,7 +35,7 @@ public class SignUpModel extends BaseModel {
     }
 
     public void signUp(String name, String phone, String password, OnHttpCallBack<RetResult> callBack) {
-        Log.d(DEBUG, "Model: name is " + name + " phone is " + phone + " password is " + password);
+        Log.d(DEBUG, "SignUpModel: name is " + name + " phone is " + phone + " password is " + password);
 
         RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
                 .create(HttpContract.class)
