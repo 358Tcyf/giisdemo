@@ -8,27 +8,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.adapter.PeopleAdapter;
-import simple.project.giisdemo.adapter.PullToRefreshAdapter;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.bean.UserBean;
 import simple.project.giisdemo.mvp.presenter.main.PeoplePresenter;
 import simple.project.giisdemo.mvp.view.main.PeopleView;
-import simple.project.giisdemo.testThing.Status;
 
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitle;
 
@@ -46,6 +42,8 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.list_number)
+    TextView listNumber;
     private Unbinder unbinder;
 
     @Override
@@ -85,6 +83,7 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
             new Handler().postDelayed(() -> {
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.addData(list);
+                listNumber.setText("共" + list.size() + "人");
             }, 1000);
 
         });
@@ -97,7 +96,7 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
         mAdapter.isFirstOnly(true);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         mRecyclerView.setAdapter(mAdapter);
-
+        listNumber.setText("共" + list.size() + "人");
     }
 
     @Override
