@@ -15,6 +15,8 @@ import simple.project.giisdemo.mvp.view.main.SettingView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.CALLBACK;
 import static simple.project.giisdemo.helper.constant.GlobalField.CHECK_UPDATE;
+import static simple.project.giisdemo.helper.constant.GlobalField.GET_USER_PIC;
+import static simple.project.giisdemo.helper.utils.FileUtil.downloadApk;
 
 /**
  * @author Created by ys
@@ -75,6 +77,8 @@ public class SettingPresenter extends BasePresenter<SettingView, SettingModel> {
                                 dialog.dismiss();
                                 switch (position) {
                                     case CHECK_UPDATE:
+
+                                        downloadApk(getView().getCurContext());
                                         break;
                                     case CALLBACK:
                                         break;
@@ -87,7 +91,6 @@ public class SettingPresenter extends BasePresenter<SettingView, SettingModel> {
             }
         }
     };
-
 
 
 }

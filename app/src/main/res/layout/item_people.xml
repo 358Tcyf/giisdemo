@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/user_pic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="@dimen/avatar_horizontal_margin"
+        android:layout_marginTop="@dimen/avatar_vertical_margin"
+        android:layout_marginEnd="@dimen/avatar_horizontal_margin"
+        android:src="@mipmap/user_pic"
+        app:qmui_is_oval="true" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/user_pic"
+        android:layout_marginTop="@dimen/avatar_vertical_margin"
+        android:layout_toEndOf="@id/user_pic"
+        android:text="楚云飞"
+        android:textSize="@dimen/item_user_name" />
+
+    <TextView
+        android:id="@+id/user_branch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/user_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:text="xx部门"
+        android:textSize="@dimen/item_user_branch" />
+</RelativeLayout>

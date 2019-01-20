@@ -95,4 +95,7 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.7'
     /*MaterialEditText控件*/
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    /*BRVAH工具*/
+//    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 }

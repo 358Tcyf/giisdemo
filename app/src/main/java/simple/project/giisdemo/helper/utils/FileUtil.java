@@ -1,7 +1,9 @@
 package simple.project.giisdemo.helper.utils;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
+import static simple.project.giisdemo.helper.constant.GlobalField.GET_NEW_APK;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 
 /**
@@ -109,7 +112,19 @@ public class FileUtil {
                 }
             }
         }.start();
+    }
 
+    public static void downloadApk(Context context) {
+        //下载路径，如果路径无效了，可换成你的下载路径
+        String url = GET_NEW_APK;
+        //创建下载任务,downloadUrl就是下载链接
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        //指定下载路径和下载文件名
+        request.setDestinationInExternalPublicDir("", "glass.apk");
+        //获取下载管理器
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        //将下载任务加入下载队列，否则不会进行下载
+        downloadManager.enqueue(request);
 
     }
 }
