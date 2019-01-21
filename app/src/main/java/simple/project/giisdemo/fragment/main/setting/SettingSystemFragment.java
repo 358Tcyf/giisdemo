@@ -20,11 +20,7 @@ import simple.project.giisdemo.helper.utils.MessageEvent;
 import simple.project.giisdemo.mvp.presenter.main.SettingSystemPresent;
 import simple.project.giisdemo.mvp.view.main.SettingSystemView;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.DEFAULT;
-import static simple.project.giisdemo.helper.constant.GlobalField.INDIGO;
-import static simple.project.giisdemo.helper.constant.GlobalField.LIGHT_BLUE;
-import static simple.project.giisdemo.helper.constant.GlobalField.TEAL;
-import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitleActivity;
 
 /**
  * @author Created by ys
@@ -48,7 +44,7 @@ public class SettingSystemFragment extends BaseFragment<SettingSystemPresent> im
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         unbinder = ButterKnife.bind(this, view);
-        initBackAndTitle(mTopBar, getBaseFragmentActivity(), R.string.set_system);
+        initBackAndTitleActivity(mTopBar, getBaseFragmentActivity(), R.string.set_system);
         getPresenter().initGroupListView(groupListSystem);
         return view;
     }

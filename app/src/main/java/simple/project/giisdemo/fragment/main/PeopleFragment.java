@@ -42,8 +42,6 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.list_number)
-    TextView listNumber;
     private Unbinder unbinder;
 
     @Override
@@ -83,7 +81,6 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
             new Handler().postDelayed(() -> {
                 mSwipeRefreshLayout.setRefreshing(false);
                 mAdapter.addData(list);
-                listNumber.setText("共" + list.size() + "人");
             }, 1000);
 
         });
@@ -94,9 +91,8 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
     private void initAdapter() {
         mAdapter = new PeopleAdapter(list);
         mAdapter.isFirstOnly(true);
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mRecyclerView.setAdapter(mAdapter);
-        listNumber.setText("共" + list.size() + "人");
     }
 
     @Override

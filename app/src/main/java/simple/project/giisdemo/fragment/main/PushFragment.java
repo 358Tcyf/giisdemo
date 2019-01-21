@@ -1,17 +1,15 @@
 package simple.project.giisdemo.fragment.main;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
@@ -22,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import simple.project.giisdemo.R;
-import simple.project.giisdemo.adapter.PullToRefreshAdapter;
+import simple.project.giisdemo.adapter.PushAdapter;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.helper.custom.BannerView;
 import simple.project.giisdemo.mvp.presenter.main.PushPresenter;
@@ -115,16 +113,16 @@ public class PushFragment extends BaseFragment<PushPresenter> implements PushVie
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             new Handler().postDelayed(() -> {
                 mSwipeRefreshLayout.setRefreshing(false);
-                mAdapter.addData(list);
+                mAdapter.setNewData(list);
             }, 1000);
 
         });
     }
 
-    private PullToRefreshAdapter mAdapter;
+    private PushAdapter mAdapter;
 
     private void initAdapter() {
-        mAdapter = new PullToRefreshAdapter(list);
+        mAdapter = new PushAdapter(getBaseFragmentActivity(),list);
         mAdapter.isFirstOnly(true);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mRecyclerView.setAdapter(mAdapter);
