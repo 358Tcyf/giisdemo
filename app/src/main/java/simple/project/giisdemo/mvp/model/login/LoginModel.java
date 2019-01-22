@@ -19,7 +19,8 @@ import simple.project.giisdemo.helper.http.RetrofitUtils;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
-import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
+import static simple.project.giisdemo.helper.constant.HttpConstant.URL;
+import static simple.project.giisdemo.helper.constant.HttpConstant.PORT;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
@@ -39,7 +40,7 @@ public class LoginModel extends BaseModel {
 
     public void login(String phone, String password, OnHttpCallBack<RetResult> callBack) {
         Log.d(DEBUG, "LoginModel: phone is " + phone + " password is " + password);
-        RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
+        RetrofitUtils.newInstance(URL + PORT + "/")
                 .create(HttpContract.class)
                 .login(phone, password)
                 .subscribeOn(Schedulers.newThread())
@@ -76,7 +77,6 @@ public class LoginModel extends BaseModel {
                     }
                 });
     }
-
 
 
     public String getAccount() {

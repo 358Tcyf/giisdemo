@@ -8,7 +8,6 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 import simple.project.giisdemo.bean.UserBean;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.USER;
 
 /**
  * @author Created by ys

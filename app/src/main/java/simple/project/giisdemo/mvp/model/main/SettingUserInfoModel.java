@@ -17,7 +17,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import simple.project.giisdemo.base.BaseModel;
-import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.http.HttpContract;
 import simple.project.giisdemo.helper.http.HttpFeedBackUtil;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
@@ -27,9 +26,10 @@ import simple.project.giisdemo.helper.utils.DialogUtil;
 import simple.project.giisdemo.helper.utils.MediaUtil;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
+import static simple.project.giisdemo.helper.constant.HttpConstant.PORT;
+import static simple.project.giisdemo.helper.constant.HttpConstant.URL;
 import static simple.project.giisdemo.helper.utils.FileUtil.saveImageToGallery;
 
 /**
@@ -61,7 +61,7 @@ public class SettingUserInfoModel extends BaseModel {
         String filename = SPUtils.get(getContext(), USER_UID, "default") + "_pic.png";
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", filename, requestFile);
         QMUITipDialog loading = DialogUtil.showTipDialog(getContext(), QMUITipDialog.Builder.ICON_TYPE_LOADING, "上传头像中", false);
-        RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
+        RetrofitUtils.newInstance(URL + PORT + "/")
                 .create(HttpContract.class)
                 .upload(body, (String) SPUtils.get(getContext(), USER_PHONE, ""))
                 .subscribeOn(Schedulers.io())

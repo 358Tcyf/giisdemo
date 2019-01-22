@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.bean.UserBean;
-import simple.project.giisdemo.testThing.Status;
 
 /**
  * @author Created by ys

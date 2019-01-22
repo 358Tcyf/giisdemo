@@ -15,7 +15,7 @@ import simple.project.giisdemo.mvp.view.main.SettingView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.CALLBACK;
 import static simple.project.giisdemo.helper.constant.GlobalField.CHECK_UPDATE;
-import static simple.project.giisdemo.helper.constant.GlobalField.GET_USER_PIC;
+import static simple.project.giisdemo.helper.constant.HttpConstant.GET_USER_PIC;
 import static simple.project.giisdemo.helper.utils.FileUtil.downloadApk;
 
 /**

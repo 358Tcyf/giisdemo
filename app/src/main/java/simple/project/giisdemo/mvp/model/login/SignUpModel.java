@@ -10,7 +10,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import simple.project.giisdemo.base.BaseModel;
 import simple.project.giisdemo.bean.UserBean;
-import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.http.HttpContract;
 import simple.project.giisdemo.helper.http.HttpFeedBackUtil;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
@@ -19,9 +18,10 @@ import simple.project.giisdemo.helper.http.RetrofitUtils;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
-import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
+import static simple.project.giisdemo.helper.constant.HttpConstant.PORT;
+import static simple.project.giisdemo.helper.constant.HttpConstant.URL;
 
 /**
  * @author Created by ys
@@ -37,7 +37,7 @@ public class SignUpModel extends BaseModel {
     public void signUp(String name, String phone, String password, OnHttpCallBack<RetResult> callBack) {
         Log.d(DEBUG, "SignUpModel: name is " + name + " phone is " + phone + " password is " + password);
 
-        RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
+        RetrofitUtils.newInstance(URL + PORT + "/")
                 .create(HttpContract.class)
                 .register(name, phone, password)
                 .subscribeOn(Schedulers.io())

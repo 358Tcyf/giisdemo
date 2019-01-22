@@ -79,7 +79,7 @@ public class BannerView extends FrameLayout implements ViewPager.OnPageChangeLis
         //拿到自定义的属性数组
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BannerView);
         //得到数组里的自定义的size（圆点大小）
-        size = typedArray.getDimensionPixelSize(R.styleable.BannerView_size, 10);
+        size = typedArray.getDimensionPixelSize(R.styleable.BannerView_size, 20);
         //得到数组里的自定义的margin（圆点间距）
         margin = typedArray.getDimensionPixelSize(R.styleable.BannerView_margin, 10);
 

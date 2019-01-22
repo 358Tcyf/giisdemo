@@ -22,15 +22,14 @@
 
             <simple.project.giisdemo.helper.custom.GroupListView
                 android:id="@+id/groupList_push_switch"
-                android:layout_marginTop="-10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp" />
 
             <TextView
                 android:id="@+id/logout_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"

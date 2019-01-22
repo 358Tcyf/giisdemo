@@ -32,6 +32,10 @@
     <string name="setting">设置</string>
 
 
+
+    <string name="detail">点击查看详情</string>
+
+
     <string name="set_info">信息设置</string>
     <string name="update_info">信息更新</string>
     <string name="set_push">推送设置</string>

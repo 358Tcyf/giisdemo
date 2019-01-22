@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
-import static simple.project.giisdemo.helper.constant.GlobalField.GET_NEW_APK;
+import static simple.project.giisdemo.helper.constant.HttpConstant.GET_NEW_APK;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
 
 /**

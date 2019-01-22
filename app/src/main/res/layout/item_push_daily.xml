@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="4dp"
     card_view:cardCornerRadius="4dp"
     card_view:cardUseCompatPadding="true">
 
@@ -37,7 +38,7 @@
             android:layout_below="@+id/top"
             android:layout_marginTop="5dp"
             android:paddingLeft="10dp"
-            android:text="Chad" />
+            android:text="Title" />
 
         <TextView
             android:id="@+id/push_text"
@@ -47,7 +48,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
-            android:text="Hello world!"
+            android:text="Content"
             android:textColor="@android:color/darker_gray" />
 
         <TextView
@@ -58,7 +59,7 @@
             android:layout_alignBottom="@+id/push_title"
             android:layout_alignParentEnd="true"
             android:paddingRight="10dp"
-            android:text="04/06/13" />
+            android:text="Date" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

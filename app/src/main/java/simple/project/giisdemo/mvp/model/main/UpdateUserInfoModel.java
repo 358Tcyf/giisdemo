@@ -7,7 +7,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import simple.project.giisdemo.base.BaseModel;
-import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.http.HttpContract;
 import simple.project.giisdemo.helper.http.HttpFeedBackUtil;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
@@ -17,9 +16,10 @@ import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static android.text.TextUtils.isEmpty;
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
-import static simple.project.giisdemo.helper.constant.GlobalField.PORT;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
+import static simple.project.giisdemo.helper.constant.HttpConstant.PORT;
+import static simple.project.giisdemo.helper.constant.HttpConstant.URL;
 
 /**
  * @author Created by ys
@@ -42,7 +42,7 @@ public class UpdateUserInfoModel extends BaseModel {
     }
 
     public void updateInfo(String oldPhone, String newPhone, String password, OnHttpCallBack<RetResult> callBack) {
-        RetrofitUtils.newInstance(GlobalField.URL + PORT + "/")
+        RetrofitUtils.newInstance(URL + PORT + "/")
                 .create(HttpContract.class)
                 .updateInfo(oldPhone, newPhone, password)
                 .subscribeOn(Schedulers.newThread())
