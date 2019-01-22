@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.qmuiteam.qmui.util.QMUIKeyboardHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -28,8 +29,8 @@ import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PASSWOR
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PASSWORD_NEW;
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PHONE_NEW;
-import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
-import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButtoninitial;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackNameAndTitle;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButton;
 import static simple.project.giisdemo.helper.utils.EditTextUtil.focusEditText;
 import static simple.project.giisdemo.helper.utils.FlashBarUtil.validateError;
 
@@ -93,13 +94,13 @@ public class UpdateUserInfoFragment extends BaseFragment<UpdateUserInfoPresenter
 
 
     private void initTopBar() {
-        initBackAndTitle(mTopBar, getBaseFragmentActivity(), R.string.update_info);
+        initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.update_info);
         switch (updateMethod) {
             case UPDATE_PHONE:
                 focusEditText(getBaseFragmentActivity(),inputOldPhone);
             case UPDATE_PASSWORD:
                 focusEditText(getBaseFragmentActivity(),inputNewPhone);
-                initRightTextButtoninitial(mTopBar, getBaseFragmentActivity(), R.string.next, R.id.next)
+                initRightTextButton(mTopBar, getBaseFragmentActivity(), R.string.next, R.id.next)
                         .setOnClickListener(v -> {
                             if (validate())
                                 startFragmentAndDestroyCurrent(new UpdateUserInfoFragment(updateMethod + 1));
@@ -109,7 +110,7 @@ public class UpdateUserInfoFragment extends BaseFragment<UpdateUserInfoPresenter
                 focusEditText(getBaseFragmentActivity(),inputOldPassword);
             case UPDATE_PASSWORD_NEW:
                 focusEditText(getBaseFragmentActivity(),inputNewPassword);
-                initRightTextButtoninitial(mTopBar, getBaseFragmentActivity(), R.string.save, R.id.save)
+                initRightTextButton(mTopBar, getBaseFragmentActivity(), R.string.save, R.id.save)
                         .setOnClickListener(v -> {
                             switch (updateMethod) {
                                 case UPDATE_PHONE_NEW:
@@ -130,15 +131,19 @@ public class UpdateUserInfoFragment extends BaseFragment<UpdateUserInfoPresenter
         switch (updateMethod) {
             case UPDATE_PHONE:
                 updateMethod1.setVisibility(View.VISIBLE);
+                QMUIKeyboardHelper.showKeyboard(inputOldPhone,true);
                 break;
             case UPDATE_PHONE_NEW:
                 updateMethod2.setVisibility(View.VISIBLE);
+                QMUIKeyboardHelper.showKeyboard(inputNewPassword,true);
                 break;
             case UPDATE_PASSWORD:
                 updateMethod3.setVisibility(View.VISIBLE);
+                QMUIKeyboardHelper.showKeyboard(inputOldPassword,true);
                 break;
             case UPDATE_PASSWORD_NEW:
                 updateMethod4.setVisibility(View.VISIBLE);
+                QMUIKeyboardHelper.showKeyboard(inputNewPassword,true);
                 break;
             default:
         }

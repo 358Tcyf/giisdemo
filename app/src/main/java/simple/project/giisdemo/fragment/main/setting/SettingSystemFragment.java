@@ -21,6 +21,7 @@ import simple.project.giisdemo.mvp.presenter.main.SettingSystemPresent;
 import simple.project.giisdemo.mvp.view.main.SettingSystemView;
 
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitleActivity;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackNameAndTitle;
 
 /**
  * @author Created by ys
@@ -44,7 +45,7 @@ public class SettingSystemFragment extends BaseFragment<SettingSystemPresent> im
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         unbinder = ButterKnife.bind(this, view);
-        initBackAndTitleActivity(mTopBar, getBaseFragmentActivity(), R.string.set_system);
+        initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.set_system);
         getPresenter().initGroupListView(groupListSystem);
         return view;
     }

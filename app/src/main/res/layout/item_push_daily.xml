@@ -19,7 +19,7 @@
             android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@mipmap/animation_img1" />
+            android:background="@color/colorPrimary" />
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
             android:id="@+id/push_pic"

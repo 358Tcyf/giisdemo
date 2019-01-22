@@ -10,7 +10,7 @@
         android:background="@color/qmui_config_color_background"
         android:orientation="vertical">
 
-        <include layout="@layout/qumi_topbar" />
+        <include layout="@layout/qumi_topbar_layout" />
 
 
         <LinearLayout

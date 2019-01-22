@@ -1,6 +1,6 @@
-package simple.project.giisdemo.fragment.main;
+package simple.project.giisdemo.fragment.main.push;
 
-import android.support.v7.widget.SearchView;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -14,6 +14,10 @@ import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.mvp.presenter.main.SearchPushPresenter;
 import simple.project.giisdemo.mvp.view.main.SearchPushView;
 
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBack;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackName;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initSearchBar;
+
 /**
  * @author Created by ys
  * @date at 2019/1/9 17:29
@@ -22,22 +26,19 @@ import simple.project.giisdemo.mvp.view.main.SearchPushView;
 public class SearchPushFragment extends BaseFragment<SearchPushPresenter> implements SearchPushView {
 
     @BindView(R.id.topbar)
-    QMUITopBarLayout topbar;
+    QMUITopBarLayout mTopBar;
     private Unbinder unbinder;
+
 
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_search, null);
         unbinder = ButterKnife.bind(this, view);
-        initSearchBar();
+        initBack(mTopBar, getBaseFragmentActivity());
+        initSearchBar(mTopBar, getBaseFragmentActivity());
         return view;
     }
 
-    private void initSearchBar() {
-        SearchView searchView = (SearchView) LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.search_bar, null);
-        topbar.addRightView(searchView, R.id.search);
-
-    }
 
     @Override
     protected SearchPushPresenter createPresenter() {

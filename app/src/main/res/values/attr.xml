@@ -4,6 +4,7 @@
     <attr name="colorPrimaryDark" format="color" />
     <attr name="colorPrimaryLight" format="color" />
     <attr name="colorAccent" format="color" />
+    <attr name="colorText_Icon" format="color" />
 
 
     <declare-styleable name="BannerView">

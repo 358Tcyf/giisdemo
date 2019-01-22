@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/qumi_topbar" />
+        <include layout="@layout/qumi_topbar_layout" />
 
 
         <android.support.v4.widget.SwipeRefreshLayout

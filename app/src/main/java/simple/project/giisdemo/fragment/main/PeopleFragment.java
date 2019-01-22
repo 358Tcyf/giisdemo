@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.util.QMUIResHelper;
@@ -23,10 +22,11 @@ import simple.project.giisdemo.R;
 import simple.project.giisdemo.adapter.PeopleAdapter;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.fragment.main.push.SearchPushFragment;
 import simple.project.giisdemo.mvp.presenter.main.PeoplePresenter;
 import simple.project.giisdemo.mvp.view.main.PeopleView;
 
-import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitle;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitleAndBack;
 
 /**
  * @author Created by ys
@@ -48,7 +48,8 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_people, null);
         unbinder = ButterKnife.bind(this, view);
-        initTitle(mTopBar, getBaseFragmentActivity(), R.string.people);
+        initTitleAndBack(mTopBar, getBaseFragmentActivity(), R.string.people)
+                .setOnClickListener(v -> toSearch());
         initList();
         return view;
     }
@@ -98,6 +99,11 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
     @Override
     protected PeoplePresenter createPresenter() {
         return new PeoplePresenter();
+    }
+
+    @Override
+    public void toSearch() {
+        startFragment(new SearchPushFragment());
     }
 
 }

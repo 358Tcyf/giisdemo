@@ -22,8 +22,8 @@ import simple.project.giisdemo.helper.utils.MessageEvent;
 import simple.project.giisdemo.mvp.presenter.main.SettingUserInfoPresenter;
 import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
 
-import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
-import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButtoninitial;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackNameAndTitle;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButton;
 import static simple.project.giisdemo.helper.utils.FileUtil.getUserPicPathUri;
 import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
 
@@ -55,8 +55,8 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
     }
 
     private void initTopBar() {
-        initBackAndTitle(mTopBar, getBaseFragmentActivity(), R.string.set_info);
-        initRightTextButtoninitial(mTopBar, getBaseFragmentActivity(), R.string.save, R.id.save)
+        initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.set_info);
+        initRightTextButton(mTopBar, getBaseFragmentActivity(), R.string.save, R.id.save)
                 .setOnClickListener(v -> {
                     getPresenter().savePic();
                 });

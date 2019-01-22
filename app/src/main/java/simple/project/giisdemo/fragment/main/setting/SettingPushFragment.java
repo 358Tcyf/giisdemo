@@ -14,7 +14,9 @@ import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.mvp.presenter.main.SettingPushPresenter;
 import simple.project.giisdemo.mvp.view.main.SettingPushView;
 
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackName;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackNameAndTitle;
 
 /**
  * @author Created by ys
@@ -39,7 +41,7 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         unbinder = ButterKnife.bind(this, view);
-        initBackAndTitle(mTopBar, getBaseFragmentActivity(), R.string.set_push);
+        initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.set_push);
         getPresenter().initGroupListView(groupListPushSetting);
         return view;
     }

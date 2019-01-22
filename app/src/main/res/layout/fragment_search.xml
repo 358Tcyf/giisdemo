@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/qumi_topbar_light" />
+        <include layout="@layout/qumi_topbar_layout" />
 
 
         <android.support.v4.widget.SwipeRefreshLayout

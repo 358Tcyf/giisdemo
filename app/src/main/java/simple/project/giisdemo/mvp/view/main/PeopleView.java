@@ -9,6 +9,6 @@ import simple.project.giisdemo.base.BaseView;
  */
 public interface PeopleView extends BaseView {
 
-
+    void toSearch();
 
 }

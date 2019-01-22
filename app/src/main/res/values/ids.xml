@@ -5,6 +5,7 @@
     <item name="setting" type="id" />
     <item name="splash" type="id" />
     <item name="search" type="id" />
+    <item name="back" type="id" />
     <item name="save" type="id" />
     <item name="next" type="id" />
     <item name="cancel" type="id" />

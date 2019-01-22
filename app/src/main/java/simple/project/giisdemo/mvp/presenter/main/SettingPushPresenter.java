@@ -1,6 +1,8 @@
 package simple.project.giisdemo.mvp.presenter.main;
 
+import android.app.TimePickerDialog;
 import android.view.View;
+import android.widget.TimePicker;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -90,13 +92,24 @@ public class SettingPushPresenter extends BasePresenter<SettingPushView, Setting
                         OnTimeSelectListener listener = (date, v1) -> {
 
                         };
-                        TimePickerView timePicker = new TimePickerBuilder(getView().getCurContext(), listener)
-                                .setType(new boolean[]{false, false, false, true, true, false})// 默认全部显示
-                                .setSubmitColor(getView().getCurContext().getResources().getColor(R.color.colorPrimary))//确定按钮文字颜色
-                                .setCancelColor(getView().getCurContext().getResources().getColor(R.color.colorPrimaryText))//取消按钮文字颜色
-                                .isDialog(true)//是否显示为对话框样式
-                                .build();
-                        timePicker.show();
+
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(getView().getCurContext(),
+                                android.R.style.Theme_DeviceDefault_Light_Dialog,
+                                (view, hourOfDay, minute) -> {
+
+                                },
+                                0,
+                                0,
+                                false);
+
+                        timePickerDialog.show();
+//                        TimePickerView timePicker = new TimePickerBuilder(getView().getCurContext(), listener)
+//                                .setType(new boolean[]{false, false, false, true, true, false})// 默认全部显示
+//                                .setSubmitColor(getView().getCurContext().getResources().getColor(R.color.colorPrimary))//确定按钮文字颜色
+//                                .setCancelColor(getView().getCurContext().getResources().getColor(R.color.colorPrimaryText))//取消按钮文字颜色
+//                                .isDialog(true)//是否显示为对话框样式
+//                                .build();
+//                        timePicker.show();
 
                         break;
                 }

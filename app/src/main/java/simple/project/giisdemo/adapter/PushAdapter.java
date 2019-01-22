@@ -28,18 +28,14 @@ public class PushAdapter extends BaseQuickAdapter<Status, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Status item) {
         switch (helper.getLayoutPosition() %
-                3) {
+                2) {
             case 0:
                 helper.setBackgroundColor(R.id.top, QMUIResHelper.getAttrColor(mContext, R.attr.colorPrimaryLight));
                 helper.setImageResource(R.id.push_pic, R.drawable.ic_push_item1);
                 break;
             case 1:
-                helper.setBackgroundColor(R.id.top, QMUIResHelper.getAttrColor(mContext, R.attr.colorPrimary));
-                helper.setImageResource(R.id.push_pic, R.drawable.ic_push_item2);
-                break;
-            case 2:
                 helper.setBackgroundColor(R.id.top, QMUIResHelper.getAttrColor(mContext, R.attr.colorPrimaryDark));
-                helper.setImageResource(R.id.push_pic, R.drawable.ic_push_item3);
+                helper.setImageResource(R.id.push_pic, R.drawable.ic_push_item2);
                 break;
         }
         helper.setText(R.id.push_title, item.getUserName());
