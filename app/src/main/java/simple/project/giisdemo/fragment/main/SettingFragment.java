@@ -23,7 +23,7 @@ import simple.project.giisdemo.R;
 import simple.project.giisdemo.activity.LoginActivity;
 import simple.project.giisdemo.activity.SettingActivity;
 import simple.project.giisdemo.base.BaseFragment;
-import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.data.bean.UserBean;
 import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.helper.utils.MessageEvent;
 import simple.project.giisdemo.mvp.presenter.main.SettingPresenter;

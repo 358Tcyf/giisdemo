@@ -12,7 +12,6 @@ import static simple.project.giisdemo.helper.utils.FileUtil.saveImageToGallery;
 /**
  * @author Created by ys
  * @date at 2019/1/8 0:50
- * @describe
  */
 public class LoginPresenter extends BasePresenter<LoginView, LoginModel> {
 
@@ -21,9 +20,7 @@ public class LoginPresenter extends BasePresenter<LoginView, LoginModel> {
         getModel().login(phone, password, new OnHttpCallBack<RetResult>() {
             @Override
             public void onSuccess(RetResult retResult) {
-//                getView().setUserPic(phone);
                 /*获取到账号信息之后，加载用户相片*/
-
                 String uri = GET_USER_PIC + phone;
                 saveImageToGallery(getView().getCurContext(), uri);
                 getView().toMain();
@@ -36,13 +33,12 @@ public class LoginPresenter extends BasePresenter<LoginView, LoginModel> {
         });
     }
 
-
     public void setAccount() {
         getView().setAccount(getModel().getAccount());
     }
 
     public void setPassword() {
-        getView().setPasswd(getModel().getPassword());
+        getView().setPassword(getModel().getPassword());
     }
 
 }

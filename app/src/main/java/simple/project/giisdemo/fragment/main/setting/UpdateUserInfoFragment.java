@@ -60,7 +60,6 @@ public class UpdateUserInfoFragment extends BaseFragment<UpdateUserInfoPresenter
     MaterialEditText inputOldPassword;
     @BindView(R.id.input_new_password)
     MaterialEditText inputNewPassword;
-    private Unbinder unbinder;
     private int updateMethod;
 
     public UpdateUserInfoFragment() {
@@ -86,7 +85,7 @@ public class UpdateUserInfoFragment extends BaseFragment<UpdateUserInfoPresenter
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_update_info, null);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         initTopBar();
         initEditText();
         return view;

@@ -21,7 +21,7 @@ import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.adapter.PeopleAdapter;
 import simple.project.giisdemo.base.BaseFragment;
-import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.data.bean.UserBean;
 import simple.project.giisdemo.fragment.main.push.SearchPushFragment;
 import simple.project.giisdemo.mvp.presenter.main.PeoplePresenter;
 import simple.project.giisdemo.mvp.view.main.PeopleView;

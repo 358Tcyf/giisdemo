@@ -37,7 +37,6 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
     GroupListView groupListUserInfo;
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
-    private Unbinder unbinder;
 
     @Override
     protected SettingUserInfoPresenter createPresenter() {
@@ -47,7 +46,7 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         initTopBar();
         getPresenter().initGroupListView(groupListUserInfo);
@@ -82,7 +81,7 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
     }
 
     @Override
-    public void updatePasswd() {
+    public void updatePassword() {
         startFragment(new UpdateUserInfoFragment(3));
     }
 
@@ -93,7 +92,6 @@ public class SettingUserInfoFragment extends BaseFragment<SettingUserInfoPresent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
-
         if (messageEvent.getMessage().containsKey("phone"))
             getPresenter().showPhone((String) messageEvent.getMessage().get("phone"));
     }

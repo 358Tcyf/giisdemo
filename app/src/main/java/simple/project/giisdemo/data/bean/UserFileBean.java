@@ -1,4 +1,4 @@
-package simple.project.giisdemo.bean;
+package simple.project.giisdemo.data.bean;
 
 /**
  * @author Created by ys

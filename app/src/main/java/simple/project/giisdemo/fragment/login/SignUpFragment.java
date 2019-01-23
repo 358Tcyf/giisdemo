@@ -1,11 +1,14 @@
 package simple.project.giisdemo.fragment.login;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import com.andrognito.flashbar.Flashbar;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 
 import butterknife.BindView;
@@ -20,12 +23,14 @@ import simple.project.giisdemo.mvp.presenter.login.SignUpPresenter;
 import simple.project.giisdemo.mvp.view.login.SignUpView;
 
 import static android.text.TextUtils.isEmpty;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.errorBar;
 import static simple.project.giisdemo.helper.utils.FlashBarUtil.loginError;
+import static simple.project.giisdemo.helper.utils.FlashBarUtil.progressBar;
 
 /**
  * @author Created by ys
  * @date at 2019/1/8 15:26
- * @describe
+ * @describe 注册界面
  */
 public class SignUpFragment extends BaseFragment<SignUpPresenter> implements SignUpView, View.OnFocusChangeListener {
 
@@ -37,7 +42,10 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
     EditText newPasswd;
     @BindView(R.id.repeat_passwd)
     EditText repeatPasswd;
-    private Unbinder unbinder;
+
+    private Activity mActivity;
+    private Flashbar flashbar;
+    private boolean hidden = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,8 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_sign_up, null);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
+        mActivity = getBaseFragmentActivity();
         inputName.setOnFocusChangeListener(this);
         inputPhone.setOnFocusChangeListener(this);
         newPasswd.setOnFocusChangeListener(this);
@@ -56,17 +65,12 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
         return view;
     }
 
-    private boolean hidden = true;
 
     @OnClick({R.id.signup_btn, R.id.login, R.id.nepasswd_icon, R.id.repasswd_icon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.signup_btn:
-                if (validInput()) {
-                    getPresenter().signUp(inputName.getText().toString(),
-                            inputPhone.getText().toString(),
-                            newPasswd.getText().toString());
-                }
+                signUpProgress();
                 break;
             case R.id.login:
                 toLogin();
@@ -81,41 +85,53 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
     }
 
     private boolean validInput() {
-
-
         if (isEmpty(inputName.getText().toString())) {
-//            ToastUtil.showShort(getBaseFragmentActivity(), "name is empty");
-            flashBar("name is empty");
-            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputName);
+            errorBar(mActivity, "name is empty");
+            EditTextUtil.shakeAnimation(mActivity, inputName);
             return false;
         } else if (isEmpty(inputPhone.getText().toString())) {
-//            ToastUtil.showShort(getBaseFragmentActivity(), "phone is empty");
-            flashBar("phone is empty");
-            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), inputPhone);
+            errorBar(mActivity, "phone is empty");
+            EditTextUtil.shakeAnimation(mActivity, inputPhone);
             return false;
         } else if (isEmpty(newPasswd.getText().toString())) {
-//            ToastUtil.showShort(getBaseFragmentActivity(), "password is empty");
-            flashBar("password is empty");
-            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), newPasswd);
+            errorBar(mActivity, "password is empty");
+            EditTextUtil.shakeAnimation(mActivity, newPasswd);
             return false;
         } else if (isEmpty(repeatPasswd.getText().toString())) {
-//            ToastUtil.showShort(getBaseFragmentActivity(), "please input password again");
-            flashBar("please input password again");
-            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), repeatPasswd);
+            errorBar(mActivity, "please input password again");
+            EditTextUtil.shakeAnimation(mActivity, repeatPasswd);
             return false;
         } else if (!newPasswd.getText().toString().equals(repeatPasswd.getText().toString())) {
-//            ToastUtil.showShort(getBaseFragmentActivity(), "password is different");
-            flashBar("password is different");
-            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), newPasswd);
-            EditTextUtil.shakeAnimation(getBaseFragmentActivity(), repeatPasswd);
+            errorBar(mActivity, "password is different");
+            EditTextUtil.shakeAnimation(mActivity, newPasswd);
+            EditTextUtil.shakeAnimation(mActivity, repeatPasswd);
             return false;
         }
         return true;
     }
 
     @Override
+    public void signUpProgress() {
+        if (validInput()) {
+            flashbar = progressBar(mActivity, R.string.logining);
+            flashbar.show();
+            new Handler().postDelayed(() -> {
+                getPresenter().signUp(inputName.getText().toString(),
+                        inputPhone.getText().toString(),
+                        newPasswd.getText().toString()
+                );
+            }, 500);
+        }
+    }
+
+    @Override
     public void toLogin() {
         startFragment(new LoginFragment());
+    }
+
+    @Override
+    public void showErrorMsg(String errorMsg) {
+        errorBar(mActivity, errorMsg);
     }
 
     @Override
@@ -128,15 +144,9 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
         return getBaseFragmentActivity();
     }
 
-
     @Override
-    public void showErrorMsg(String errorMsg) {
-        flashBar(errorMsg);
-//        ToastUtil.showShort(getBaseFragmentActivity(), errorMsg);
-    }
-
-    public void flashBar(String errorMsg) {
-        loginError(getBaseFragmentActivity(), errorMsg);
+    public void onFocusChange(View view, boolean hasFocus) {
+        EditTextUtil.onFocusChange(getBaseFragmentActivity(), hidden, view, hasFocus);
     }
 
     @Override
@@ -145,11 +155,4 @@ public class SignUpFragment extends BaseFragment<SignUpPresenter> implements Sig
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         super.onDestroy();
     }
-
-
-    @Override
-    public void onFocusChange(View view, boolean hasFocus) {
-        EditTextUtil.onFocusChange(getBaseFragmentActivity(), hidden, view, hasFocus);
-    }
-
 }

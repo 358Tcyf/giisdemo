@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.ArrayList;
 
 import simple.project.giisdemo.R;
-import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.data.bean.UserBean;
 
 /**
  * @author Created by ys

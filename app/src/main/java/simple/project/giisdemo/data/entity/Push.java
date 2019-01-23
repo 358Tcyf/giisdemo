@@ -1,19 +1,32 @@
-package simple.project.giisdemo.bean;
+package simple.project.giisdemo.data.entity;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
 /**
  * @author Created by ys
  * @date at 2019/1/12 23:35
- * @describe
  */
-public class PushMessageBean {
+
+@Entity(tableName = "push_table")
+public class Push extends BaseEntity{
+
+
 
     private String title;
+
     private String content;
-    private Date createTime;
+
+    private long  createTime;
+
     private int pushMethod;
+
     private int messageType;
+
+
 
     public String getTitle() {
         return title;
@@ -31,11 +44,11 @@ public class PushMessageBean {
         this.content = content;
     }
 
-    public Date getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 

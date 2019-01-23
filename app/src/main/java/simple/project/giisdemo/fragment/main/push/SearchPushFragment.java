@@ -27,13 +27,12 @@ public class SearchPushFragment extends BaseFragment<SearchPushPresenter> implem
 
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
-    private Unbinder unbinder;
 
 
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_search, null);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         initBack(mTopBar, getBaseFragmentActivity());
         initSearchBar(mTopBar, getBaseFragmentActivity());
         return view;

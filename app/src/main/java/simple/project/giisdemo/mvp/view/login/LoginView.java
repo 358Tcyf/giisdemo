@@ -9,6 +9,8 @@ import simple.project.giisdemo.base.BaseView;
  */
 public interface LoginView extends BaseView {
 
+    void loginProgress();
+
     void toMain();//跳转到主页面
 
     void toSignUp();//跳转到注册页面
@@ -17,6 +19,6 @@ public interface LoginView extends BaseView {
 
     void setAccount(String phone);
 
-    void setPasswd(String passwd);
+    void setPassword(String passwd);
 
 }

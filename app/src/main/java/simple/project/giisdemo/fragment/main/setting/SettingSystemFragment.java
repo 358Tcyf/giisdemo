@@ -39,12 +39,11 @@ public class SettingSystemFragment extends BaseFragment<SettingSystemPresent> im
         return new SettingSystemPresent();
     }
 
-    private Unbinder unbinder;
 
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.set_system);
         getPresenter().initGroupListView(groupListSystem);
         return view;

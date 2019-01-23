@@ -18,15 +18,22 @@ import java.util.Date;
 public class DateUtil {
 
 
-    public static String dateToStr(Date date, String format) {
+    public static long strToLong(String str, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(date);
+        return sdf.parse(str, new ParsePosition(0)).getTime() / 1000;
     }
+
+
 
     public static String dataToStr(Context mContext, Date date, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         TimeAgo timeAgo = new TimeAgo().locale(mContext).with(sdf);
         return timeAgo.getTimeAgo(date);
+    }
+
+    public static String dateToStr(Date date, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(date);
     }
 
     public static Date strToDate(String str, String format) {

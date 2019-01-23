@@ -109,43 +109,6 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
 
     private QMUIRadiusImageView userPicView;
 
-    View.OnClickListener onClickListener = v -> {
-        if (v instanceof QMUICommonListItemView) {
-            CharSequence text = ((QMUICommonListItemView) v).getText();
-            switch ((String) text) {
-                case "相片":
-                    new QMUIBottomSheet.BottomListSheetBuilder(getView().getCurContext())
-                            .addItem(getView().getCurContext().getResources().getString(R.string.take_pic))
-                            .addItem(getView().getCurContext().getResources().getString(R.string.choose_pic))
-                            .addItem(getView().getCurContext().getResources().getString(R.string.view_pic))
-                            .addItem(getView().getCurContext().getResources().getString(R.string.cancel))
-                            .setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
-                                dialog.dismiss();
-                                switch (position) {
-                                    case TAKE_PIC:
-                                        takePhoto(userPicView);
-                                        break;
-                                    case CHOOSE_PIC:
-                                        choosePhoto(userPicView);
-                                        break;
-                                    case VIEW_PIC:
-                                        getView().showImage();
-                                        break;
-                                    default:
-                                }
-                            })
-                            .build()
-                            .show();
-                    break;
-                case "手机":
-                    getView().updatePhone();
-                    break;
-                case "修改密码":
-                    getView().updatePasswd();
-                    break;
-            }
-        }
-    };
 
     @SuppressLint("CheckResult")
     public void takePhoto(View view) {
@@ -198,7 +161,7 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
     }
 
     public void savePic() {
-        if (uri != null){
+        if (uri != null) {
             getModel().savePic(uri);
             uploadPic(uri);
         }
@@ -209,7 +172,45 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
     }
 
     public void showPhone(String phone) {
-        userPhone.setDetailText((CharSequence) phone);
+        userPhone.setDetailText( phone);
 
     }
+
+    private View.OnClickListener onClickListener = v -> {
+        if (v instanceof QMUICommonListItemView) {
+            CharSequence text = ((QMUICommonListItemView) v).getText();
+            switch ((String) text) {
+                case "相片":
+                    new QMUIBottomSheet.BottomListSheetBuilder(getView().getCurContext())
+                            .addItem(getView().getCurContext().getResources().getString(R.string.take_pic))
+                            .addItem(getView().getCurContext().getResources().getString(R.string.choose_pic))
+                            .addItem(getView().getCurContext().getResources().getString(R.string.view_pic))
+                            .addItem(getView().getCurContext().getResources().getString(R.string.cancel))
+                            .setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
+                                dialog.dismiss();
+                                switch (position) {
+                                    case TAKE_PIC:
+                                        takePhoto(userPicView);
+                                        break;
+                                    case CHOOSE_PIC:
+                                        choosePhoto(userPicView);
+                                        break;
+                                    case VIEW_PIC:
+                                        getView().showImage();
+                                        break;
+                                    default:
+                                }
+                            })
+                            .build()
+                            .show();
+                    break;
+                case "手机":
+                    getView().updatePhone();
+                    break;
+                case "修改密码":
+                    getView().updatePassword();
+                    break;
+            }
+        }
+    };
 }

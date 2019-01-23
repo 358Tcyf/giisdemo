@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout;
 
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,11 +22,15 @@ import butterknife.ButterKnife;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.adapter.PushAdapter;
 import simple.project.giisdemo.base.BaseFragment;
-import simple.project.giisdemo.bean.PushMessageBean;
+import simple.project.giisdemo.data.DatabaseHelper;
+import simple.project.giisdemo.data.entity.Push;
 import simple.project.giisdemo.fragment.main.push.SearchPushFragment;
 import simple.project.giisdemo.helper.custom.BannerView;
 import simple.project.giisdemo.mvp.presenter.main.PushPresenter;
 import simple.project.giisdemo.mvp.view.main.PushView;
+
+import static simple.project.giisdemo.helper.constant.DateConstant.format1;
+import static simple.project.giisdemo.helper.utils.DateUtil.strToLong;
 
 /**
  * @author Created by ys
@@ -77,27 +82,27 @@ public class PushFragmentCollapsing extends BaseFragment<PushPresenter> implemen
         });
     }
 
-    String[] titles = {"销售报告", "生产报告"};
-    Date[] dates = new Date[2];
-    ArrayList<PushMessageBean> list = new ArrayList<>();
+    private String[] titles = {"销售报告", "生产报告"};
+    private long[] time = {strToLong("2018-12-30 20:00:00", format1)
+            , strToLong("2019-01-20 20:00:00", format1)};
+    private ArrayList<Push> list = new ArrayList<>();
+    private ArrayList arrayList = new ArrayList();
+    private DatabaseHelper helper;
 
     private void initList() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseFragmentActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        Calendar c = Calendar.getInstance();//日历类采用了单例模式
-        c.set(2018, 12-1, 22, 20, 50);
-        Date date1 = c.getTime();
-        dates[0] = date1;
-        c.set(2019, 1-1, 2, 20, 50);
-        Date date2 = c.getTime();
-        dates[1] = date2;
+        helper = new DatabaseHelper(getBaseFragmentActivity());
         for (int pos = 0; pos < titles.length * 3; pos++) {
-            PushMessageBean item = new PushMessageBean();
+            Push item = new Push();
             item.setTitle(titles[pos / 3]);
-            item.setCreateTime(dates[pos / 3]);
-
+            item.setCreateTime(time[pos / 3]);
+            if (helper.getAllPush().size() == 0)
+                helper.insertPush(item);
             list.add(item);
         }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseFragmentActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+
 
         mSwipeRefreshLayout.setColorSchemeColors(QMUIResHelper
                 .getAttrColor(getBaseFragmentActivity(), R.attr.colorPrimary))
@@ -119,7 +124,7 @@ public class PushFragmentCollapsing extends BaseFragment<PushPresenter> implemen
     private PushAdapter mAdapter;
 
     private void initAdapter() {
-        mAdapter = new PushAdapter(getBaseFragmentActivity(), list);
+        mAdapter = new PushAdapter(getBaseFragmentActivity(), helper.getAllPush());
         mAdapter.isFirstOnly(true);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mRecyclerView.setAdapter(mAdapter);

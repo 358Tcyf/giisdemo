@@ -1,4 +1,4 @@
-package simple.project.giisdemo.bean;
+package simple.project.giisdemo.data.bean;
 
 import java.util.List;
 

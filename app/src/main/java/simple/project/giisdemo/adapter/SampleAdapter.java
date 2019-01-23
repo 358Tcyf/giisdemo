@@ -6,20 +6,20 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.ArrayList;
 
 import simple.project.giisdemo.R;
-import simple.project.giisdemo.bean.PushMessageBean;
+import simple.project.giisdemo.data.entity.Push;
 
 /**
  * @author Created by ys
  * @date at 2019/1/20 16:57
  * @describe
  */
-public class SampleAdapter extends BaseQuickAdapter<PushMessageBean, BaseViewHolder> {
-    public SampleAdapter(ArrayList<PushMessageBean> data) {
+public class SampleAdapter extends BaseQuickAdapter<Push, BaseViewHolder> {
+    public SampleAdapter(ArrayList<Push> data) {
         super(R.layout.item_push_daily, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, PushMessageBean item) {
+    protected void convert(BaseViewHolder helper, Push item) {
 //        switch (helper.getLayoutPosition() %
 //                3) {
 //            case 0:

@@ -1,7 +1,7 @@
 package simple.project.giisdemo.mvp.view.main;
 
 import simple.project.giisdemo.base.BaseView;
-import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.data.bean.UserBean;
 
 /**
  * @author Created by ys

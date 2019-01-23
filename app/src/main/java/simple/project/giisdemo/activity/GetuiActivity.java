@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import simple.project.giisdemo.R;
-import simple.project.giisdemo.bean.TagBean;
+import simple.project.giisdemo.data.bean.TagBean;
 import simple.project.giisdemo.helper.server.DemoIntentService;
 import simple.project.giisdemo.helper.server.DemoPushService;
 import simple.project.giisdemo.helper.utils.SPUtils;

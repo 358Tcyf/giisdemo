@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">hello glass</string>
     <string name="login">Login</string>
+    <string name="logining">登录中</string>
     <string name="logout">退出登录</string>
 
     <string name="signup">Sign Up</string>
+    <string name="signuping">注册中</string>
     <string name="password">Password</string>
     <string name="repasswd">Repeat Password</string>
     <string name="id">User ID</string>

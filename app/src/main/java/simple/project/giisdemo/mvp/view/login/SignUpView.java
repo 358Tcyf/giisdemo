@@ -8,6 +8,9 @@ import simple.project.giisdemo.base.BaseView;
  * @describe
  */
 public interface SignUpView extends BaseView {
+
+    void signUpProgress();
+
     void toLogin(); //跳转到登入界面
 
     void showErrorMsg(String errorMsg);

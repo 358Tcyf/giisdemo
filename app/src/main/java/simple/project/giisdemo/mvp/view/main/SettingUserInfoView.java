@@ -18,7 +18,7 @@ public interface SettingUserInfoView extends BaseView {
 
     void updatePhone();
 
-    void updatePasswd();
+    void updatePassword();
 
     void showErrorMsg(String errorMsg);
 }

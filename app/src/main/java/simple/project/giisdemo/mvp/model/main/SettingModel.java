@@ -1,7 +1,7 @@
 package simple.project.giisdemo.mvp.model.main;
 
 import simple.project.giisdemo.base.BaseModel;
-import simple.project.giisdemo.bean.UserBean;
+import simple.project.giisdemo.data.bean.UserBean;
 import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.utils.SPUtils;
 

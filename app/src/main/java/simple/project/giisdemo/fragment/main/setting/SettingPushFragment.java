@@ -29,7 +29,6 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
     GroupListView groupListPushSetting;
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
-    private Unbinder unbinder;
 
 
     @Override
@@ -40,7 +39,7 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.set_push);
         getPresenter().initGroupListView(groupListPushSetting);
         return view;
