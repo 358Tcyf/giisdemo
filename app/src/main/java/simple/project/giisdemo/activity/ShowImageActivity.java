@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
+import com.tencent.mmkv.MMKV;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -16,6 +18,8 @@ import butterknife.ButterKnife;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.helper.custom.ZoomImageView;
 import simple.project.giisdemo.helper.utils.MessageEvent;
+
+import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 
 /**
  * @author Created by ys
@@ -39,6 +43,8 @@ public class ShowImageActivity extends QMUIFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showimage);
+        String rootDir = MMKV.initialize(this);
+        Log.d(DEBUG,"mmkv root: " + rootDir);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         Intent intent = getIntent();

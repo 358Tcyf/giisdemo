@@ -1,6 +1,7 @@
 package simple.project.giisdemo.helper.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -12,12 +13,17 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
  */
 public class QMUIUtil {
 
-    public static void successTipDialog(Activity mActivity, String success) {
-        QMUITipDialog tipDialog = new QMUITipDialog.Builder(mActivity)
+    public static void successTipDialog(Context context, String success) {
+        QMUITipDialog tipDialog = new QMUITipDialog.Builder(context)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
                 .setTipWord(success)
                 .create();
         tipDialog.show();
         new Handler().postDelayed(() -> tipDialog.dismiss(), 500);
+    }
+
+    public static void loadingTipDialog(Context context,String loading){
+        QMUITipDialog tipDialog = DialogUtil.showTipDialog(context, QMUITipDialog.Builder.ICON_TYPE_LOADING, loading, false);
+        new Handler().postDelayed(() -> tipDialog.dismiss(), 2000);
     }
 }

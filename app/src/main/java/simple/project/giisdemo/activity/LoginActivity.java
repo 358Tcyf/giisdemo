@@ -53,7 +53,7 @@ public class LoginActivity extends QMUIFragmentActivity {
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
         String cid = PushManager.getInstance().getClientid(this);
         Log.d(DEBUG, "LoginActivity: cid is " + cid);
-        SPUtils.put(this, DEVICE_CID, "device's cid is " + cid);
+        SPUtils.put(this, DEVICE_CID, cid);
 
     }
 

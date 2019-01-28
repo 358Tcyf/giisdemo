@@ -1,6 +1,11 @@
 package simple.project.giisdemo.data.bean;
 
+import android.arch.persistence.room.Entity;
+
 import java.util.List;
+
+import simple.project.giisdemo.data.bean.TagBean;
+import simple.project.giisdemo.data.entity.BaseEntity;
 
 
 /**
@@ -8,7 +13,7 @@ import java.util.List;
  * @date at 2019/1/3 21:48
  * @describe
  */
-public class UserBean {
+public class UserBean extends BaseEntity {
     private String phone;
     private String name;
     private String email;

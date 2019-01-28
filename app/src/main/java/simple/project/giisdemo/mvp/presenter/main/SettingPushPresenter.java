@@ -2,7 +2,6 @@ package simple.project.giisdemo.mvp.presenter.main;
 
 import android.app.TimePickerDialog;
 import android.view.View;
-import android.widget.TimePicker;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -10,12 +9,14 @@ import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BasePresenter;
+import simple.project.giisdemo.data.DatabaseHelper;
+import simple.project.giisdemo.data.entity.PushSetting;
 import simple.project.giisdemo.helper.custom.GroupListView;
-import simple.project.giisdemo.helper.custom.TimePickerView.TimePickerBuilder;
-import simple.project.giisdemo.helper.custom.TimePickerView.TimePickerView;
+import simple.project.giisdemo.helper.utils.SPUtils;
 import simple.project.giisdemo.mvp.model.main.SettingPushModel;
 import simple.project.giisdemo.mvp.view.main.SettingPushView;
 
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.cycles;
 import static simple.project.giisdemo.helper.constant.GlobalField.dateSet;
 import static simple.project.giisdemo.helper.constant.GlobalField.weekSet;
@@ -26,26 +27,41 @@ import static simple.project.giisdemo.helper.constant.GlobalField.weekSet;
  * @describe
  */
 public class SettingPushPresenter extends BasePresenter<SettingPushView, SettingPushModel> {
+
+    private PushSetting setting;
+
     public void initGroupListView(GroupListView groupListPushSetting) {
+
+        DatabaseHelper helper = new DatabaseHelper(getView().getCurContext());
+        setting = helper.getPushSetting((String) SPUtils.get(getView().getCurContext(), USER_PHONE, ""));
+        getModel().init();
         QMUICommonListItemView pushSwitch = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_switch));
         pushSwitch.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
+        pushSwitch.getSwitch().setChecked(setting.isPushSwitch());
         pushSwitch.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
             //TODO 推送设置
+            setting.setPushSwitch(isChecked);
         });
         QMUICommonListItemView pushVoice = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_voice));
         pushVoice.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
+        pushVoice.getSwitch().setChecked(setting.isVoice());
         pushVoice.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
             //TODO 推送设置
+            setting.setVoice(isChecked);
         });
         QMUICommonListItemView pushVibrate = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_vibrate));
         pushVibrate.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
+        pushVibrate.getSwitch().setChecked(setting.isVibrate());
         pushVibrate.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
             //TODO 推送设置
+            setting.setVibrate(isChecked);
         });
         QMUICommonListItemView pushFloat = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_float));
         pushFloat.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
+        pushFloat.getSwitch().setChecked(setting.isFloatWindow());
         pushFloat.getSwitch().setOnCheckedChangeListener((buttonView, isChecked) -> {
             //TODO 推送设置
+            setting.setFloatWindow(isChecked);
         });
         QMUICommonListItemView pushCycle = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_cycle));
         QMUICommonListItemView pushDate = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_date));
@@ -132,5 +148,9 @@ public class SettingPushPresenter extends BasePresenter<SettingPushView, Setting
                 .addItemView(pushTime, onClickListener)
                 .addTo(groupListPushSetting);
 
+    }
+
+    public void saveSetting() {
+        getModel().save(setting);
     }
 }

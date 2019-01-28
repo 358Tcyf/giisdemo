@@ -7,11 +7,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import simple.project.giisdemo.data.dao.PushDao;
+import simple.project.giisdemo.data.dao.PushSettingDao;
 import simple.project.giisdemo.data.entity.Push;
+import simple.project.giisdemo.data.entity.PushSetting;
+import simple.project.giisdemo.helper.utils.SPUtils;
+
+import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 
 /**
  * @author Created by ys
@@ -22,6 +26,7 @@ public class DatabaseHelper {
     private Context context;
     private GIISDatabase giisDatabase;
     private PushDao pushDao;
+    private PushSettingDao pushSettingDao;
 
     public DatabaseHelper(Context context) {
         this.context = context;
@@ -45,6 +50,7 @@ public class DatabaseHelper {
                 .fallbackToDestructiveMigration()//迁移数据库如果发生错误，将会重新创建数据库，而不是发生崩溃
                 .build();
         pushDao = giisDatabase.pushDao();
+        pushSettingDao = giisDatabase.pushSettingDao();
     }
 
     public void insertPush(Push push) {
@@ -54,6 +60,22 @@ public class DatabaseHelper {
     public ArrayList<Push> getAllPush() {
         List<Push> list = pushDao.getAll();
         return (ArrayList<Push>) list;
+    }
+
+    public void insertPushSetting(String phone) {
+        if (pushSettingDao.findByPhone(phone) == null) {
+            PushSetting setting = new PushSetting(phone);
+            pushSettingDao.insert(setting);
+
+        }
+    }
+
+    public void updatePushSetting(PushSetting setting) {
+        pushSettingDao.update(setting);
+    }
+
+    public PushSetting getPushSetting(String phone) {
+        return pushSettingDao.findByPhone(phone);
     }
 
 }

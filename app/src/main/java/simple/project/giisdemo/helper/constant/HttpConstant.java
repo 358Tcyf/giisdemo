@@ -13,12 +13,14 @@ public class HttpConstant {
     private static final String WIFI3 = "http://192.158.1.30";
     private static final String WIFI4 = "http://10.10.10.107";
     private static final String WIFI5 = "http://192.158.1.27";
+    private static final String WIFI6 = "http://192.168.1.100";
     public static final String URL = BUGDOGGY;
     public static final String PORT = ":7171";
     public static final String USER = "/user";
     public static final String PIC = "/pic";
     public static final String FILE = "/file";
     public static final String APK = "/apk";
+    public static final String HTTP =URL+PORT;
     public static final String GET_USER_PIC = URL + PORT + PIC + "/";
     public static final String GET_NEW_APK = URL + PORT + FILE + APK;
 }

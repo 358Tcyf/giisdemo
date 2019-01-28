@@ -29,11 +29,13 @@ public class FlashBarUtil {
     }
 
     public static void errorBar(Activity mActivity, String msg) {
+        TypedValue value = new TypedValue();
+        mActivity.getTheme().resolveAttribute(R.attr.colorPrimaryLight, value, true);
         Flashbar flashbar = new Flashbar.Builder(mActivity)
                 .gravity(Flashbar.Gravity.BOTTOM)
                 .message(msg)
                 .messageColorRes(R.color.colorPrimaryText)
-                .backgroundColorRes(QMUIResHelper.getAttrColor(mActivity, R.attr.colorPrimaryLight))
+                .backgroundColorRes(value.resourceId)
                 .build();
         flashbar.show();
         new Handler().postDelayed(() -> flashbar.dismiss(), 1000);

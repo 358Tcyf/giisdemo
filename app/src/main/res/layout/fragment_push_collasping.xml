@@ -25,11 +25,23 @@
                 android:visibility="gone"
                 app:qmui_topbar_bg_color="@color/colorPrimaryDark" />
 
-            <simple.project.giisdemo.helper.custom.BannerView
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="3dp" />
+            <!--            <simple.project.giisdemo.helper.custom.BannerView
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:elevation="3dp"
+                            android:visibility="gone" />-->
+
+            <cn.bingoogolapple.bgabanner.BGABanner
+                android:id="@+id/banner_content"
+                style="@style/BannerDefaultStyle"
+                app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+                app:banner_pointAutoPlayAble="true"
+                app:banner_pointContainerBackground="@android:color/transparent"
+                app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+                app:banner_pointTopBottomMargin="10dp"
+                app:banner_transitionEffect="depth" />
+
 
         </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
     </com.qmuiteam.qmui.widget.QMUIAppBarLayout>

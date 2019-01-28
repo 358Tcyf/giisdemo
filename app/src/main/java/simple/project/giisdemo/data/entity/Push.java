@@ -12,20 +12,22 @@ import java.util.Date;
  */
 
 @Entity(tableName = "push_table")
-public class Push extends BaseEntity{
+public class Push extends BaseEntity {
 
-
-
+    @ColumnInfo
     private String title;
 
+    @ColumnInfo
     private String content;
 
-    private long  createTime;
+    @ColumnInfo
+    private long createTime;
 
+    @ColumnInfo
     private int pushMethod;
 
+    @ColumnInfo
     private int messageType;
-
 
 
     public String getTitle() {

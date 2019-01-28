@@ -3,10 +3,12 @@ package simple.project.giisdemo.fragment.login;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.andrognito.flashbar.Flashbar;
@@ -52,12 +54,18 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     private Flashbar flashbar;
     private boolean hidden = true;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivity = getBaseFragmentActivity();
+    }
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_login, null);
         ButterKnife.bind(this, view);
-        mActivity = getBaseFragmentActivity();
         inputUser.setOnFocusChangeListener(this);
         inputPasswd.setOnFocusChangeListener(this);
         getPresenter().setAccount();

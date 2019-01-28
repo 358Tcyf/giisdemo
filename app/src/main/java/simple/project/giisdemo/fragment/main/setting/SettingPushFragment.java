@@ -17,6 +17,8 @@ import simple.project.giisdemo.mvp.view.main.SettingPushView;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackName;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitle;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackNameAndTitle;
+import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButton;
+import static simple.project.giisdemo.helper.utils.QMUIUtil.successTipDialog;
 
 /**
  * @author Created by ys
@@ -40,9 +42,17 @@ public class SettingPushFragment extends BaseFragment<SettingPushPresenter> impl
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting_grouplist, null);
         ButterKnife.bind(this, view);
-        initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.set_push);
+        initTopBar();
         getPresenter().initGroupListView(groupListPushSetting);
         return view;
     }
 
+    private void initTopBar() {
+        initBackNameAndTitle(mTopBar, getBaseFragmentActivity(), R.string.back, R.string.set_push);
+        initRightTextButton(mTopBar, getBaseFragmentActivity(), R.string.save, R.id.save)
+                .setOnClickListener(v -> {
+                    getPresenter().saveSetting();
+                    successTipDialog(getBaseFragmentActivity(), "保存成功");
+                });
+    }
 }
