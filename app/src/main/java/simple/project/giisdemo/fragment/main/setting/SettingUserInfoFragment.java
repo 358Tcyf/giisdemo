@@ -13,14 +13,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.activity.ShowImageActivity;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.helper.utils.MessageEvent;
-import simple.project.giisdemo.mvp.presenter.main.SettingUserInfoPresenter;
-import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
+import simple.project.giisdemo.mvp.presenter.main.setting.SettingUserInfoPresenter;
+import simple.project.giisdemo.mvp.view.main.setting.SettingUserInfoView;
 
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackNameAndTitle;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initRightTextButton;

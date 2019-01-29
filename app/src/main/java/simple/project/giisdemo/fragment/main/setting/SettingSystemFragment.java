@@ -12,15 +12,13 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.helper.utils.MessageEvent;
-import simple.project.giisdemo.mvp.presenter.main.SettingSystemPresent;
-import simple.project.giisdemo.mvp.view.main.SettingSystemView;
+import simple.project.giisdemo.mvp.presenter.main.setting.SettingSystemPresent;
+import simple.project.giisdemo.mvp.view.main.setting.SettingSystemView;
 
-import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackAndTitleActivity;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initBackNameAndTitle;
 
 /**

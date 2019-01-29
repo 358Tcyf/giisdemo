@@ -1,11 +1,11 @@
-package simple.project.giisdemo.mvp.presenter.main;
+package simple.project.giisdemo.mvp.presenter.main.setting;
 
 import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
 import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.helper.utils.SPUtils;
-import simple.project.giisdemo.mvp.model.main.UpdateUserInfoModel;
-import simple.project.giisdemo.mvp.view.main.UpdateUserInfoView;
+import simple.project.giisdemo.mvp.model.main.setting.UpdateUserInfoModel;
+import simple.project.giisdemo.mvp.view.main.setting.UpdateUserInfoView;
 
 import static android.text.TextUtils.isEmpty;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;

@@ -1,4 +1,4 @@
-package simple.project.giisdemo.mvp.model.main;
+package simple.project.giisdemo.mvp.model.main.setting;
 
 import android.util.Log;
 

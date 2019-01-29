@@ -1,4 +1,4 @@
-package simple.project.giisdemo.mvp.presenter.main;
+package simple.project.giisdemo.mvp.presenter.main.setting;
 
 import android.view.View;
 
@@ -9,14 +9,10 @@ import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.helper.custom.GroupListView;
 import simple.project.giisdemo.helper.utils.SPUtils;
-import simple.project.giisdemo.mvp.model.main.SettingSystemModel;
-import simple.project.giisdemo.mvp.view.main.SettingSystemView;
+import simple.project.giisdemo.mvp.model.main.setting.SettingSystemModel;
+import simple.project.giisdemo.mvp.view.main.setting.SettingSystemView;
 
-import static simple.project.giisdemo.helper.constant.GlobalField.DEFAULT;
-import static simple.project.giisdemo.helper.constant.GlobalField.INDIGO;
-import static simple.project.giisdemo.helper.constant.GlobalField.LIGHT_BLUE;
 import static simple.project.giisdemo.helper.constant.GlobalField.SYS_LANG;
-import static simple.project.giisdemo.helper.constant.GlobalField.TEAL;
 import static simple.project.giisdemo.helper.constant.GlobalField.languages;
 import static simple.project.giisdemo.helper.constant.GlobalField.themes;
 

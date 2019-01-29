@@ -70,6 +70,14 @@ public class DatabaseHelper {
         }
     }
 
+    public void downloadPushSetting(String phone,PushSetting setting) {
+        if (pushSettingDao.findByPhone(phone) == null) {
+            setting.setUserPhone(phone);
+            pushSettingDao.insert(setting);
+
+        }
+    }
+
     public void updatePushSetting(PushSetting setting) {
         pushSettingDao.update(setting);
     }

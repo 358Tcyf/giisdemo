@@ -1,4 +1,4 @@
-package simple.project.giisdemo.mvp.view.main;
+package simple.project.giisdemo.mvp.view.main.setting;
 
 import android.graphics.Bitmap;
 import android.net.Uri;

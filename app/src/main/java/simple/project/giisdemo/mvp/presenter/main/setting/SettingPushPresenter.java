@@ -1,10 +1,12 @@
-package simple.project.giisdemo.mvp.presenter.main;
+package simple.project.giisdemo.mvp.presenter.main.setting;
 
 import android.app.TimePickerDialog;
+import android.os.Handler;
 import android.view.View;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 
 import simple.project.giisdemo.R;
@@ -12,14 +14,19 @@ import simple.project.giisdemo.base.BasePresenter;
 import simple.project.giisdemo.data.DatabaseHelper;
 import simple.project.giisdemo.data.entity.PushSetting;
 import simple.project.giisdemo.helper.custom.GroupListView;
+import simple.project.giisdemo.helper.http.OnHttpCallBack;
+import simple.project.giisdemo.helper.http.RetResult;
+import simple.project.giisdemo.helper.utils.DialogUtil;
 import simple.project.giisdemo.helper.utils.SPUtils;
-import simple.project.giisdemo.mvp.model.main.SettingPushModel;
-import simple.project.giisdemo.mvp.view.main.SettingPushView;
+import simple.project.giisdemo.mvp.model.main.setting.SettingPushModel;
+import simple.project.giisdemo.mvp.view.main.setting.SettingPushView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
 import static simple.project.giisdemo.helper.constant.GlobalField.cycles;
 import static simple.project.giisdemo.helper.constant.GlobalField.dateSet;
 import static simple.project.giisdemo.helper.constant.GlobalField.weekSet;
+import static simple.project.giisdemo.helper.utils.QMUIUtil.failTipDialog;
+import static simple.project.giisdemo.helper.utils.QMUIUtil.successTipDialog;
 
 /**
  * @author Created by ys
@@ -33,8 +40,10 @@ public class SettingPushPresenter extends BasePresenter<SettingPushView, Setting
     public void initGroupListView(GroupListView groupListPushSetting) {
 
         DatabaseHelper helper = new DatabaseHelper(getView().getCurContext());
-        setting = helper.getPushSetting((String) SPUtils.get(getView().getCurContext(), USER_PHONE, ""));
         getModel().init();
+
+
+        setting = helper.getPushSetting((String) SPUtils.get(getView().getCurContext(), USER_PHONE, ""));
         QMUICommonListItemView pushSwitch = groupListPushSetting.createItemView(getView().getCurContext().getResources().getString(R.string.push_switch));
         pushSwitch.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         pushSwitch.getSwitch().setChecked(setting.isPushSwitch());
@@ -151,6 +160,26 @@ public class SettingPushPresenter extends BasePresenter<SettingPushView, Setting
     }
 
     public void saveSetting() {
-        getModel().save(setting);
+        QMUITipDialog loading = DialogUtil.showTipDialog(getView().getCurContext(), QMUITipDialog.Builder.ICON_TYPE_LOADING, "保存中", false);
+        getModel().updateSetting(setting, new OnHttpCallBack<RetResult>() {
+            @Override
+            public void onSuccess(RetResult retResult) {
+                new Handler().postDelayed(() -> {
+                    loading.dismiss();
+                    successTipDialog(getView().getCurContext(), "保存成功");
+                    getView().toBack();
+                }, 1000);
+            }
+
+            @Override
+            public void onFailed(String errorMsg) {
+                getModel().save(setting);
+                new Handler().postDelayed(() -> {
+                    loading.dismiss();
+                    failTipDialog(getView().getCurContext(), errorMsg);
+                }, 1000);
+                getView().toBack();
+            }
+        });
     }
 }

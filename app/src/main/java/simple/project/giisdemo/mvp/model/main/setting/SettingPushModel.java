@@ -1,8 +1,6 @@
-package simple.project.giisdemo.mvp.model.main;
+package simple.project.giisdemo.mvp.model.main.setting;
 
 import android.util.Log;
-
-import com.alibaba.fastjson.JSON;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -10,38 +8,44 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import simple.project.giisdemo.base.BaseModel;
 import simple.project.giisdemo.data.DatabaseHelper;
-import simple.project.giisdemo.data.bean.UserBean;
+import simple.project.giisdemo.data.entity.Push;
 import simple.project.giisdemo.data.entity.PushSetting;
-import simple.project.giisdemo.helper.constant.GlobalField;
 import simple.project.giisdemo.helper.http.HttpContract;
+import simple.project.giisdemo.helper.http.HttpFeedBackUtil;
+import simple.project.giisdemo.helper.http.OnHttpCallBack;
 import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.helper.http.RetrofitUtils;
 import simple.project.giisdemo.helper.utils.SPUtils;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_NAME;
 import static simple.project.giisdemo.helper.constant.GlobalField.USER_PHONE;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_PWD;
-import static simple.project.giisdemo.helper.constant.GlobalField.USER_TAGS;
 import static simple.project.giisdemo.helper.constant.HttpConstant.PORT;
 import static simple.project.giisdemo.helper.constant.HttpConstant.URL;
 
 /**
  * @author Created by ys
- * @date at 2019/1/8 19:01
+ * @date at 2019/1/10 1:57
  * @describe
  */
-public class SettingModel extends BaseModel {
+public class SettingPushModel extends BaseModel {
     private DatabaseHelper helper;
 
     @Override
     public void init() {
         helper = new DatabaseHelper(getContext());
+    }
 
+
+    public void save(PushSetting setting) {
+        helper = new DatabaseHelper(getContext());
+        helper.updatePushSetting(setting);
+    }
+
+    public void updateSetting(PushSetting setting, OnHttpCallBack<RetResult> callBack) {
+        Log.d(DEBUG, setting.toString());
         RetrofitUtils.newInstance(URL + PORT + "/")
                 .create(HttpContract.class)
-                .downloadSetting((String) SPUtils.get(getContext(), USER_PHONE, ""))
+                .updateSetting(setting.getUserPhone(), setting.isPushSwitch(), setting.isVoice(), setting.isVibrate(), setting.isFloatWindow())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,14 +56,16 @@ public class SettingModel extends BaseModel {
 
                     @Override
                     public void onNext(RetResult retResult) {
-                        PushSetting setting = JSON.parseObject(JSON.toJSONString(retResult.getData()), PushSetting.class);
-                        helper.downloadPushSetting((String) SPUtils.get(getContext(), USER_PHONE, ""), setting);
-                        Log.d(DEBUG, setting.toString());
+                        HttpFeedBackUtil.handleRetResult(retResult, callBack);
+                        if (retResult.getCode() == RetResult.RetCode.SUCCESS.code) {
+                            helper = new DatabaseHelper(getContext());
+                            helper.updatePushSetting(setting);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        helper.insertPushSetting((String) SPUtils.get(getContext(), USER_PHONE, ""));
+                        HttpFeedBackUtil.handleException(e, callBack);
                     }
 
                     @Override
@@ -67,22 +73,5 @@ public class SettingModel extends BaseModel {
                     }
                 });
     }
-
-    public UserBean getUserName() {
-        UserBean user = new UserBean();
-        user.setName((String) SPUtils.get(getContext(), GlobalField.USER_NAME, "张三"));
-        user.setUid((String) SPUtils.get(getContext(), GlobalField.USER_UID, ""));
-        user.setPhone((String) SPUtils.get(getContext(), GlobalField.USER_PHONE, ""));
-        return user;
-    }
-
-    public void toLogout() {
-        SPUtils.put(getContext(), USER_PHONE, "");
-        SPUtils.put(getContext(), USER_PWD, "");
-        SPUtils.put(getContext(), USER_NAME, "");
-        SPUtils.put(getContext(), USER_UID, "");
-        SPUtils.put(getContext(), USER_TAGS, "");
-    }
-
 
 }

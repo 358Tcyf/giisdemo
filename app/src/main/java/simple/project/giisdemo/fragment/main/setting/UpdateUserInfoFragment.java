@@ -18,12 +18,11 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.helper.utils.MessageEvent;
-import simple.project.giisdemo.mvp.presenter.main.UpdateUserInfoPresenter;
-import simple.project.giisdemo.mvp.view.main.UpdateUserInfoView;
+import simple.project.giisdemo.mvp.presenter.main.setting.UpdateUserInfoPresenter;
+import simple.project.giisdemo.mvp.view.main.setting.UpdateUserInfoView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PASSWORD;
 import static simple.project.giisdemo.helper.constant.GlobalField.UPDATE_PASSWORD_NEW;

@@ -38,6 +38,7 @@ public class SettingPresenter extends BasePresenter<SettingView, SettingModel> {
     }
 
     public void initGroupListView(GroupListView groupListInfo) {
+        getModel().init();
         QMUICommonListItemView setInfo = groupListInfo.createItemView(getView().getCurContext().getResources().getString(R.string.set_info));
         QMUICommonListItemView setPush = groupListInfo.createItemView(getView().getCurContext().getResources().getString(R.string.set_push));
         QMUICommonListItemView setSystem = groupListInfo.createItemView(getView().getCurContext().getResources().getString(R.string.set_system));

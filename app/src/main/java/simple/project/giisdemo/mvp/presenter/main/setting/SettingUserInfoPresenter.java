@@ -1,4 +1,4 @@
-package simple.project.giisdemo.mvp.presenter.main;
+package simple.project.giisdemo.mvp.presenter.main.setting;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -28,8 +28,8 @@ import simple.project.giisdemo.helper.utils.DisplayUtil;
 import simple.project.giisdemo.helper.utils.MessageEvent;
 import simple.project.giisdemo.helper.utils.MyImagePicker;
 import simple.project.giisdemo.helper.utils.SPUtils;
-import simple.project.giisdemo.mvp.model.main.SettingUserInfoModel;
-import simple.project.giisdemo.mvp.view.main.SettingUserInfoView;
+import simple.project.giisdemo.mvp.model.main.setting.SettingUserInfoModel;
+import simple.project.giisdemo.mvp.view.main.setting.SettingUserInfoView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.CHOOSE_PIC;
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
@@ -147,7 +147,6 @@ public class SettingUserInfoPresenter extends BasePresenter<SettingUserInfoView,
             getModel().uploadHeadImage(uri, new OnHttpCallBack<RetResult>() {
                 @Override
                 public void onSuccess(RetResult retResult) {
-                    Log.d(DEBUG, retResult.getMsg());
                     successTipDialog(getView().getCurContext(), retResult.getMsg());
                     getView().toFinish();
                 }

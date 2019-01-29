@@ -1,4 +1,4 @@
-package simple.project.giisdemo.mvp.view.main;
+package simple.project.giisdemo.mvp.view.main.setting;
 
 import simple.project.giisdemo.base.BaseView;
 
@@ -9,4 +9,5 @@ import simple.project.giisdemo.base.BaseView;
  */
 public interface SettingPushView extends BaseView {
 
+    void toBack();
 }

@@ -1,4 +1,4 @@
-package simple.project.giisdemo.mvp.model.main;
+package simple.project.giisdemo.mvp.model.main.setting;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -55,7 +55,6 @@ public class SettingUserInfoModel extends BaseModel {
 
 
     public void uploadHeadImage(Uri uri, OnHttpCallBack<RetResult> callBack) {
-
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),
                 Objects.requireNonNull(MediaUtil.getByteFromFile(MediaUtil.getFileFromMediaUri(getContext(), uri))));
         String filename = SPUtils.get(getContext(), USER_UID, "default") + "_pic.png";

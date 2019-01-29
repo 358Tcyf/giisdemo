@@ -21,7 +21,14 @@ public class QMUIUtil {
         tipDialog.show();
         new Handler().postDelayed(() -> tipDialog.dismiss(), 500);
     }
-
+    public static void failTipDialog(Context context, String error) {
+        QMUITipDialog tipDialog = new QMUITipDialog.Builder(context)
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
+                .setTipWord(error)
+                .create();
+        tipDialog.show();
+        new Handler().postDelayed(() -> tipDialog.dismiss(), 500);
+    }
     public static void loadingTipDialog(Context context,String loading){
         QMUITipDialog tipDialog = DialogUtil.showTipDialog(context, QMUITipDialog.Builder.ICON_TYPE_LOADING, loading, false);
         new Handler().postDelayed(() -> tipDialog.dismiss(), 2000);

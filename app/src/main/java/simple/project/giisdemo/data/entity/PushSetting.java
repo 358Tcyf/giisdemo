@@ -12,7 +12,11 @@ import android.support.annotation.NonNull;
  */
 @Entity(tableName = "pushsetting_table")
 public class PushSetting {
-    public PushSetting(String userPhone) {
+
+    public PushSetting() {
+    }
+
+    public PushSetting(@NonNull String userPhone) {
         this.userPhone = userPhone;
         this.pushSwitch = true;
         this.voice = false;
@@ -37,11 +41,12 @@ public class PushSetting {
     @ColumnInfo
     private boolean floatWindow;
 
+    @NonNull
     public String getUserPhone() {
         return userPhone;
     }
 
-    public void setUserPhone(String userPhone) {
+    public void setUserPhone(@NonNull String userPhone) {
         this.userPhone = userPhone;
     }
 
@@ -75,5 +80,16 @@ public class PushSetting {
 
     public void setFloatWindow(boolean floatWindow) {
         this.floatWindow = floatWindow;
+    }
+
+    @Override
+    public String toString() {
+        return "PushSetting{" +
+                "userPhone='" + userPhone + '\'' +
+                ", pushSwitch=" + pushSwitch +
+                ", voice=" + voice +
+                ", vibrate=" + vibrate +
+                ", floatWindow=" + floatWindow +
+                '}';
     }
 }
