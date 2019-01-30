@@ -31,6 +31,9 @@ public interface HttpContract {
                                      @Query("newPhone") String newPhone,
                                      @Query("password") String password);
 
+    @POST("/manager/userList")
+    Observable<RetResult> loadList(@Query("phone") String phone);
+
 
     @POST("/push/downloadSetting")
     Observable<RetResult> downloadSetting(@Query("userPhone") String userPhone);
@@ -49,6 +52,6 @@ public interface HttpContract {
 
     @POST("file/downloadPic")
     @Multipart
-    Observable<RetResult> downloadPic(@Query("phone") String phone);
+    Observable<RetResult> downloadPic(@Query("uid") String uid);
 
 }

@@ -98,9 +98,9 @@ public class MainFragment extends BaseFragment {
 
     private void initPagers() {
         mPages = new HashMap<>();
-        BaseFragment pushFragment = new PushFragmentCollapsing();
+        BaseFragment pushFragment = new PushCollapsingFragment();
         mPages.put(Pager.PUSH, pushFragment);
-        BaseFragment peopleFragment = new PeopleFragment();
+        BaseFragment peopleFragment = new PeopleSectionFragment();
         mPages.put(Pager.PEOPLE, peopleFragment);
         BaseFragment settingFragment = new SettingFragment();
         mPages.put(Pager.SETTING, settingFragment);

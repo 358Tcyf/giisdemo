@@ -25,6 +25,13 @@ public class GlobalField extends Application {
 
     public static final String DEBUG = "DEBUG";
 
+
+    /*
+     * 设置页关于应用菜单
+     * */
+    public static final int UP_SYNC_PUSH = 0;
+    public static final int DOWN_SYNC_PUSH = 1;
+
     /*
      * 设置页关于应用菜单
      * */

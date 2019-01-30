@@ -1,11 +1,17 @@
 package simple.project.giisdemo.mvp.presenter.login;
 
+import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
+
 import simple.project.giisdemo.base.BasePresenter;
+import simple.project.giisdemo.data.bean.UserBean;
 import simple.project.giisdemo.helper.http.OnHttpCallBack;
 import simple.project.giisdemo.helper.http.RetResult;
 import simple.project.giisdemo.mvp.model.login.LoginModel;
 import simple.project.giisdemo.mvp.view.login.LoginView;
 
+import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
 import static simple.project.giisdemo.helper.constant.HttpConstant.GET_USER_PIC;
 import static simple.project.giisdemo.helper.utils.FileUtil.saveImageToGallery;
 
@@ -21,8 +27,10 @@ public class LoginPresenter extends BasePresenter<LoginView, LoginModel> {
             @Override
             public void onSuccess(RetResult retResult) {
                 /*获取到账号信息之后，加载用户相片*/
-                String uri = GET_USER_PIC + phone;
-                saveImageToGallery(getView().getCurContext(), uri);
+                UserBean userBean = JSON.parseObject(JSON.toJSONString(retResult.getData()), UserBean.class);
+                Log.d(DEBUG, userBean.getUid());
+                String uri = GET_USER_PIC + userBean.getUid();
+                saveImageToGallery(getView().getCurContext(), uri, userBean.getUid());
                 getView().toMain();
             }
 

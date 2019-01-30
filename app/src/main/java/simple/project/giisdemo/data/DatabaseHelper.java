@@ -62,13 +62,6 @@ public class DatabaseHelper {
         return (ArrayList<Push>) list;
     }
 
-    public void insertPushSetting(String phone) {
-        if (pushSettingDao.findByPhone(phone) == null) {
-            PushSetting setting = new PushSetting(phone);
-            pushSettingDao.insert(setting);
-
-        }
-    }
 
     public void downloadPushSetting(String phone,PushSetting setting) {
         if (pushSettingDao.findByPhone(phone) == null) {

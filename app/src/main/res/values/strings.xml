@@ -34,8 +34,10 @@
     <string name="setting">设置</string>
 
 
-
+    <string name="more">更多</string>
     <string name="detail">点击查看详情</string>
+    <string name="up_sync_push">同步推送</string>
+    <string name="down_sync_push">更新推送</string>
 
 
     <string name="set_info">信息设置</string>

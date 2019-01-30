@@ -50,7 +50,7 @@ public class SettingUserInfoModel extends BaseModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        saveImageToGallery(getContext(), bmp);
+        saveImageToGallery(getContext(), bmp, (String) SPUtils.get(getContext(),USER_UID,""));
     }
 
 

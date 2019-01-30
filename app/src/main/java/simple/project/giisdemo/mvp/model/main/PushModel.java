@@ -12,4 +12,8 @@ public class PushModel extends BaseModel {
     public void init() {
 
     }
+
+    public int getCount() {
+        return 0;
+    }
 }

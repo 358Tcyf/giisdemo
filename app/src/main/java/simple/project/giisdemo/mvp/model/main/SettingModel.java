@@ -54,12 +54,10 @@ public class SettingModel extends BaseModel {
                     public void onNext(RetResult retResult) {
                         PushSetting setting = JSON.parseObject(JSON.toJSONString(retResult.getData()), PushSetting.class);
                         helper.downloadPushSetting((String) SPUtils.get(getContext(), USER_PHONE, ""), setting);
-                        Log.d(DEBUG, setting.toString());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        helper.insertPushSetting((String) SPUtils.get(getContext(), USER_PHONE, ""));
                     }
 
                     @Override

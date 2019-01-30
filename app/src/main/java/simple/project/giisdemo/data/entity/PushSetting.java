@@ -2,6 +2,7 @@ package simple.project.giisdemo.data.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -12,18 +13,6 @@ import android.support.annotation.NonNull;
  */
 @Entity(tableName = "pushsetting_table")
 public class PushSetting {
-
-    public PushSetting() {
-    }
-
-    public PushSetting(@NonNull String userPhone) {
-        this.userPhone = userPhone;
-        this.pushSwitch = true;
-        this.voice = false;
-        this.vibrate = false;
-        this.floatWindow = true;
-
-    }
 
     @PrimaryKey
     @NonNull

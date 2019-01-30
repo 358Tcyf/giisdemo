@@ -35,4 +35,14 @@ public class PushPresenter extends BasePresenter<PushView, PushModel> {
         }
         return list;
     }
+
+    public void getCount() {
+        getView().setCount(getModel().getCount());
+    }
+
+    public void upSync() {
+    }
+
+    public void downSync() {
+    }
 }

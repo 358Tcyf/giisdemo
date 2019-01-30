@@ -1,5 +1,6 @@
 package simple.project.giisdemo.fragment.main;
 
+import android.os.Debug;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,31 +16,33 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import simple.project.giisdemo.R;
 import simple.project.giisdemo.adapter.PeopleAdapter;
+import simple.project.giisdemo.adapter.SectionAdapter;
 import simple.project.giisdemo.base.BaseFragment;
 import simple.project.giisdemo.data.bean.UserBean;
+import simple.project.giisdemo.data.bean.UserSection;
 import simple.project.giisdemo.fragment.main.push.SearchPushFragment;
 import simple.project.giisdemo.mvp.presenter.main.PeoplePresenter;
 import simple.project.giisdemo.mvp.view.main.PeopleView;
 
 import static simple.project.giisdemo.helper.constant.GlobalField.DEBUG;
+import static simple.project.giisdemo.helper.constant.HttpConstant.GET_USER_PIC;
 import static simple.project.giisdemo.helper.custom.BaseFragmentView.initTitleAndBack;
+import static simple.project.giisdemo.helper.utils.FileUtil.saveImageToGallery;
 
 /**
  * @author Created by ys
  * @date at 2019/1/8 19:00
  * @describe
  */
-public class PeopleFragment extends BaseFragment<PeoplePresenter> implements PeopleView {
+public class PeopleSectionFragment extends BaseFragment<PeoplePresenter> implements PeopleView {
 
 
     @BindView(R.id.topbar)
@@ -59,9 +62,6 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
         initList();
         return view;
     }
-
-    String[] names = {"Tom", "Jerry", "Bob"};
-    ArrayList<UserBean> list = new ArrayList<>();
 
     private void initList() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseFragmentActivity());
@@ -93,13 +93,14 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
         });
     }
 
-    private PeopleAdapter mAdapter;
+    private List<UserSection> data = new ArrayList<>();
+    private SectionAdapter sAdapter;
 
     private void initAdapter() {
-        mAdapter = new PeopleAdapter(list);
-        mAdapter.isFirstOnly(true);
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
-        mRecyclerView.setAdapter(mAdapter);
+        sAdapter = new SectionAdapter(getCurContext(), R.layout.item_people, R.layout.item_section, data);
+        sAdapter.isFirstOnly(true);
+        sAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        mRecyclerView.setAdapter(sAdapter);
     }
 
     @Override
@@ -114,16 +115,49 @@ public class PeopleFragment extends BaseFragment<PeoplePresenter> implements Peo
 
     @Override
     public void setUserList(Map<String, Object> result) {
-        List<UserBean> manager = JSON.parseArray(JSON.toJSONString(result.get("manager")), UserBean.class);
-        list.clear();
-        list.addAll(manager);
+        Log.d(DEBUG, result.toString());
+        data.clear();
+        if (result.containsKey("manager")) {
+            List<UserBean> manager = JSON.parseArray(JSON.toJSONString(result.get("manager")), UserBean.class);
+            data.add(new UserSection(true, "团部"));
+            for (UserBean user : manager) {
+                /*获取到账号信息之后，加载用户相片*/
+//            saveImageToGallery(getCurContext(), GET_USER_PIC + user.getUid(),user.getUid());
+                UserSection section = new UserSection(user);
+                data.add(section);
+            }
+        }
+
+
+        if (result.containsKey("produce staff")) {
+            List<UserBean> produce = JSON.parseArray(JSON.toJSONString(result.get("produce staff")), UserBean.class);
+            data.add(new UserSection(true, "警卫连"));
+            for (UserBean user : produce) {
+//            saveImageToGallery(getCurContext(), GET_USER_PIC + user.getUid(),user.getUid());
+                UserSection section = new UserSection(user);
+                data.add(section);
+            }
+        }
+
+        if (result.containsKey("sale staff")) {
+            List<UserBean> sale = JSON.parseArray(JSON.toJSONString(result.get("sale staff")), UserBean.class);
+            data.add(new UserSection(true, "营部"));
+            for (UserBean user : sale) {
+//            saveImageToGallery(getCurContext(), GET_USER_PIC + user.getUid(),user.getUid());
+                UserSection section = new UserSection(user);
+                data.add(section);
+            }
+        }
+
         new MyThread().start();
     }
 
     class MyThread extends Thread {
         @Override
         public void run() {
-            getCurContext().runOnUiThread(() -> mAdapter.setNewData(list));
+            getCurContext().runOnUiThread(() -> {
+                sAdapter.setNewData(data);
+            });
         }
     }
 }

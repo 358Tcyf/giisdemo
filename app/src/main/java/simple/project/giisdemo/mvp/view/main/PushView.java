@@ -11,4 +11,5 @@ public interface PushView extends BaseView {
 
     void toSearch();
 
+    void setCount(int count);
 }

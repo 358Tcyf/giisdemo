@@ -54,12 +54,11 @@ public class SettingFragment extends BaseFragment<SettingPresenter> implements S
     GroupListView groupListInfo;
     @BindView(R.id.user_pic)
     QMUIRadiusImageView userPic;
-    private Unbinder unbinder;
 
     @Override
     protected View onCreateView() {
         View view = LayoutInflater.from(getBaseFragmentActivity()).inflate(R.layout.fragment_setting, null);
-        unbinder = ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         initTitle(mTopBar, getBaseFragmentActivity(), R.string.setting);
         EventBus.getDefault().register(this);
         getPresenter().setUserName();

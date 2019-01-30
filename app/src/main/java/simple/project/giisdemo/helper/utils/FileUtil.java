@@ -32,14 +32,14 @@ import static simple.project.giisdemo.helper.constant.GlobalField.USER_UID;
  * @describe
  */
 public class FileUtil {
-    public static void saveImageToGallery(Context context, Bitmap bmp) {
+    public static void saveImageToGallery(Context context, Bitmap bmp,String uid) {
         // 首先保存图片
         File appDir = new File(Environment.getExternalStorageDirectory(), "HelloGlass");
         if (!appDir.exists()) {
             appDir.mkdir();
         }
         String picPace = appDir.getName();
-        String fileName = SPUtils.get(context, USER_UID, "default") + "_pic.png";
+        String fileName = uid + "_pic.png";
         Log.d(DEBUG, "FileUtil: filename is " + fileName);
         File file = new File(appDir, fileName);
         try {
@@ -81,7 +81,12 @@ public class FileUtil {
             return Uri.parse(picPath);
         else return null;
     }
-
+    public static Uri getUserPicPathUri(Context context,String uid) {
+        String picPath = getFilePath() + "/" + uid + "_pic.png";
+        if (existPath(picPath))
+            return Uri.parse(picPath);
+        else return null;
+    }
 
     /**
      * 判断文件是否存在
@@ -92,21 +97,20 @@ public class FileUtil {
 
     }
 
-    public static void saveImageToGallery(Context context, String uri) {
+    public static void saveImageToGallery(Context context, String uri,String uid) {
         new Thread() {
             @Override
             public void run() {
                 //这里写入子线程需要做的工作
                 try {
                     URL url = new URL(uri);
-                    Log.d(DEBUG, "FileUtil: saveImageToGallery: url is " + url);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setDoInput(true);
                     connection.connect();
 
                     InputStream input = connection.getInputStream();
                     Bitmap bmp = BitmapFactory.decodeStream(input);
-                    saveImageToGallery(context, bmp);
+                    saveImageToGallery(context, bmp,uid);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
